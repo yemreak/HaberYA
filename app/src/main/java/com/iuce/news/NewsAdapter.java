@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
 
-    private ArrayList<NewsData> newsData = new ArrayList<>();
+    private ArrayList<NewsAPI.NewsData> newsData = new ArrayList<>();
     private Context context;
 
-    public NewsAdapter(Context context, ArrayList<NewsData> newsData){
+    public NewsAdapter(Context context, ArrayList<NewsAPI.NewsData> newsData){
         this.context = context;
         this.newsData = newsData;
 
