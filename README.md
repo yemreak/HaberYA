@@ -15,3 +15,4 @@ Haber uygulaması
 - [NewsAPI](https://newsapi.org/docs)
 - [NewAPI Request Infos](https://newsapi.org/docs/endpoints/sources)
 - [Volley ile HTTP İstekler](https://developer.android.com/training/volley)
+- [ 🎴 Picasso kütüphanesi ile URL'den resim çekip ImageView'da gösterme](https://square.github.io/picasso/)
