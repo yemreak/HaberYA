@@ -65,6 +65,7 @@ class NewsAPI {
         String title;
         String description;
         String urlToImage;
+        // TODO: News added
 
         NewsData(String title, String description, String urlToImage) {
             this.title = title;

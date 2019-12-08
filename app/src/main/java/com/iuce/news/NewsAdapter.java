@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.net.URI;
 import java.util.ArrayList;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
 
-    private ArrayList<NewsAPI.NewsData> newsData = new ArrayList<>();
+    private ArrayList<NewsAPI.NewsData> newsData;
     private Context context;
 
     public NewsAdapter(Context context, ArrayList<NewsAPI.NewsData> newsData){
