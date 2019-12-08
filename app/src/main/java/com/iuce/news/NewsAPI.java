@@ -66,7 +66,7 @@ class NewsAPI {
         String description;
         String urlToImage;
 
-        public NewsData(String title, String description, String urlToImage) {
+        NewsData(String title, String description, String urlToImage) {
             this.title = title;
             this.description = description;
             this.urlToImage = urlToImage;
