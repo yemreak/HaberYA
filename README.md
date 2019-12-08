@@ -12,3 +12,6 @@ Haber uygulaması
 ### 🔗 Faydalı Bağlantılar
 
 - [JSoup](https://medium.com/@ssaurel/learn-to-parse-html-pages-on-android-with-jsoup-2a9b0da0096f)
+- [NewsAPI](https://newsapi.org/docs)
+- [NewAPI Request Infos](https://newsapi.org/docs/endpoints/sources)
+- [Volley ile HTTP İstekler](https://developer.android.com/training/volley)
