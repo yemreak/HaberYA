@@ -7,6 +7,7 @@ Haber uygulaması
 ### ✍ Elle Yazılmış Notlar
 
 ![](res/hand_written.png)
+![](res/hand_written_esma.png)
 
 ### 🔗 Faydalı Bağlantılar
 
