@@ -1,4 +1,4 @@
-# ⛅ Weather-App
+# 📰 News-App
 
 ⛅ Hava durumu uygulaması
 
