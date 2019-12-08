@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         ////////////////
         NewsData sample = new NewsData();
         sample.title = "First Title";
-        sample.description = "First Description";
+        sample.description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
+                "labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ";
         sample.urlToImage = "https://i.pstimaj.com/img/75/0x0/5decabd9ae298b59d09385a1";
         newsData.add(sample);
         newsData.add(sample);
