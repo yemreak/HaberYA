@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 /**
- * Details: https://android.yemreak.com/temel-kavramlar/room-database#entity-yapisi
+ * Details: https://android.yemreak.com/veriler/room-database#entity-yapisi
  */
 @Entity(tableName = "news_table")
 public class News {

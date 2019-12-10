@@ -10,7 +10,7 @@ import androidx.room.Update;
 import java.util.List;
 
 /**
- * Details: https://android.yemreak.com/temel-kavramlar/room-database#dao-yapisi
+ * Details: https://android.yemreak.com/veriler/room-database#dao-yapisi
  */
 @Dao
 public interface NewsDao {

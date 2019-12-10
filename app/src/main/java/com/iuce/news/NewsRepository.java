@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 /**
- * Details: https://android.yemreak.com/temel-kavramlar/room-database#repository-yapisi
+ * Details: https://android.yemreak.com/veriler/room-database#repository-yapisi
  */
 public class NewsRepository {
 

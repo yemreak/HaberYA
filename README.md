@@ -16,4 +16,4 @@
 - [💡 NewAPI Request Infos](https://newsapi.org/docs/endpoints/sources)
 - [👮‍♂️ Volley ile HTTP İstekleri](https://developer.android.com/training/volley)
 - [ 🎴 Picasso kütüphanesi ile URL'den resim çekip ImageView'da gösterme](https://square.github.io/picasso/)
-- [🗂️ RoomDatabase](https://android.yemreak.com/temel-kavramlar/room-database)
+- [🗂️ RoomDatabase](https://android.yemreak.com/veriler/room-database)

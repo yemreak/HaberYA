@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 /**
- * Details: https://android.yemreak.com/temel-kavramlar/room-database#room-database
+ * Details: https://android.yemreak.com/veriler/room-database#room-database
  */
 @Database(entities = {News.class}, version = 1, exportSchema = false)
 public abstract class NewsRoomDatabase extends RoomDatabase {
@@ -19,7 +19,7 @@ public abstract class NewsRoomDatabase extends RoomDatabase {
 
     /**
      * Returns singleton DB Instance
-     * Details: https://android.yemreak.com/temel-kavramlar/room-database#synchronized-ile-dbyi-koruma
+     * Details: https://android.yemreak.com/veriler/room-database#synchronized-ile-dbyi-koruma
      * @param context Activity context
      * @return Database
      */
