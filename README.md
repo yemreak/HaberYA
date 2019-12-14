@@ -4,6 +4,16 @@
 
 ## 🏗️ Temel Yapı
 
+## 🧰 Kullanılan Teknolojiler
+
+- ✔️ AsyncTask
+- ✔️ JSON parsing
+- ✔️ Volley (HTTP Request)
+- ✔️ RecycleView
+- ✔️ Picaso
+- 🚧 Room Database
+- 🚧 Implicit Intent
+
 ### ✍ Elle Yazılmış Notlar
 
 ![](res/hand_written.png)
