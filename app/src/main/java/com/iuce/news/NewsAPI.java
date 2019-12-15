@@ -40,7 +40,7 @@ class NewsAPI {
                     for (int i = 0; i < articles.length(); i++) {
                         JSONObject article = articles.getJSONObject(i);
                         News news =  new News();
-                        news.setId(i);
+                        //news.setId(i);
                         news.setTitle(article.getString("title"));
                         news.setDescription(article.getString("description"));
                         news.setUrlToImage(article.getString("urlToImage"));
