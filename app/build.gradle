@@ -42,6 +42,8 @@ dependencies {
     // For RoomDatabase
     // https://bit.ly/2PvA3YZ
     def room_version = "2.2.2"
+    def arch_lifecycle = "2.2.0-beta01"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$arch_lifecycle"
 }

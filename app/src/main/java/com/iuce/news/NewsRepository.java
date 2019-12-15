@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,9 +26,10 @@ public class NewsRepository {
         return newsList;
     }
 
-    public void insert(News news) {
+    public void insert(News... news) {
         new InsertAsyncTask(newsDao).execute(news);
     }
+
 
     private static class InsertAsyncTask extends AsyncTask<News, News, Void> {
 

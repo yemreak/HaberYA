@@ -36,14 +36,15 @@ class NewsAPI {
                 if (status.equals("ok")) {
                     JSONArray articles = new JSONObject(response).getJSONArray("articles");
 
-                    ArrayList<Data> newsDataList = new ArrayList<>();
+                    ArrayList<News> newsDataList = new ArrayList<>();
                     for (int i = 0; i < articles.length(); i++) {
                         JSONObject article = articles.getJSONObject(i);
-                        newsDataList.add(new Data(
-                                article.getString("title"),
-                                article.getString("description"),
-                                article.getString("urlToImage")
-                        ));
+                        News news =  new News();
+                        news.setId(i);
+                        news.setTitle(article.getString("title"));
+                        news.setDescription(article.getString("description"));
+                        news.setUrlToImage(article.getString("urlToImage"));
+                        newsDataList.add(news);
                         Log.i(TAG, "getNewsDatas: " + newsDataList.get(i));
                     }
 
@@ -58,9 +59,9 @@ class NewsAPI {
     }
 
     interface ResponseListener {
-        void onResponse(ArrayList<Data> newsDataList);
+        void onResponse(ArrayList<News> newsDataList);
     }
-
+/*
     static class Data {
         String title;
         String description;
@@ -72,5 +73,5 @@ class NewsAPI {
             this.description = description;
             this.urlToImage = urlToImage;
         }
-    }
+    }*/
 }

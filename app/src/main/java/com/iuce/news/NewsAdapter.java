@@ -18,10 +18,10 @@ import java.util.ArrayList;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
 
-    private ArrayList<NewsAPI.Data> newsData;
+    private ArrayList<News> newsData;
     private Context context;
 
-    public NewsAdapter(Context context, ArrayList<NewsAPI.Data> newsData){
+    public NewsAdapter(Context context, ArrayList<News> newsData){
         this.context = context;
         this.newsData = newsData;
 
@@ -37,11 +37,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-        holder.itemTitle.setText(newsData.get(position).title);
-        holder.itemDescription.setText(newsData.get(position).description);
+        holder.itemTitle.setText(newsData.get(position).getTitle());
+        holder.itemDescription.setText(newsData.get(position).getDescription());
         //holder.itemImage.setImageURI(Uri.parse(newsData.get(position).urlToImage));
         Picasso.get()
-                .load(Uri.parse(newsData.get(position).urlToImage))
+                .load(Uri.parse(newsData.get(position).getUrlToImage()))
                 .resize(50, 50)
                 .centerCrop()
                 .into(holder.itemImage);
