@@ -41,8 +41,7 @@ class NewsAPI {
                     ArrayList<News> newsDataList = new ArrayList<>();
                     for (int i = 0; i < articles.length(); i++) {
                         JSONObject article = articles.getJSONObject(i);
-
-                        News news = new News();
+                        News news =  new News();
 
                         news.setTitle(article.getString("title"));
                         news.setDescription(article.getString("description"));
