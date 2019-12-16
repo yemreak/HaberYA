@@ -17,7 +17,7 @@ public abstract class  WeatherAPI {
 
     private static final String MAIN_URL = "https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22" ;
 
-    static void requestWeatherDatas(Context context, ResponseListener responseListener) {
+    static void requestWeatherData(Context context, ResponseListener responseListener) {
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, MAIN_URL, (response) -> {
             try {

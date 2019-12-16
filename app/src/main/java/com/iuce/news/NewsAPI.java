@@ -25,7 +25,7 @@ class NewsAPI {
      *
      * @return
      */
-    static void requestNewsDatas(Context context, ResponseListener responseListener) {
+    static void requestNewsData(Context context, ResponseListener responseListener) {
 
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, MAIN_URL, (response) -> {
@@ -41,14 +41,16 @@ class NewsAPI {
                     ArrayList<News> newsDataList = new ArrayList<>();
                     for (int i = 0; i < articles.length(); i++) {
                         JSONObject article = articles.getJSONObject(i);
+
                         News news = new News();
-                        news.setId(i);
+
                         news.setTitle(article.getString("title"));
                         news.setDescription(article.getString("description"));
                         news.setUrlToImage(article.getString("urlToImage"));
+
                         newsDataList.add(news);
 
-                        Log.i(TAG, "getNewsDatas: " + newsDataList.get(i));
+                        Log.i(TAG, "getNewsData: " + newsDataList.get(i));
                     }
 
                     responseListener.onResponse(newsDataList);

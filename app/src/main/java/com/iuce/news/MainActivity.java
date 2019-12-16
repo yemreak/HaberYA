@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         if (is_connected()) {
-            NewsAPI.requestNewsDatas(this, (newsDataList -> {
+            NewsAPI.requestNewsData(this, (newsDataList -> {
                 fillView(newsDataList);
                 saveToDB(newsDataList);
             }));
