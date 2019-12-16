@@ -4,15 +4,16 @@
 
 ## 🏗️ Temel Yapı
 
-## 🧰 Kullanılan Teknolojiler
+## 🧰 Kullanılan Yapılar
 
 - ✔️ AsyncTask
 - ✔️ JSON parsing
 - ✔️ Volley (HTTP Request)
 - ✔️ RecycleView
 - ✔️ Picaso
-- 🚧 Room Database
+- ✔️ Room Database
 - 🚧 Implicit Intent
+- 🚧 Global Instance
 
 ### ✍ Elle Yazılmış Notlar
 
