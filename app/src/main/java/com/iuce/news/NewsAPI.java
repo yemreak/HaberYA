@@ -22,6 +22,7 @@ class NewsAPI {
 
     /**
      * https://developer.android.com/training/volley/simple.html
+     *
      * @return
      */
     static void requestNewsDatas(Context context, ResponseListener responseListener) {
@@ -32,6 +33,7 @@ class NewsAPI {
             try {
                 // new JSONObject(response).getJSONArray("articles").get(1).getString("source")
                 JSONObject responseObject = new JSONObject(response);
+
                 String status = responseObject.getString("status");
                 if (status.equals("ok")) {
                     JSONArray articles = new JSONObject(response).getJSONArray("articles");
@@ -39,12 +41,13 @@ class NewsAPI {
                     ArrayList<News> newsDataList = new ArrayList<>();
                     for (int i = 0; i < articles.length(); i++) {
                         JSONObject article = articles.getJSONObject(i);
-                        News news =  new News();
+                        News news = new News();
                         news.setId(i);
                         news.setTitle(article.getString("title"));
                         news.setDescription(article.getString("description"));
                         news.setUrlToImage(article.getString("urlToImage"));
                         newsDataList.add(news);
+
                         Log.i(TAG, "getNewsDatas: " + newsDataList.get(i));
                     }
 
@@ -61,17 +64,4 @@ class NewsAPI {
     interface ResponseListener {
         void onResponse(ArrayList<News> newsDataList);
     }
-/*
-    static class Data {
-        String title;
-        String description;
-        String urlToImage;
-        // TODO: News added
-
-        Data(String title, String description, String urlToImage) {
-            this.title = title;
-            this.description = description;
-            this.urlToImage = urlToImage;
-        }
-    }*/
 }

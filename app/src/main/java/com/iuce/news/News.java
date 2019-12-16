@@ -4,23 +4,31 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import static com.iuce.news.News.TABLE_NAME;
+
 /**
  * Details: https://android.yemreak.com/veriler/room-database#entity-yapisi
  */
-@Entity(tableName = "news_table")
+@Entity(tableName = TABLE_NAME)
 public class News {
 
+    public static final String TABLE_NAME = "news_table";
+    public static final String COLUMN_ID = "nid";
+    public static final String COLUMN_TITLE = "title";
+    public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_URL_TO_IMAGE = "url_to_image";
+
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "nid")
+    @ColumnInfo(name = COLUMN_ID)
     private int id;
 
-    @ColumnInfo(name = "title")
+    @ColumnInfo(name = COLUMN_TITLE)
     private String title;
 
-    @ColumnInfo(name = "description")
+    @ColumnInfo(name = COLUMN_DESCRIPTION)
     private String description;
 
-    @ColumnInfo(name = "url_to_image")
+    @ColumnInfo(name = COLUMN_URL_TO_IMAGE)
     private String urlToImage;
 
     public int getId() {

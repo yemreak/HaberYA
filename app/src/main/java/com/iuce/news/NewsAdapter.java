@@ -19,10 +19,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
 
     private ArrayList<News> newsData;
-    private Context context;
 
-    public NewsAdapter(Context context, ArrayList<News> newsData){
-        this.context = context;
+    public NewsAdapter(ArrayList<News> newsData) {
         this.newsData = newsData;
 
     }
@@ -53,12 +51,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
     }
 
 
-    public class Holder extends RecyclerView.ViewHolder{
+    public class Holder extends RecyclerView.ViewHolder {
         ImageView itemImage;
         TextView itemTitle;
         TextView itemDescription;
 
-        public Holder(View itemView){
+        public Holder(View itemView) {
             super(itemView);
             itemImage = itemView.findViewById(R.id.item_image);
             itemTitle = itemView.findViewById(R.id.item_title);

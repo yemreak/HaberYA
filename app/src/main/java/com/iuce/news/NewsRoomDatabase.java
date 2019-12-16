@@ -12,6 +12,8 @@ import androidx.room.RoomDatabase;
 @Database(entities = {News.class}, version = 1, exportSchema = false)
 public abstract class NewsRoomDatabase extends RoomDatabase {
 
+    public static final String DB_NAME = "news_db";
+
     abstract NewsDao newsDao();
 
     // Singleton to safe db conflicts
@@ -32,7 +34,7 @@ public abstract class NewsRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(
                             context.getApplicationContext(),
                             NewsRoomDatabase.class,
-                            "news_db"
+                            DB_NAME
                     )
                             .fallbackToDestructiveMigration()
                             .build();
