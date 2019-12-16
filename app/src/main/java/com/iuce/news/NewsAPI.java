@@ -46,6 +46,10 @@ class NewsAPI {
                         news.setTitle(article.getString("title"));
                         news.setDescription(article.getString("description"));
                         news.setUrlToImage(article.getString("urlToImage"));
+                        news.setUrl(article.getString("url"));
+                        news.setContent(article.getString("content"));
+                        news.setSource(article.getJSONObject("source").getString("name"));
+                        news.setPublishedAt(article.getString("publishedAt"));
 
                         newsDataList.add(news);
 

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 /**
  * Details: https://android.yemreak.com/veriler/room-database#room-database
  */
-@Database(entities = {News.class}, version = 1, exportSchema = false)
+@Database(entities = {News.class}, version = 2, exportSchema = false)
 public abstract class NewsRoomDatabase extends RoomDatabase {
 
     public static final String DB_NAME = "news_db";
