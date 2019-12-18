@@ -73,7 +73,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
-            /*News news = new News();
+            News news = News.getInstance();
             news.setUrlToImage(newsData.get(pos).getUrlToImage());
             news.setDescription(newsData.get(pos).getDescription());
             news.setTitle(newsData.get(pos).getTitle());
@@ -81,7 +81,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
             news.setPublishedAt(newsData.get(pos).getPublishedAt());
             news.setSource(newsData.get(pos).getSource());
             Intent messageIntent = new Intent(context, NewsActivity.class);
-            context.startActivity(messageIntent);*/
+            context.startActivity(messageIntent);
         }
     }
 

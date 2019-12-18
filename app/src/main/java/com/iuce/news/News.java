@@ -22,6 +22,8 @@ public class News {
     private static final String COLUMN_PUBLISHED_AT = "published_at";
     private static final String COLUMN_URL = "url";
 
+    private static News instance;
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
     private int id;
@@ -109,5 +111,12 @@ public class News {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public static synchronized News getInstance(){
+        if(instance == null){
+            instance = new News();
+        }
+        return instance;
     }
 }
