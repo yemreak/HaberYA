@@ -1,6 +1,7 @@
 package com.iuce.news;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,10 +22,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
 
     private ArrayList<News> newsData;
+    private Context context;
 
-    public NewsAdapter(ArrayList<News> newsData) {
+    public NewsAdapter(Context context, ArrayList<News> newsData) {
+        this.context = context;
         this.newsData = newsData;
-
     }
 
     @NonNull
@@ -53,7 +55,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
     }
 
 
-    public class Holder extends RecyclerView.ViewHolder {
+    public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView itemImage;
         TextView itemTitle;
         TextView itemSource;
@@ -65,9 +67,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
             itemTitle = itemView.findViewById(R.id.item_title);
             itemSource = itemView.findViewById(R.id.item_source);
             itemDate = itemView.findViewById(R.id.item_date);
-
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            int pos = getAdapterPosition();
+            /*News news = new News();
+            news.setUrlToImage(newsData.get(pos).getUrlToImage());
+            news.setDescription(newsData.get(pos).getDescription());
+            news.setTitle(newsData.get(pos).getTitle());
+            news.setContent(newsData.get(pos).getContent());
+            news.setPublishedAt(newsData.get(pos).getPublishedAt());
+            news.setSource(newsData.get(pos).getSource());
+            Intent messageIntent = new Intent(context, NewsActivity.class);
+            context.startActivity(messageIntent);*/
+        }
     }
 
 

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillView(ArrayList<News> news) {
         RecyclerView recyclerView = findViewById(R.id.news_recycler_view);
-        NewsAdapter newsAdapter = new NewsAdapter(news);
+        NewsAdapter newsAdapter = new NewsAdapter(this, news);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
