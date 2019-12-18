@@ -98,7 +98,8 @@ public class News {
     }
 
     public String getPublishedAt() {
-        return publishedAt;
+
+        return publishedAt.substring(0, 10);
     }
 
     public void setPublishedAt(String publishedAt) {
