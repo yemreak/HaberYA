@@ -2,6 +2,9 @@ package com.iuce.news;
 
 import androidx.annotation.NonNull;
 
+/**
+ * Details: https://android.yemreak.com/temel/global-degiskenler
+ */
 class Globals {
 
     private News selectedNews;
