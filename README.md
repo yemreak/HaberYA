@@ -10,10 +10,12 @@
 - ✔️ JSON parsing
 - ✔️ Volley (HTTP Request)
 - ✔️ RecycleView
-- ✔️ Picaso
+- ✔️ Picasso
 - ✔️ Room Database
+- ✔️ Global Instance
+- ✔️ Exception Handler
+- ✔️ onClick Handler
 - 🚧 Implicit Intent
-- 🚧 Global Instance
 
 ### ✍ Elle Yazılmış Notlar
 
@@ -28,3 +30,4 @@
 - [👮‍♂️ Volley ile HTTP İstekleri](https://developer.android.com/training/volley)
 - [ 🎴 Picasso kütüphanesi ile URL'den resim çekip ImageView'da gösterme](https://square.github.io/picasso/)
 - [🗂️ RoomDatabase](https://android.yemreak.com/veriler/room-database)
+- [👇 RecycleView on click](https://developer.android.com/guide/topics/ui/layout/recyclerview#select)

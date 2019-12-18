@@ -16,7 +16,9 @@ public class NewsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.full_news_activity);
-        News news = News.getInstance();
+
+        News news = Globals.getInstance().getSelectedNews();
+
         TextView source = findViewById(R.id.news_source);
         TextView date = findViewById(R.id.news_date);
         TextView title = findViewById(R.id.news_title);
