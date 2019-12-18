@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/item_title"
                 android:text="Title"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 />
 
         </LinearLayout>
