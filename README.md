@@ -24,10 +24,15 @@
 
 ### 🔗 Faydalı Bağlantılar
 
+#### 👩‍💻 Kodlama
 - [🔗 JSoup](https://medium.com/@ssaurel/learn-to-parse-html-pages-on-android-with-jsoup-2a9b0da0096f)
 - [💫 NewsAPI](https://newsapi.org/docs)
 - [💡 NewAPI Request Infos](https://newsapi.org/docs/endpoints/sources)
 - [👮‍♂️ Volley ile HTTP İstekleri](https://developer.android.com/training/volley)
-- [ 🎴 Picasso kütüphanesi ile URL'den resim çekip ImageView'da gösterme](https://square.github.io/picasso/)
 - [🗂️ RoomDatabase](https://android.yemreak.com/veriler/room-database)
 - [👇 RecycleView on click](https://developer.android.com/guide/topics/ui/layout/recyclerview#select)
+
+#### 👩‍🎨 Tasarım
+- [ 🎴 Picasso kütüphanesi ile URL'den resim çekip ImageView'da gösterme](https://square.github.io/picasso/)
+- [🎨 Material Design'a uygun renk paleti oluşturma](https://material.io/resources/color)
+- [🔠 Google Fonts](https://fonts.google.com/)
