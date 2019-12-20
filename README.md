@@ -24,7 +24,7 @@
 
 ### 🔗 Faydalı Bağlantılar
 
-#### 👩‍💻 Kodlama
+#### 👩‍💻 Fonksiyonellik
 - [🔗 JSoup](https://medium.com/@ssaurel/learn-to-parse-html-pages-on-android-with-jsoup-2a9b0da0096f)
 - [💫 NewsAPI](https://newsapi.org/docs)
 - [💡 NewAPI Request Infos](https://newsapi.org/docs/endpoints/sources)
