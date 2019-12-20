@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">News</string>
+    <string name="app_name">📰 News</string>
     <string name="title_activity_news">NewsActivity</string>
 </resources>
