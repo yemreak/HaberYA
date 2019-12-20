@@ -15,7 +15,8 @@
 - ✔️ Global Instance
 - ✔️ Exception Handler
 - ✔️ onClick Handler
-- 🚧 Implicit Intent
+- ✔️ Implicit Intent
+- ✔️ Contextual Action Bar Actions
 
 ### ✍ Elle Yazılmış Notlar
 
