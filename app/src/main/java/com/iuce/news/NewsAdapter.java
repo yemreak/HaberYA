@@ -81,6 +81,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
             news.setContent(newsData.get(pos).getContent());
             news.setPublishedAt(newsData.get(pos).getPublishedAt());
             news.setSource(newsData.get(pos).getSource());
+            news.setUrl(newsData.get(pos).getUrl());
 
             Globals.getInstance().setSelectedNews(news);
 

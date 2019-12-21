@@ -60,7 +60,7 @@ public class NewsActivity extends AppCompatActivity {
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_TEXT, Globals.getInstance().getSelectedNews().getTitle() + "\n"
                 + Globals.getInstance().getSelectedNews().getDescription() + "\n"
-                + Globals.getInstance().getSelectedNews().getContent());
+                + Globals.getInstance().getSelectedNews().getUrl());
         shareIntent.setType("text/plain");
         Intent chooser = Intent.createChooser(shareIntent, "title");
         // Resolve the intent before starting the activity
