@@ -3,13 +3,11 @@ package com.iuce.news;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +42,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         holder.itemDate.setText(newsData.get(position).getPublishedAt());
         Picasso.get()
                 .load(Uri.parse(newsData.get(position).getUrlToImage()))
-                .resize(50, 50)
+                .fit()
                 .centerCrop()
                 .into(holder.itemImage);
     }

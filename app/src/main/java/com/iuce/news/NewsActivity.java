@@ -3,16 +3,12 @@ package com.iuce.news;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -31,12 +27,13 @@ public class NewsActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.news_description);
         TextView content = findViewById(R.id.news_content);
         ImageView image = findViewById(R.id.news_image);
+        /*
+        * Details: https://stackoverflow.com/a/40440694
+        */
         Picasso.get()
                 .load(Uri.parse(news.getUrlToImage()))
-                .resize(6000, 2000)
-                .onlyScaleDown()
-                .centerInside()
                 .into(image);
+
         source.setText(news.getSource());
         date.setText(news.getPublishedAt());
         description.setText(news.getDescription());
