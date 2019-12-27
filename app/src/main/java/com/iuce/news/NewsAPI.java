@@ -21,14 +21,20 @@ class NewsAPI {
     private static final String[] API_KEYS = {"cf9168e3e5ff4e8987492262f92632fb", "f82c72913e944b0c838e24a52e90db8c"}; // Not secure!
     private static final String URL_TEMPLATE = "https://newsapi.org/v2/top-headlines?country=tr&apiKey=%s";
 
+
+    /**
+     * Gets URL
+     * @return Generated {@link #URL_TEMPLATE} with a random {@link #API_KEYS}
+     */
     private static String generateURL() {
         int ix = new Random().nextInt(API_KEYS.length);
         return String.format(URL_TEMPLATE, API_KEYS[ix]);
     }
 
     /**
-     * Details: https://android.yemreak.com/temel/http-istekleri
-     * Reference: https://developer.android.com/training/volley/simple.html
+     * @see <a href="https://android.yemreak.com/temel/http-istekleri">HTTPS istekleri ~ YEmreAk</a>
+     * @see <a href="https://developer.android.com/training/volley/simple.html">Volley ~ Android
+     * Developer</a>
      */
     static void requestNewsData(Context context, ResponseListener responseListener) {
 
