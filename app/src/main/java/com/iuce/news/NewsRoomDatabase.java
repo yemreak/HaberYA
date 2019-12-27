@@ -9,12 +9,15 @@ import androidx.room.RoomDatabase;
 /**
  * Details: https://android.yemreak.com/veriler/room-database#room-database
  */
-@Database(entities = {News.class}, version = 2, exportSchema = false)
+@Database(entities = {News.class, Reaction.class, ReactionToNews.class}, version = 3, exportSchema =
+        false)
 public abstract class NewsRoomDatabase extends RoomDatabase {
 
     public static final String DB_NAME = "news_db";
 
     abstract NewsDao newsDao();
+    abstract ReactionDao reactionsDao();
+    abstract ReactionToNewsDao reactionToNewsDao();
 
     // Singleton to safe db conflicts
     private static NewsRoomDatabase INSTANCE;

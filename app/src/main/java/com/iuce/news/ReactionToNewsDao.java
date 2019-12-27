@@ -10,7 +10,7 @@ import androidx.room.Update;
 import java.util.List;
 
 @Dao
-public interface ReactionsToNewsDao {
+public interface ReactionToNewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ReactionToNews rtn);
