@@ -1,27 +1,32 @@
-package com.iuce.news;
+package com.iuce.news.ui;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iuce.news.NewsAPI;
+import com.iuce.news.R;
+import com.iuce.news.db.entity.News;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    private NewsViewModel newsViewModel;
+    private com.iuce.news.viewmodel.NewsViewModel newsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // lifecycle-extensions:$arch_lifecycle:2.2.0-beta01 versiyonuna uygun :'(
-        newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+        newsViewModel = new ViewModelProvider(this).get(com.iuce.news.viewmodel.NewsViewModel.class);
         initRecyclerView();
     }
 
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillView(ArrayList<News> news) {
         RecyclerView recyclerView = findViewById(R.id.news_recycler_view);
-        NewsAdapter newsAdapter = new NewsAdapter(this, news);
+        com.iuce.news.ui.NewsAdapter newsAdapter = new com.iuce.news.ui.NewsAdapter(this, news);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

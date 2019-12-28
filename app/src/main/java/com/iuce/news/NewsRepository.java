@@ -7,6 +7,13 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import com.iuce.news.db.dao.NewsDao;
+import com.iuce.news.db.dao.ReactionDao;
+import com.iuce.news.db.dao.ReactionToNewsDao;
+import com.iuce.news.db.entity.News;
+import com.iuce.news.db.entity.Reaction;
+import com.iuce.news.db.entity.ReactionToNews;
+
 /**
  * Details: https://android.yemreak.com/veriler/room-database#repository-yapisi
  */
@@ -20,8 +27,8 @@ public class NewsRepository {
     private LiveData<List<Reaction>> allReaction;
     private LiveData<List<ReactionToNews>> allReactionToNews;
 
-    NewsRepository(Application application) {
-        NewsRoomDatabase db = NewsRoomDatabase.getDatabase(application);
+    public NewsRepository(Application application) {
+        com.iuce.news.db.NewsRoomDatabase db = com.iuce.news.db.NewsRoomDatabase.getDatabase(application);
         newsDao = db.newsDao();
         reactionDao = db.reactionsDao();
         reactionToNewsDao = db.reactionToNewsDao();
@@ -31,15 +38,15 @@ public class NewsRepository {
         allReactionToNews = reactionToNewsDao.getAllReactionToNews();
     }
 
-    LiveData<List<News>> getAllNews() {
+    public LiveData<List<News>> getAllNews() {
         return allNews;
     }
 
-    LiveData<List<Reaction>> getAllReaction() {
+    public LiveData<List<Reaction>> getAllReaction() {
         return allReaction;
     }
 
-    LiveData<List<ReactionToNews>> getAllReactionToNews() {
+    public LiveData<List<ReactionToNews>> getAllReactionToNews() {
         return allReactionToNews;
     }
 

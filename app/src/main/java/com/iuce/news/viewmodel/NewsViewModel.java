@@ -1,9 +1,14 @@
-package com.iuce.news;
+package com.iuce.news.viewmodel;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import com.iuce.news.NewsRepository;
+import com.iuce.news.db.entity.News;
+import com.iuce.news.db.entity.Reaction;
+import com.iuce.news.db.entity.ReactionToNews;
 
 import java.util.List;
 
@@ -22,7 +27,7 @@ public class NewsViewModel extends AndroidViewModel {
         allReactionToNews = repository.getAllReactionToNews();
     }
 
-    LiveData<List<News>> getAllNews() {
+    public LiveData<List<News>> getAllNews() {
         return allNews;
     }
 

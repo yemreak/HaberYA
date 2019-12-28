@@ -2,10 +2,12 @@ package com.iuce.news;
 
 import androidx.annotation.NonNull;
 
+import com.iuce.news.db.entity.News;
+
 /**
  * Details: https://android.yemreak.com/temel/global-degiskenler
  */
-class Globals {
+public class Globals {
 
     private News selectedNews;
 
@@ -14,19 +16,19 @@ class Globals {
     private Globals() {
     }
 
-    static synchronized Globals getInstance() {
+    public static synchronized Globals getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Globals();
         }
         return INSTANCE;
     }
 
-    void setSelectedNews(@NonNull News news) {
+    public void setSelectedNews(@NonNull News news) {
         selectedNews = news;
     }
 
     @NonNull
-    News getSelectedNews() throws NullPointerException {
+    public News getSelectedNews() throws NullPointerException {
         if (selectedNews == null) {
             throw new NullPointerException("The selected news invoked without creation");
         }

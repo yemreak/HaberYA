@@ -1,10 +1,10 @@
-package com.iuce.news;
+package com.iuce.news.db.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import static com.iuce.news.News.TABLE_NAME;
+import static com.iuce.news.db.entity.News.TABLE_NAME;
 
 /**
  * Details: https://android.yemreak.com/veriler/room-database#entity-yapisi

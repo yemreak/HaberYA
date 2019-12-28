@@ -1,4 +1,4 @@
-package com.iuce.news;
+package com.iuce.news.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iuce.news.Globals;
+import com.iuce.news.R;
+import com.iuce.news.db.entity.News;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

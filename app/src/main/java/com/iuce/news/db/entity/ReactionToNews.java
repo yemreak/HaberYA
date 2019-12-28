@@ -1,10 +1,10 @@
-package com.iuce.news;
+package com.iuce.news.db.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import static com.iuce.news.ReactionToNews.TABLE_NAME;
+import static com.iuce.news.db.entity.ReactionToNews.TABLE_NAME;
 
 @Entity(tableName = TABLE_NAME)
 public class ReactionToNews {

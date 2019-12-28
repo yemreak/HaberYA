@@ -7,6 +7,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.iuce.news.db.entity.News;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +16,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Random;
 
-class NewsAPI {
+public class NewsAPI {
     static final String TAG = "NewsAPI"; // May be in `strings.xml`
 
     private static final String[] API_KEYS = {"cf9168e3e5ff4e8987492262f92632fb", "f82c72913e944b0c838e24a52e90db8c"}; // Not secure!
@@ -36,7 +37,7 @@ class NewsAPI {
      * @see <a href="https://developer.android.com/training/volley/simple.html">Volley ~ Android
      * Developer</a>
      */
-    static void requestNewsData(Context context, ResponseListener responseListener) {
+    public static void requestNewsData(Context context, ResponseListener responseListener) {
 
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, generateURL(), (response) -> {
@@ -77,7 +78,7 @@ class NewsAPI {
         queue.add(stringRequest);
     }
 
-    interface ResponseListener {
+    public interface ResponseListener {
         void onResponse(ArrayList<News> newsDataList);
     }
 }

@@ -1,4 +1,4 @@
-package com.iuce.news;
+package com.iuce.news.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,11 +10,16 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.iuce.news.Globals;
+import com.iuce.news.R;
+import com.iuce.news.db.entity.News;
+import com.iuce.news.viewmodel.NewsViewModel;
 import com.squareup.picasso.Picasso;
 
 public class NewsActivity extends AppCompatActivity {
     private NewsViewModel newsViewModel;
     private News NEWS;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
