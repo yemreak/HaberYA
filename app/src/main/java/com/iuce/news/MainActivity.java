@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveToDB(ArrayList<News> newsData) {
+        newsViewModel.delete();
         newsViewModel.insert(newsData.toArray(new News[0]));
     }
 

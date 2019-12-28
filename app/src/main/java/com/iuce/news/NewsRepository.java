@@ -55,7 +55,24 @@ public class NewsRepository {
         new InsertReactionToNewsAsyncTask(reactionToNewsDao).execute(reactionsToNews);
     }
 
+    public void delete() {
+        new DeleteAsyncTask(newsDao).execute();
+    }
 
+    private static class DeleteAsyncTask extends AsyncTask<News, Void, Void> {
+
+        private NewsDao newsDao;
+
+        DeleteAsyncTask(NewsDao newsDao) {
+            this.newsDao = newsDao;
+        }
+
+        @Override
+        protected Void doInBackground(final News... news) {
+            newsDao.deleteAll();
+            return null;
+        }
+    }
     private static class InsertNewsAsyncTask extends AsyncTask<News, News, Void> {
 
         private NewsDao newsDao;

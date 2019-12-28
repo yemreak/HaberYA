@@ -45,4 +45,8 @@ public class NewsViewModel extends AndroidViewModel {
     public void insert(ReactionToNews... reactionToNews) {
         repository.insert(reactionToNews);
     }
+
+    public void delete() {
+        repository.delete();
+    }
 }
