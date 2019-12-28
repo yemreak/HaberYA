@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textSize="18sp"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryDark"
                 android:fontFamily="@font/muli"
                 android:id="@+id/item_title"
                 />
