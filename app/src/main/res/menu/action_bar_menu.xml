@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/fav_button"
+        android:icon="@drawable/ic_favorite_border_black_24dp"
+        android:title="React"
+        android:onClick="onReactClick"
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/share_button"
         android:icon="@drawable/ic_share_black_24dp"
         android:title="Share"
         android:onClick="onShareClick"
         app:showAsAction="always"/>
+
 </menu>
