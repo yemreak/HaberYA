@@ -2,12 +2,15 @@ package com.iuce.news.db.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
- * Details: https://android.yemreak.com/veriler/room-database#entity-yapisi
+ * @apiNote Tekrarlı URL'lere izin vermez
+ * @see <a href="https://android.yemreak.com/veriler/room-database#entity-yapisi">Room Database ~ YEmreAk</a>
+ * @see <a href="https://stackoverflow.com/a/48962768/9770490">Unique Contstraits</a>
  */
-@Entity(tableName = News.TABLE_NAME)
+@Entity(tableName = News.TABLE_NAME, indices = {@Index(value = News.COLUMN_URL, unique = true)})
 public class News {
 
     public static final String TABLE_NAME = "news_table";
@@ -15,10 +18,10 @@ public class News {
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_URL_TO_IMAGE = "url_to_image";
-    private static final String COLUMN_CONTENT = "content";
-    private static final String COLUMN_SOURCE = "source";
-    private static final String COLUMN_PUBLISHED_AT = "published_at";
-    private static final String COLUMN_URL = "url";
+    public static final String COLUMN_CONTENT = "content";
+    public static final String COLUMN_SOURCE = "source";
+    public static final String COLUMN_PUBLISHED_AT = "published_at";
+    public static final String COLUMN_URL = "url";
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
@@ -53,6 +56,14 @@ public class News {
         this.content = content;
         this.source = source;
         this.publishedAt = publishedAt;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

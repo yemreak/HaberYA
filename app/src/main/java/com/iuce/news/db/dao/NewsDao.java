@@ -17,7 +17,11 @@ import java.util.List;
 @Dao
 public interface NewsDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    /**
+     * Aynı URL değerine sahip haberleri eklemez (atlar)
+     * @param news Haber objesi {@link News}
+     */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(News news);
 
     // Update multiple entries with one call.

@@ -3,16 +3,18 @@ package com.iuce.news;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import java.security.PrivateKey;
 import java.util.List;
 
 import com.iuce.news.db.dao.NewsDao;
-import com.iuce.news.db.dao.ReactionDao;
-import com.iuce.news.db.dao.ReactionToNewsDao;
+import com.iuce.news.db.dao.NewsWithStateDao;
+import com.iuce.news.db.dao.StateDao;
 import com.iuce.news.db.entity.News;
-import com.iuce.news.db.entity.Reaction;
-import com.iuce.news.db.entity.ReactionToNews;
+import com.iuce.news.db.entity.State;
+import com.iuce.news.db.pojo.NewsWithState;
 
 /**
  * Details: https://android.yemreak.com/veriler/room-database#repository-yapisi
@@ -20,50 +22,56 @@ import com.iuce.news.db.entity.ReactionToNews;
 public class NewsRepository {
 
     private NewsDao newsDao;
-    private ReactionDao reactionDao;
-    private ReactionToNewsDao reactionToNewsDao;
+    private NewsWithStateDao newsWithStateDao;
+    private StateDao stateDao;
 
     private LiveData<List<News>> allNews;
-    private LiveData<List<Reaction>> allReaction;
-    private LiveData<List<ReactionToNews>> allReactionToNews;
+    private LiveData<List<NewsWithState>> allNewsWithState;
 
     public NewsRepository(Application application) {
         com.iuce.news.db.NewsRoomDatabase db = com.iuce.news.db.NewsRoomDatabase.getDatabase(application);
+
         newsDao = db.newsDao();
-        reactionDao = db.reactionsDao();
-        reactionToNewsDao = db.reactionToNewsDao();
+        newsWithStateDao = db.newsWithStateDao();
+        stateDao = db.stateDao();
 
         allNews = newsDao.getAllNews();
-        allReaction = reactionDao.getAllReactions();
-        allReactionToNews = reactionToNewsDao.getAllReactionToNews();
+        allNewsWithState = newsWithStateDao.getAllNewsWithState();
     }
 
-    public LiveData<List<News>> getAllNews() {
-        return allNews;
+    public LiveData<List<NewsWithState>> getAllNewsWithState() {
+        return allNewsWithState;
     }
 
-    public LiveData<List<Reaction>> getAllReaction() {
-        return allReaction;
-    }
-
-    public LiveData<List<ReactionToNews>> getAllReactionToNews() {
-        return allReactionToNews;
-    }
-
-    public void insert(News... news) {
+    public void insertNews(News... news) {
         new InsertNewsAsyncTask(newsDao).execute(news);
     }
 
-    public void insert(Reaction... reactions) {
-        new InsertReactionAsyncTask(reactionDao).execute(reactions);
-    }
-
-    public void insert(ReactionToNews... reactionsToNews) {
-        new InsertReactionToNewsAsyncTask(reactionToNewsDao).execute(reactionsToNews);
+    public void insertState(State... states) {
+        new InsertStateAsyncTask(stateDao).execute(states);
     }
 
     public void delete() {
         new DeleteAsyncTask(newsDao).execute();
+    }
+
+    public void deleteOnlyFeed() {
+        new DeleteOnlyFeedAsyncTask(newsWithStateDao).execute();
+    }
+
+    private static class DeleteOnlyFeedAsyncTask extends AsyncTask<NewsWithState, Void, Void> {
+
+        private NewsWithStateDao newsWithStateDao;
+
+        DeleteOnlyFeedAsyncTask(NewsWithStateDao newsWithStateDao) {
+            this.newsWithStateDao = newsWithStateDao;
+        }
+
+        @Override
+        protected Void doInBackground(final NewsWithState... newsWithStates) {
+            newsWithStateDao.deleteOnlyFeed();
+            return null;
+        }
     }
 
     private static class DeleteAsyncTask extends AsyncTask<News, Void, Void> {
@@ -80,7 +88,8 @@ public class NewsRepository {
             return null;
         }
     }
-    private static class InsertNewsAsyncTask extends AsyncTask<News, News, Void> {
+
+    private static class InsertNewsAsyncTask extends AsyncTask<News, Void, Void> {
 
         private NewsDao newsDao;
 
@@ -97,35 +106,18 @@ public class NewsRepository {
         }
     }
 
-    private static class InsertReactionAsyncTask extends AsyncTask<Reaction, Reaction, Void> {
+    private static class InsertStateAsyncTask extends AsyncTask<State, Void, Void> {
 
-        private ReactionDao reactionDao;
+        private StateDao stateDao;
 
-        InsertReactionAsyncTask(ReactionDao reactionDao) {
-            this.reactionDao = reactionDao;
+        InsertStateAsyncTask(StateDao stateDao) {
+            this.stateDao = stateDao;
         }
 
         @Override
-        protected Void doInBackground(final Reaction... reactions) {
-            for (Reaction reaction : reactions) {
-                reactionDao.insert(reaction);
-            }
-            return null;
-        }
-    }
-
-    private static class InsertReactionToNewsAsyncTask extends AsyncTask<ReactionToNews, ReactionToNews, Void> {
-
-        private ReactionToNewsDao reactionToNewsDao;
-
-        InsertReactionToNewsAsyncTask(ReactionToNewsDao reactionToNewsDao) {
-            this.reactionToNewsDao = reactionToNewsDao;
-        }
-
-        @Override
-        protected Void doInBackground(final ReactionToNews... reactionsToNews) {
-            for (ReactionToNews reactionToNews : reactionsToNews) {
-                reactionToNewsDao.insert(reactionToNews);
+        protected Void doInBackground(@NonNull final State... states) {
+            for (State state : states) {
+                stateDao.insert(state);
             }
             return null;
         }

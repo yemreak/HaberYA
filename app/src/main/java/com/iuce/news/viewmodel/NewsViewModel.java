@@ -7,51 +7,41 @@ import androidx.lifecycle.LiveData;
 
 import com.iuce.news.NewsRepository;
 import com.iuce.news.db.entity.News;
-import com.iuce.news.db.entity.Reaction;
-import com.iuce.news.db.entity.ReactionToNews;
+import com.iuce.news.db.entity.State;
+import com.iuce.news.db.pojo.NewsWithState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NewsViewModel extends AndroidViewModel {
     private NewsRepository repository;
 
-    private LiveData<List<News>> allNews;
-    private LiveData<List<Reaction>> allReaction;
-    private LiveData<List<ReactionToNews>> allReactionToNews;
+    private LiveData<List<NewsWithState>> allNewWithState;
 
     public NewsViewModel(Application application) {
         super(application);
         repository = new NewsRepository(application);
-        allNews = repository.getAllNews();
-        allReaction = repository.getAllReaction();
-        allReactionToNews = repository.getAllReactionToNews();
+        allNewWithState = repository.getAllNewsWithState();
     }
 
-    public LiveData<List<News>> getAllNews() {
-        return allNews;
+    public LiveData<List<NewsWithState>> getAllNewsWithState() {
+        return allNewWithState;
     }
 
-    LiveData<List<Reaction>> getAllReaction() {
-        return allReaction;
+    public void insertNewsWithState(NewsWithState... newsWithStates) {
+        ArrayList<News> newsList = new ArrayList<>();
+        ArrayList<State> stateList = new ArrayList<>();
+
+        for (NewsWithState newsWithState : newsWithStates) {
+            newsList.add(newsWithState.getNews());
+            stateList.addAll(newsWithState.getStates());
+        }
+
+        repository.insertNews(newsList.toArray(new News[0]));
+        repository.insertState(stateList.toArray(new State[0]));
     }
 
-    LiveData<List<ReactionToNews>> getAllReactionToNews() {
-        return allReactionToNews;
-    }
-
-    public void insert(News... news) {
-        repository.insert(news);
-    }
-
-    public void insert(Reaction... reactions) {
-        repository.insert(reactions);
-    }
-
-    public void insert(ReactionToNews... reactionToNews) {
-        repository.insert(reactionToNews);
-    }
-
-    public void delete() {
-        repository.delete();
+    public void deleteOnlyFeed() {
+        repository.deleteOnlyFeed();
     }
 }

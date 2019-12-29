@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,8 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.iuce.news.NewsAPI;
 import com.iuce.news.R;
 import com.iuce.news.db.entity.News;
+import com.iuce.news.db.entity.State;
+import com.iuce.news.db.pojo.NewsWithState;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,29 +35,47 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        if (is_connected()) {
-            NewsAPI.requestNewsData(this, (newsDataList -> {
-                fillView(newsDataList);
-                saveToDB(newsDataList);
+        if (isConnected()) {
+            NewsAPI.requestNewsData(this, (newsList -> {
+                ArrayList<NewsWithState> newsWithStateList = appendStateToNews(newsList);
+                fillView(newsWithStateList);
+                saveToDB(newsWithStateList);
             }));
         } else {
-            newsViewModel.getAllNews().observe(this, news -> fillView(new ArrayList<>(news)));
+            newsViewModel.getAllNewsWithState().observe(this,
+                    newsWithStates -> fillView(new ArrayList<>(newsWithStates)));
         }
     }
 
-    private void fillView(ArrayList<News> news) {
+    private ArrayList<NewsWithState> appendStateToNews(ArrayList<News> newsList) {
+        ArrayList<NewsWithState> newsWithStateList = new ArrayList<>();
+        for (News aNews : newsList) {
+            newsWithStateList.add(
+                    new NewsWithState(
+                            aNews,
+                            Collections.singletonList(new State(
+                                    aNews.getId(),
+                                    State.NAME_FEED
+                            ))
+                    )
+            );
+        }
+        return newsWithStateList;
+    }
+
+    private void fillView(ArrayList<NewsWithState> newsWithStateList) {
         RecyclerView recyclerView = findViewById(R.id.news_recycler_view);
-        com.iuce.news.ui.NewsAdapter newsAdapter = new com.iuce.news.ui.NewsAdapter(this, news);
+        com.iuce.news.ui.NewsAdapter newsAdapter = new NewsAdapter(this, newsWithStateList);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void saveToDB(ArrayList<News> newsData) {
-        newsViewModel.delete();
-        newsViewModel.insert(newsData.toArray(new News[0]));
+    private void saveToDB(ArrayList<NewsWithState> newsWithStateList) {
+        newsViewModel.deleteOnlyFeed();
+        newsViewModel.insertNewsWithState(newsWithStateList.toArray(new NewsWithState[0]));
     }
 
-    private boolean is_connected() {
+    private boolean isConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = Objects.requireNonNull(connMgr).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
