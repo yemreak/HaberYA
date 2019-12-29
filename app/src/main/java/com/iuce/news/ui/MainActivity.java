@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 saveToDB(newsList);
             }));
         }
-        // TODO:BURA
         newsViewModel.getAllNewsWithState().observe(this,
                 newsWithStates -> {
                     fillView(new ArrayList<>(newsWithStates));
