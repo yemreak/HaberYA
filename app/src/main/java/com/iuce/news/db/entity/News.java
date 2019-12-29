@@ -4,12 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import static com.iuce.news.db.entity.News.TABLE_NAME;
-
 /**
  * Details: https://android.yemreak.com/veriler/room-database#entity-yapisi
  */
-@Entity(tableName = TABLE_NAME)
+@Entity(tableName = News.TABLE_NAME)
 public class News {
 
     public static final String TABLE_NAME = "news_table";
@@ -47,12 +45,14 @@ public class News {
     @ColumnInfo(name = COLUMN_PUBLISHED_AT)
     private String publishedAt;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public News(String title, String description, String urlToImage, String url, String content, String source, String publishedAt) {
+        this.title = title;
+        this.description = description;
+        this.urlToImage = urlToImage;
+        this.url = url;
+        this.content = content;
+        this.source = source;
+        this.publishedAt = publishedAt;
     }
 
     public String getTitle() {

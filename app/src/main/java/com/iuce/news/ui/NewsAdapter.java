@@ -62,27 +62,29 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         TextView itemSource;
         TextView itemDate;
 
-        public Holder(View itemView)  {
+        public Holder(View itemView) {
             super(itemView);
             itemImage = itemView.findViewById(R.id.item_image);
             itemTitle = itemView.findViewById(R.id.item_title);
             itemSource = itemView.findViewById(R.id.item_source);
             itemDate = itemView.findViewById(R.id.item_date);
             itemView.setOnClickListener(this);
+
         }
 
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
 
-            News news = new News();
-            news.setUrlToImage(newsData.get(pos).getUrlToImage());
-            news.setDescription(newsData.get(pos).getDescription());
-            news.setTitle(newsData.get(pos).getTitle());
-            news.setContent(newsData.get(pos).getContent());
-            news.setPublishedAt(newsData.get(pos).getPublishedAt());
-            news.setSource(newsData.get(pos).getSource());
-            news.setUrl(newsData.get(pos).getUrl());
+            News news = new News(
+                    newsData.get(pos).getUrlToImage(),
+                    newsData.get(pos).getDescription(),
+                    newsData.get(pos).getTitle(),
+                    newsData.get(pos).getContent(),
+                    newsData.get(pos).getPublishedAt(),
+                    newsData.get(pos).getSource(),
+                    newsData.get(pos).getUrl()
+            );
 
             Globals.getInstance().setSelectedNews(news);
 
@@ -90,7 +92,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
             context.startActivity(messageIntent);
         }
     }
-
 
 
 }

@@ -53,16 +53,16 @@ public class NewsAPI {
                     ArrayList<News> newsDataList = new ArrayList<>();
                     for (int i = 0; i < articles.length(); i++) {
                         JSONObject article = articles.getJSONObject(i);
-                        News news =  new News();
 
-                        news.setTitle(article.getString("title"));
-                        news.setDescription(article.getString("description"));
-                        news.setUrlToImage(article.getString("urlToImage"));
-                        news.setUrl(article.getString("url"));
-                        news.setContent(article.getString("content"));
-                        news.setSource(article.getJSONObject("source").getString("name"));
-                        news.setPublishedAt(article.getString("publishedAt"));
-
+                        News news =  new News(
+                                article.getString("title"),
+                                article.getString("description"),
+                                article.getString("urlToImage"),
+                                article.getString("url"),
+                                article.getString("content"),
+                                article.getJSONObject("source").getString("name"),
+                                article.getString("publishedAt")
+                        );
                         newsDataList.add(news);
 
                         Log.i(TAG, "getNewsData: " + newsDataList.get(i));
