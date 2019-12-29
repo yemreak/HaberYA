@@ -1,6 +1,7 @@
 package com.iuce.news.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -28,17 +29,12 @@ public class NewsViewModel extends AndroidViewModel {
         return allNewWithState;
     }
 
-    public void insertNewsWithState(NewsWithState... newsWithStates) {
-        ArrayList<News> newsList = new ArrayList<>();
-        ArrayList<State> stateList = new ArrayList<>();
+    public void insertFeedNews(News... news) {
+        repository.insertFeedNews(news);
+    }
 
-        for (NewsWithState newsWithState : newsWithStates) {
-            newsList.add(newsWithState.getNews());
-            stateList.addAll(newsWithState.getStates());
-        }
-
-        repository.insertNews(newsList.toArray(new News[0]));
-        repository.insertState(stateList.toArray(new State[0]));
+    public void insertState(State... states) {
+        repository.insertState(states);
     }
 
     public void deleteOnlyFeed() {

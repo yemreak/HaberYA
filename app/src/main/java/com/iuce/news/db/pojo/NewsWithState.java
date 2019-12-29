@@ -12,6 +12,7 @@ import java.util.List;
  * @see <a href="https://developer.android.com/reference/androidx/room/Relation.html">Relation ~ Android</a>
  */
 public class NewsWithState {
+
     @Embedded
     private News news;
 
@@ -41,5 +42,13 @@ public class NewsWithState {
 
     public void setStates(List<State> states) {
         this.states = states;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsWithState{" +
+                "news=" + news +
+                ", states=" + states +
+                '}';
     }
 }

@@ -1,6 +1,8 @@
 package com.iuce.news.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,13 +15,15 @@ import android.widget.TextView;
 import com.iuce.news.Globals;
 import com.iuce.news.R;
 import com.iuce.news.db.entity.News;
+import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 import com.iuce.news.viewmodel.NewsViewModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 public class NewsActivity extends AppCompatActivity {
     private NewsViewModel newsViewModel;
-    private NewsWithState NEWS_WITH_STATE;
 
     TextView source;
     TextView date;
@@ -35,6 +39,14 @@ public class NewsActivity extends AppCompatActivity {
 
         initViews();
         fillView();
+
+        newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+        newsViewModel.insertState(
+                new State(
+                        Globals.getInstance().getSelectedNewsWithState().getNews().getId(),
+                        State.NAME_READ
+                )
+        );
     }
 
     public void initViews() {

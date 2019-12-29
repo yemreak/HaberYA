@@ -22,7 +22,7 @@ public interface NewsDao {
      * @param news Haber objesi {@link News}
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(News news);
+    void insert(News... news);
 
     // Update multiple entries with one call.
     @Update

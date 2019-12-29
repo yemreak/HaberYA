@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey;
 public class News {
 
     public static final String TABLE_NAME = "news_table";
-    public static final String COLUMN_ID = "nid";
+    public static final String COLUMN_ID = "id";
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_URL_TO_IMAGE = "url_to_image";
@@ -123,5 +123,17 @@ public class News {
         this.url = url;
     }
 
-
+    @Override
+    public String toString() {
+        return "News{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", urlToImage='" + urlToImage + '\'' +
+                ", url='" + url + '\'' +
+                ", content='" + content + '\'' +
+                ", source='" + source + '\'' +
+                ", publishedAt='" + publishedAt + '\'' +
+                '}';
+    }
 }

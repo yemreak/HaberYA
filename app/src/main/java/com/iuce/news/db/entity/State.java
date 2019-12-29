@@ -3,18 +3,26 @@ package com.iuce.news.db.entity;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
  * @see <a href="https://android.jlelse.eu/android-architecture-components-room-relationships-bf473510c14a>Room Relarionships</a>
  * <a href="https://developer.android.com/reference/androidx/room/ForeignKey#childColumns()">Foreign Key</a>
  */
-@Entity(tableName = State.TABLE_NAME)
+@Entity(
+        tableName = State.TABLE_NAME,
+        indices = {
+                @Index(
+                        value = {News.COLUMN_ID, State.COLUMN_NAME},
+                        unique = true
+                )
+        })
 public class State {
 
     public static final String TABLE_NAME = "states";
 
-    public static final String COLUMN_ID = "sid";
+    public static final String COLUMN_ID = "id";
     public static final String COLUMN_NEWS_ID = "nid";
     public static final String COLUMN_NAME = "name";
 
@@ -65,5 +73,14 @@ public class State {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "State{" +
+                "id=" + id +
+                ", nid=" + nid +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

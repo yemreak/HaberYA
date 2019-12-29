@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +16,7 @@ import com.iuce.news.R;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
+import com.iuce.news.viewmodel.NewsViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,28 +25,30 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-    private com.iuce.news.viewmodel.NewsViewModel newsViewModel;
+    private NewsViewModel newsViewModel;
+
+    public static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // lifecycle-extensions:$arch_lifecycle:2.2.0-beta01 versiyonuna uygun :'(
-        newsViewModel = new ViewModelProvider(this).get(com.iuce.news.viewmodel.NewsViewModel.class);
+        newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         initRecyclerView();
     }
 
     private void initRecyclerView() {
         if (isConnected()) {
             NewsAPI.requestNewsData(this, (newsList -> {
-                ArrayList<NewsWithState> newsWithStateList = appendStateToNews(newsList);
-                fillView(newsWithStateList);
-                saveToDB(newsWithStateList);
+                saveToDB(newsList);
             }));
-        } else {
-            newsViewModel.getAllNewsWithState().observe(this,
-                    newsWithStates -> fillView(new ArrayList<>(newsWithStates)));
         }
+        // TODO:BURA
+        newsViewModel.getAllNewsWithState().observe(this,
+                newsWithStates -> {
+                    fillView(new ArrayList<>(newsWithStates));
+                });
     }
 
     private ArrayList<NewsWithState> appendStateToNews(ArrayList<News> newsList) {
@@ -70,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void saveToDB(ArrayList<NewsWithState> newsWithStateList) {
+    private void saveToDB(ArrayList<News> news) {
         newsViewModel.deleteOnlyFeed();
-        newsViewModel.insertNewsWithState(newsWithStateList.toArray(new NewsWithState[0]));
+        newsViewModel.insertFeedNews(news.toArray(new News[0]));
     }
 
     private boolean isConnected() {

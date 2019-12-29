@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,13 +22,12 @@ import java.util.ArrayList;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
-
     private ArrayList<NewsWithState> newsWithStates;
     private Context context;
 
-    public NewsAdapter(Context context, ArrayList<NewsWithState> newsData) {
+    public NewsAdapter(Context context, ArrayList<NewsWithState> newsWithStateList) {
         this.context = context;
-        this.newsWithStates = newsData;
+        this.newsWithStates = newsWithStateList;
     }
 
     @NonNull
@@ -42,6 +42,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         holder.itemTitle.setText(newsWithStates.get(position).getNews().getTitle());
         holder.itemSource.setText(newsWithStates.get(position).getNews().getSource());
         holder.itemDate.setText(newsWithStates.get(position).getNews().getPublishedAt());
+
         Picasso.get()
                 .load(Uri.parse(newsWithStates.get(position).getNews().getUrlToImage()))
                 .fit()
@@ -56,6 +57,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        RelativeLayout rlMain;
+
         ImageView itemImage;
         TextView itemTitle;
         TextView itemSource;
@@ -63,19 +66,25 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
         public Holder(View itemView) {
             super(itemView);
+
+            rlMain = itemView.findViewById(R.id.rl_main);
+
             itemImage = itemView.findViewById(R.id.item_image);
             itemTitle = itemView.findViewById(R.id.item_title);
             itemSource = itemView.findViewById(R.id.item_source);
             itemDate = itemView.findViewById(R.id.item_date);
+
             itemView.setOnClickListener(this);
 
         }
+
 
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
 
-            Globals.getInstance().setSelectedNewsWithState(newsWithStates.get(pos));
+            NewsWithState newsWithState = newsWithStates.get(pos);
+            Globals.getInstance().setSelectedNewsWithState(newsWithState);
 
             Intent messageIntent = new Intent(context, NewsActivity.class);
             context.startActivity(messageIntent);
