@@ -1,4 +1,4 @@
-package com.iuce.news;
+package com.iuce.news.api;
 
 import android.content.Context;
 import android.util.Log;

@@ -4,14 +4,13 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iuce.news.NewsAPI;
+import com.iuce.news.api.NewsAPI;
 import com.iuce.news.R;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
@@ -19,9 +18,7 @@ import com.iuce.news.db.pojo.NewsWithState;
 import com.iuce.news.viewmodel.NewsViewModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
                 saveToDB(newsList);
             }));
         }
+
+        // TODO: Güncel veriler
         newsViewModel.getAllNewsWithState().observe(this,
                 newsWithStates -> {
                     fillView(new ArrayList<>(newsWithStates));

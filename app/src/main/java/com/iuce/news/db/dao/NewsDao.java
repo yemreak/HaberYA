@@ -36,6 +36,12 @@ public interface NewsDao {
     @Query("SELECT * from " + News.TABLE_NAME + " ORDER BY " + News.COLUMN_ID + " ASC")
     LiveData<List<News>> getAllNews();
 
+    @Query("DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " = :id")
+    void delete(int id);
+
+    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " = :id")
+    LiveData<News> getById(int id);
+
     // Query with parameter that returns a specific news or news.
     @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_TITLE + " LIKE :" + News.COLUMN_TITLE + " ")
     LiveData<List<News>> findNewsByTitle(String title);

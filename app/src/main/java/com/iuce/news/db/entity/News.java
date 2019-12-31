@@ -58,6 +58,8 @@ public class News {
         this.publishedAt = publishedAt;
     }
 
+    private Boolean read;
+
     public int getId() {
         return id;
     }
@@ -121,6 +123,14 @@ public class News {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Boolean isRead() {
+        return read;
+    }
+
+    public void setRead(Boolean read) {
+        this.read = read;
     }
 
     @Override

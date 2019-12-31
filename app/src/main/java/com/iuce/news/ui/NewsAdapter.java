@@ -43,8 +43,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         holder.itemSource.setText(newsWithStates.get(position).getNews().getSource());
         holder.itemDate.setText(newsWithStates.get(position).getNews().getPublishedAt());
 
-        // TODO: Sadece okunduğunda çalışacak
-        holder.rlMain.setAlpha(0.6f);
+        if (newsWithStates.get(position).getNews().isRead()) {
+            holder.rlMain.setAlpha(0.6f);
+        }
 
         Picasso.get()
                 .load(Uri.parse(newsWithStates.get(position).getNews().getUrlToImage()))

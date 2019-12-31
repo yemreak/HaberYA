@@ -23,24 +23,24 @@ public interface NewsWithStateDao {
     LiveData<List<NewsWithState>> getAllNewsWithState();
 
     // https://www.w3resource.com/sql/aggregate-functions/count-having.php
-    @Query(
-            "DELETE FROM "
-                    + News.TABLE_NAME + " "
-                    + "WHERE " + News.COLUMN_ID + " NOT IN ("
-                    + "SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + " "
-                    + "WHERE " + State.COLUMN_NAME + "= '" + State.NAME_FEED + "' "
-                    + "GROUP BY " + State.COLUMN_NEWS_ID + " HAVING Count(*) = 1"
-                    + ")"
+    /*@Query(*/
+    /*        "DELETE FROM "*/
+    /*                + News.TABLE_NAME + " "*/
+    /*                + "WHERE " + News.COLUMN_ID + " NOT IN ("*/
+    /*                + "SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + " "*/
+    /*                + "WHERE " + State.COLUMN_TYPE + "= '" + State.NAME_FEED + "' "*/
+    /*                + "GROUP BY " + State.COLUMN_NEWS_ID + " HAVING Count(*) = 1"*/
+    /*                + ")"*/
 
-    )
-    void deleteOnlyFeed();
+    /*)*/
+    /*void deleteOnlyFeed();*/
 
     /*@Transaction
     @TypeConverter
-    @Query("SELECT * FROM " + News.TABLE_NAME + ", " + State.TABLE_NAME + " WHERE " + State.COLUMN_NAME +
+    @Query("SELECT * FROM " + News.TABLE_NAME + ", " + State.TABLE_NAME + " WHERE " + State.COLUMN_TYPE +
             "= " + ":stateName")
     LiveData<List<NewsWithState>> getAllNewsWithStateByState(State stateName);
 
-    @Query("SELECT " + State.COLUMN_NAME + " FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + "= :nid")
+    @Query("SELECT " + State.COLUMN_TYPE + " FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + "= :nid")
     public LiveData<List<NewsWithState>> getNewsWithStateByNid(int nid);*/
 }
