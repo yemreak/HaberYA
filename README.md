@@ -17,6 +17,7 @@
 - ✔️ Exception Handler
 - ✔️ onClick Handler
 - ✔️ Implicit Intent
+- ✔️ Explicit Intent
 - ✔️ Contextual Action Bar Actions
 - ✔️ POJO & Relatio in RoomDB
 - ✔️ Interface & Lambda Functions
