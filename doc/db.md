@@ -38,3 +38,10 @@
 - `getNewsByState(stype)`
 
 > 💡 `SavedNews` ismi `NewsWithState` olarak ele alınabilir.
+
+## 📝 DB Notları
+
+### 📉 Feeds yapılmama sebebi
+
+- 🎳 Veri sayısı arttıkça sorguların maaliyeti artacaç
+- 📉 Veri tabanı sadeliğini kaybedecek
