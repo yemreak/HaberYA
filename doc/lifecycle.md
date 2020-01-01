@@ -2,16 +2,22 @@
 
 ## 🎈 Genel İşleyiş
 
-- API'dan haberleri al
-- IDleri olanları sil (ID shared preferences)
-- insert(news) haberleri yaz
-- Observe içerisinde: id'leri objeye al (üzerine new ile yaz)
-- UI'da sadece idleri olanları listele (`getNewsByIDs(ids)`)
-- Daha sonra oku: DB'ye state.later ve idlerden kaldır
-- Haber açıldığında:
-    - Read: okundu bilgisi state'e kaydedilecek
-    - ID'Lerden çıkarılmayacak
-    - Liked: eğer beğenildiyse kalp dolu olacak
-- Okunan haberler için alpha değeri `0.6` olacak
-- Uygulama internetsiz açılınca:
-    - ID'si olanları göster
+- 📶 Interne varsa:
+    -  API'den haber bilgileri alınır
+    - 💾 Room'a kaydedilir
+    - 🎳 Çok fazla veri oluşumunu engellemek adına veriler 400 ile sınırlıdır
+    - 👨‍💼 400'ü geçmesi duurmunda beğenme, kayıt edilme veya daha sonra oku gibi etkilere uğramayan son 200 haber silinir
+- 🗃️ Room içerisinden eski saklanan haberler çekilir
+    - 💡 Internet olmazsa direkt bu aşamadan başlar
+- 👁️ Observe yapısıyla veriler otomatik güncellenir
+- 👀 RecyclerView ile ekrana sistemi yormayacak şekilde basılır
+    - 📖 Okunmuş haberlerde soluk olma (alpha) efekti vardır
+    - 🕐 İsteğe bağlı haberler "daha sonra oku" ile etiketlenebilir
+- 📃 Haberlere tıklanması haline yeni Activity üzerinde işlemler yapılır
+    - 🌍 Seçili haberin bilgileri Globals sınıfı üzerinden diğer activity'e aktarılır
+        - 🎈 Bunun yapılmasındaki Intent'lere yüksek boyutlu veriler taşıtmamaktır
+    - 🧐 Haber sayfasında beğenme ve paylaşma özellikleri vardır
+        - 💖 Haberler açıldıklarında beğenme butonu ile beğenilebilir
+        - 🔀 Haberleri sağ üst köşeden paylaşabilirsiniz
+- 📌 Herhangi bir durumla işaretlenen haberler, saklanmaktadır
+- ✨ Tüm bu işlemlerin her biri room üzerinde tablolarda saklanmaktadır

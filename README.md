@@ -19,6 +19,8 @@
 - ✔️ Implicit Intent
 - ✔️ Contextual Action Bar Actions
 - ✔️ POJO & Relatio in RoomDB
+- ✔️ Interface & Lambda Functions
+
 
 ### ✍ Elle Yazılmış Notlar
 
