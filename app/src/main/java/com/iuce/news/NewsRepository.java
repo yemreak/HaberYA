@@ -46,6 +46,10 @@ public class NewsRepository {
         return allNewsWithState;
     }
 
+    public void deleteRow(int rowCount) {
+        doInBackground(() -> db.newsDao().deleteRow(rowCount));
+    }
+
     public void insertNews(News... news) {
         doInBackground(() -> db.newsDao().insert(news));
     }
@@ -62,7 +66,7 @@ public class NewsRepository {
         doInBackground(() -> db.newsDao().deleteByIDs(ids));
     }
 
-    public void doInBackground(DaoAsyncTask.BackgroundTaskInterface backgroundTaskInterface) {
+    private void doInBackground(DaoAsyncTask.BackgroundTaskInterface backgroundTaskInterface) {
         new DaoAsyncTask(backgroundTaskInterface).execute();
     }
 

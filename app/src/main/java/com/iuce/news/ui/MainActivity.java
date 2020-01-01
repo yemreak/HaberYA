@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+
     private NewsViewModel newsViewModel;
 
     public static final String TAG = "MainActivity";
