@@ -45,3 +45,8 @@
 
 - 🎳 Veri sayısı arttıkça sorguların maaliyeti artacaç
 - 📉 Veri tabanı sadeliğini kaybedecek
+
+### ⚙️ Shared Preferences Yapılmama Sebebi
+
+- 🔍 Sorgu işlemlerinin desteklenmemesi
+- 🚄 İnt yerine, int list ile uğraşılması (key / value mantığında değil)
