@@ -3,6 +3,7 @@ package com.iuce.news.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,9 @@ import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.viewmodel.NewsViewModel;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
+import java.util.ListIterator;
 
 public class NewsActivity extends AppCompatActivity {
     public static final String TAG = "NewsActivity";
@@ -108,14 +112,17 @@ public class NewsActivity extends AppCompatActivity {
 
 
     public void toggleLikeIcon(MenuItem item){
-        State state = new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED);
-        if (isLiked()){
-            newsViewModel.deleteStates(state);
-            item.setIcon(R.drawable.ic_favorite_border_white_24dp);
-        } else {
-            newsViewModel.insertStates(state);
-            item.setIcon(R.drawable.ic_favorite_white_24dp);
+        List<State> stateList = Globals.getInstance().getSelectedNewsWithState().getStates();
+
+        for (State state : stateList) {
+            if (state.getType() == State.TYPE_LIKED) {
+                newsViewModel.deleteStates(state);
+                item.setIcon(R.drawable.ic_favorite_border_white_24dp);
+                return;
+            }
         }
+        newsViewModel.insertStates(new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED));
+        item.setIcon(R.drawable.ic_favorite_white_24dp);
 
         Log.e(TAG, Globals.getInstance().getSelectedNewsWithState().getStates().toString());
     }
