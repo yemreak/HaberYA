@@ -15,18 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsViewModel extends AndroidViewModel {
-    private NewsRepository repository;
 
-    private LiveData<List<NewsWithState>> allNewWithState;
+    private NewsRepository repository;
 
     public NewsViewModel(Application application) {
         super(application);
-        repository = new NewsRepository(application);
-        allNewWithState = repository.getAllNewsWithState();
-    }
-
-    public LiveData<List<NewsWithState>> getAllNewsWithState() {
-        return allNewWithState;
+        repository = NewsRepository.getInstance(application);
     }
 
     public void deleteNewsByIDList(Long... idList) {
