@@ -24,19 +24,26 @@ public class ReactedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_reacted);
         Intent intent = getIntent();
         TYPE = intent.getExtras().getInt("stype", -1);
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         initRecyclerView();
     }
     private void initRecyclerView() {
-        newsViewModel.getAllNewsWithState().observe(this, this::fillView);
+
+        if(TYPE != -1){
+            newsViewModel.getAllNewsWithStateByState(TYPE).observe(this, this::fillView);
+
+        }else{
+            newsViewModel.getAllNewsWithStateHasStates().observe(this, this::fillView);
+        }
+
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
-        RecyclerView recyclerView = findViewById(R.id.news_recycler_view);
-        NewsAdapter newsAdapter = new NewsAdapter(this, newsWithStateList);
+        RecyclerView recyclerView = findViewById(R.id.reacted_news_recycler_view);
+        ReactedAdapter newsAdapter = new ReactedAdapter(this, newsWithStateList);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -68,6 +75,7 @@ public class ReactedActivity extends AppCompatActivity {
     }
 
     public void switchContent(int type){
+        TYPE = type;
         initRecyclerView();
     }
 }

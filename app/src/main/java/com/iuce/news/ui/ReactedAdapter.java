@@ -1,7 +1,5 @@
 package com.iuce.news.ui;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,16 +25,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
+public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> {
     public static final String TAG = "Adapter";
 
     private NewsViewModel newsViewModel;
     private List<NewsWithState> newsWithStates;
     private Context context;
-    public NewsAdapter(Context context, List<NewsWithState> newsWithStateList) {
+    public ReactedAdapter(Context context, List<NewsWithState> newsWithStateList) {
         this.context = context;
         this.newsWithStates = newsWithStateList;
-        newsViewModel = new ViewModelProvider((MainActivity)context).get(NewsViewModel.class);
+        newsViewModel = new ViewModelProvider((ReactedActivity)context).get(NewsViewModel.class);
     }
 
     @NonNull
@@ -53,13 +51,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         holder.itemSource.setText(newsWithStates.get(position).getNews().getSource());
         holder.itemDate.setText(newsWithStates.get(position).getNews().getPublishedAt());
 
-        if(isRead(newsWithStates.get(position).getStates())){
+        /*if (newsWithStates.get(position).getNews().isRead()) {
             holder.rlMain.setAlpha(0.6f);
-        }
+        }*/
         if(isSaved( newsWithStates.get(position).getStates())){
             holder.imgBtn.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
         }else{
             holder.imgBtn.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
+
         }
         Picasso.get()
                 .load(Uri.parse(newsWithStates.get(position).getNews().getUrlToImage()))
@@ -67,7 +66,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
                 .centerCrop()
                 .into(holder.itemImage);
     }
-
 
     @Override
     public int getItemCount() {
@@ -100,13 +98,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
-
                     if(NewsAdapter.isSaved( newsWithStates.get(pos).getStates())){
                         v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-                        newsViewModel.deleteStates(state);
+                        //imgBtn.setImageResource(R.drawable.ic_add_read_later_black_24dp);
+                        // delete saved state fonksiyonu çağrılacak
                     }else{
                         v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
+                        State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
                         newsViewModel.insertStates(state);
                         Log.e(TAG, state.toString());
                     }
@@ -137,13 +135,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         }
         return false;
     }
-    public static boolean isRead(List<State> states){
-        for (State state : states) {
-            if (state.getType() == State.TYPE_READ) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 }
+
 
