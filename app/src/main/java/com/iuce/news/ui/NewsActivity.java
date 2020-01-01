@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -19,6 +20,8 @@ import com.iuce.news.viewmodel.NewsViewModel;
 import com.squareup.picasso.Picasso;
 
 public class NewsActivity extends AppCompatActivity {
+    public static final String TAG = "NewsActivity";
+
     private NewsViewModel newsViewModel;
 
     TextView source;
@@ -62,7 +65,6 @@ public class NewsActivity extends AppCompatActivity {
         description.setText(news.getDescription());
         content.setText(news.getContent());
         title.setText(news.getTitle());
-        
 
         // Details: https://stackoverflow.com/a/40440694
         Picasso.get()
@@ -77,6 +79,13 @@ public class NewsActivity extends AppCompatActivity {
          * https://google-developer-training.github.io/android-developer-fundamentals-course-concepts-v2/unit-2-user-experience/lesson-4-user-interaction/4-3-c-menus-and-pickers/4-3-c-menus-and-pickers.html
          */
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
+
+        if (isLiked()){
+            menu.findItem(R.id.fav_button).setIcon(R.drawable.ic_favorite_white_24dp);
+        } else {
+            menu.findItem(R.id.fav_button).setIcon(R.drawable.ic_favorite_border_white_24dp);
+        }
+
         return true;
     }
 
@@ -97,7 +106,29 @@ public class NewsActivity extends AppCompatActivity {
         }
     }
 
-    public void onReactClick(MenuItem item) {
-        // TODO: Reaction fonksiyonelliği buraya eklenecek
+    public void toggleLikeIcon(MenuItem item){
+        if (isLiked()){
+
+            item.setIcon(R.drawable.ic_favorite_border_white_24dp);
+            // delete like state fonksiyonu çağrılacak
+
+        } else {
+
+            item.setIcon(R.drawable.ic_favorite_white_24dp);
+            State state = new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED);
+            newsViewModel.insertState(state);
+
+        }
+
+        Log.e(TAG, Globals.getInstance().getSelectedNewsWithState().getStates().toString());
+    }
+
+    public boolean isLiked(){
+        for (State state : Globals.getInstance().getSelectedNewsWithState().getStates()) {
+            if (state.getType() == State.TYPE_LIKED) {
+                return true;
+            }
+        }
+        return false;
     }
 }
