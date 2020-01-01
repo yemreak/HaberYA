@@ -18,7 +18,7 @@ import java.util.List;
 public interface NewsWithStateDao {
 
     @Transaction
-    @Query("SELECT * FROM " + News.TABLE_NAME)
+    @Query("SELECT * FROM " + News.TABLE_NAME + " ORDER BY " + News.COLUMN_ID + " DESC")
     LiveData<List<NewsWithState>> getAllNewsWithState();
 
     @Transaction
