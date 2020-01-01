@@ -6,9 +6,6 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity(tableName = Feed.TABLE_NAME, indices = {@Index(value = Feed.COLUMN_NEWS_ID, unique = true)})
 public class Feed {
 
@@ -17,7 +14,7 @@ public class Feed {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NEWS_ID = "nid";
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = Feed.COLUMN_ID)
     private int id;
 
@@ -28,21 +25,7 @@ public class Feed {
             onDelete = ForeignKey.CASCADE
     )
     @ColumnInfo(name = Feed.COLUMN_NEWS_ID)
-    private long nid;
-
-    public Feed(long nid) {
-        this.nid = nid;
-    }
-
-    public static Feed[] Builder(Long[] newsIDs) {
-        List<Feed> feedList = new ArrayList<>();
-        for (Long nid : newsIDs) {
-            if (nid > 0) {
-                feedList.add(new Feed(nid));
-            }
-        }
-        return feedList.toArray(new Feed[0]);
-    }
+    private int nid;
 
     public int getId() {
         return id;
@@ -52,7 +35,7 @@ public class Feed {
         this.id = id;
     }
 
-    public long getNid() {
+    public int getNid() {
         return nid;
     }
 
