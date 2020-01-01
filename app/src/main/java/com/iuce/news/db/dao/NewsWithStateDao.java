@@ -22,18 +22,20 @@ public interface NewsWithStateDao {
     @Query("SELECT * FROM " + News.TABLE_NAME)
     LiveData<List<NewsWithState>> getAllNewsWithState();
 
-    // https://www.w3resource.com/sql/aggregate-functions/count-having.php
-    /*@Query(*/
-    /*        "DELETE FROM "*/
-    /*                + News.TABLE_NAME + " "*/
-    /*                + "WHERE " + News.COLUMN_ID + " NOT IN ("*/
-    /*                + "SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + " "*/
-    /*                + "WHERE " + State.COLUMN_TYPE + "= '" + State.NAME_FEED + "' "*/
-    /*                + "GROUP BY " + State.COLUMN_NEWS_ID + " HAVING Count(*) = 1"*/
-    /*                + ")"*/
+    @Transaction
+    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)")
+    LiveData<List<NewsWithState>> getNewsWithStateByIDs(Long... ids);
 
-    /*)*/
-    /*void deleteOnlyFeed();*/
+    // https://stackoverflow.com/q/51553855/9770490
+    @Query(
+            "DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
+                    + "SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + " "
+                    + "WHERE " + State.COLUMN_TYPE + " = " + State.TYPE_FEED
+                    + ")"
+
+    )
+    void deleteOnlyFeed();
+
 
     /*@Transaction
     @TypeConverter

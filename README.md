@@ -1,3 +1,4 @@
+
 # 📰 News-App
 
 📰⛅ Haber ve hava durumu uygulaması
@@ -17,6 +18,7 @@
 - ✔️ onClick Handler
 - ✔️ Implicit Intent
 - ✔️ Contextual Action Bar Actions
+- ✔️ POJO & Relatio in RoomDB
 
 ### ✍ Elle Yazılmış Notlar
 

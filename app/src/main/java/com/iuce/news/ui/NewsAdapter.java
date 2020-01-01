@@ -18,14 +18,14 @@ import com.iuce.news.R;
 import com.iuce.news.db.pojo.NewsWithState;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
-    private ArrayList<NewsWithState> newsWithStates;
+    private List<NewsWithState> newsWithStates;
     private Context context;
 
-    public NewsAdapter(Context context, ArrayList<NewsWithState> newsWithStateList) {
+    public NewsAdapter(Context context, List<NewsWithState> newsWithStateList) {
         this.context = context;
         this.newsWithStates = newsWithStateList;
     }
@@ -43,9 +43,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         holder.itemSource.setText(newsWithStates.get(position).getNews().getSource());
         holder.itemDate.setText(newsWithStates.get(position).getNews().getPublishedAt());
 
-        if (newsWithStates.get(position).getNews().isRead()) {
+        /*if (newsWithStates.get(position).getNews().isRead()) {
             holder.rlMain.setAlpha(0.6f);
-        }
+        }*/
 
         Picasso.get()
                 .load(Uri.parse(newsWithStates.get(position).getNews().getUrlToImage()))

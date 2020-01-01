@@ -9,7 +9,7 @@ import com.iuce.news.db.entity.State;
 import java.util.List;
 
 /**
- * @see <a href="https://developer.android.com/reference/androidx/room/Relation.html">Relation ~ Android</a>
+ * @see <a href="https://developer.android.com/training/data-storage/room/relationships">Relation ~ Android</a>
  */
 public class NewsWithState {
 

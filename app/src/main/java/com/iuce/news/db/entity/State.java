@@ -3,13 +3,13 @@ package com.iuce.news.db.entity;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 /**
- * @see <a href="https://android.jlelse.eu/android-architecture-components-room-relationships-bf473510c14a>Room Relarionships</a>
- * <a href="https://developer.android.com/reference/androidx/room/ForeignKey#childColumns()">Foreign Key</a>
+ * @see <a href="https://android.jlelse.eu/android-architecture-components-room-relationships-bf473510c14a"> Foreign Key</a>
  */
-@Entity(tableName = State.TABLE_NAME)
+@Entity(tableName = State.TABLE_NAME, indices = {@Index(value = State.COLUMN_NEWS_ID)})
 
 public class State {
 
@@ -19,13 +19,14 @@ public class State {
     public static final String COLUMN_NEWS_ID = "nid";
     public static final String COLUMN_TYPE = "type";
 
-    public static final int NAME_READ = 1;
-    public static final int NAME_LIKED = 2;
-    public static final int NAME_LATER = 3;
+    public static final int TYPE_READ = 1;
+    public static final int TYPE_LIKED = 2;
+    public static final int TYPE_LATER = 3;
+    public static final int TYPE_FEED = 0;
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
-    private int id;
+    private long id;
 
     @ForeignKey(
             entity = News.class,
@@ -34,32 +35,41 @@ public class State {
             onDelete = ForeignKey.CASCADE
     )
     @ColumnInfo(name = COLUMN_NEWS_ID)
-    private int nid;
+    private long nid;
 
     @ColumnInfo(name = COLUMN_TYPE)
-    private int type;
+    private long type;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getNid() {
+    public long getNid() {
         return nid;
     }
 
-    public void setNid(int nid) {
+    public void setNid(long nid) {
         this.nid = nid;
     }
 
-    public int getType() {
+    public long getType() {
         return type;
     }
 
+    public void setType(long type) {
+        this.type = type;
+    }
+
     public void setType(int type) {
+        this.type = type;
+    }
+
+    public State(long nid, long type) {
+        this.nid = nid;
         this.type = type;
     }
 

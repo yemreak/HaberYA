@@ -7,17 +7,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
+import com.iuce.news.db.NewsRoomDatabase;
 import com.iuce.news.db.dao.NewsDao;
 import com.iuce.news.db.dao.NewsWithStateDao;
 import com.iuce.news.db.dao.StateDao;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
+
+import java.util.List;
 
 /**
  * Details: https://android.yemreak.com/veriler/room-database#repository-yapisi
@@ -30,17 +28,15 @@ public class NewsRepository {
     private NewsWithStateDao newsWithStateDao;
     private StateDao stateDao;
 
-    private LiveData<List<News>> allNews;
     private LiveData<List<NewsWithState>> allNewsWithState;
 
     public NewsRepository(Application application) {
-        com.iuce.news.db.NewsRoomDatabase db = com.iuce.news.db.NewsRoomDatabase.getDatabase(application);
+        com.iuce.news.db.NewsRoomDatabase db = NewsRoomDatabase.getDatabase(application);
 
         newsDao = db.newsDao();
         newsWithStateDao = db.newsWithStateDao();
         stateDao = db.stateDao();
 
-        allNews = newsDao.getAllNews();
         allNewsWithState = newsWithStateDao.getAllNewsWithState();
     }
 
@@ -48,97 +44,106 @@ public class NewsRepository {
         return allNewsWithState;
     }
 
-    public void insertNews(News... news) {
-        new InsertNewsAsyncTask(newsDao).execute(news);
+/*
+
+    public LiveData<List<NewsWithState>> getNewsWithStateByIDs(Long... ids) {
+       new RepositoryAsyncTask<Long, Void, LiveData<List<NewsWithState>>>(
+               longs -> newsWithStateDao.getNewsWithStateByIDs(longs),
+               listLiveData -> Log.i("sad", "s")
+       ).execute(ids);
     }
+*/
 
     public void insertState(State... states) {
         new InsertStateAsyncTask(stateDao).execute(states);
     }
 
-    public void insertFeedNews(News... news) {
-        new InsertFeedNews(newsDao, stateDao).execute(news);
+    public void deleteNewsByIDList(Long... ids) {
+        new RepositoryAsyncTask<Long, Void>(
+                longs -> newsDao.deleteByIDs(ids),
+                null
+        ).execute(ids);
     }
 
-    public void delete() {
-        new DeleteAsyncTask(newsDao).execute();
+    public void insertNews(News... news) {
+        new RepositoryAsyncTask<News, Long[]>(
+                iNews -> {
+                    newsDao.insert(iNews);
+                    return null;
+                },
+                longs -> Globals.getInstance().setNewsIDList(longs)
+        ).execute(news);
     }
 
-    public void deleteOnlyFeed() {
-        new DeleteOnlyFeedAsyncTask(newsWithStateDao).execute();
-    }
-
-    private static class DeleteOnlyFeedAsyncTask extends AsyncTask<NewsWithState, Void, Void> {
-
-        private NewsWithStateDao newsWithStateDao;
-
-        DeleteOnlyFeedAsyncTask(NewsWithStateDao newsWithStateDao) {
-            this.newsWithStateDao = newsWithStateDao;
-        }
-
-        @Override
-        protected Void doInBackground(final NewsWithState... newsWithStates) {
-            newsWithStateDao.deleteOnlyFeed();
-            return null;
-        }
-    }
-
-    private static class DeleteAsyncTask extends AsyncTask<News, Void, Void> {
+    private static class InsertNewsAsyncTask extends AsyncTask<News, Void, Long[]> {
 
         private NewsDao newsDao;
 
-        DeleteAsyncTask(NewsDao newsDao) {
+        public InsertNewsAsyncTask(NewsDao newsDao) {
             this.newsDao = newsDao;
         }
 
         @Override
-        protected Void doInBackground(final News... news) {
-            newsDao.deleteAll();
+        protected Long[] doInBackground(News... news) {
+            return newsDao.insert(news);
+        }
+
+        @Override
+        protected void onPostExecute(Long[] ids) {
+            Globals.getInstance().setNewsIDList(ids);
+        }
+    }
+
+    private static class RepositoryAsyncTask<Params> extends AsyncTask<Params, Void,
+            Void> {
+
+        private BackgroundTaskInterface<Params> backgroundTaskInterface;
+
+        public interface BackgroundTaskInterface<Params> {
+            void doInBackground(Params... params);
+        }
+
+        public RepositoryAsyncTask(BackgroundTaskInterface<Params> backgroundTaskInterface) {
+            this.backgroundTaskInterface = backgroundTaskInterface;
+        }
+
+        @SafeVarargs
+        @Override
+        protected final Void doInBackground(Params... params) {
+            backgroundTaskInterface.doInBackground(params);
             return null;
         }
     }
 
-    private static class InsertFeedNews extends AsyncTask<News, Void, Void> {
+    private static class RepositoryAsyncTask<Params, Results> extends AsyncTask<Params, Void, Results> {
 
-        private NewsDao newsDao;
-        private StateDao stateDao;
+        private BackgroundTaskInterface<Params, Results> backgroundTaskInterface;
+        private PostExecuteInterface<Results> postExecuteInterface;
 
-        public InsertFeedNews(NewsDao newsDao, StateDao stateDao) {
-            this.newsDao = newsDao;
-            this.stateDao = stateDao;
+        public interface BackgroundTaskInterface<Params, Results> {
+            Results doInBackground(Params... params);
+        }
+
+
+        public interface PostExecuteInterface<Results> {
+            void onPostExecute(Results results);
+        }
+
+        public RepositoryAsyncTask(BackgroundTaskInterface<Params, Results> backgroundTaskInterface,
+                                   PostExecuteInterface<Results> postExecuteInterface) {
+            this.backgroundTaskInterface = backgroundTaskInterface;
+            this.postExecuteInterface = postExecuteInterface;
+        }
+
+        @SafeVarargs
+        @Override
+        protected final Results doInBackground(Params... params) {
+            return backgroundTaskInterface.doInBackground(params);
         }
 
         @Override
-        protected Void doInBackground(final News... news) {
-            ArrayList<State> stateList = new ArrayList<>();
-
-            newsDao.insert(news);
-            // TODO: Sorunlu, verileri bulamıyor. null döndürüyor
-            for (News aNews : Objects.requireNonNull(newsDao.getAllNews().getValue())) {
-                stateList.add(
-                        new State(
-                        aNews.getId(),
-                        State.NAME_FEED
-                ));
-            }
-
-            stateDao.insert(stateList.toArray(new State[0]));
-            return null;
-        }
-    }
-
-    private static class InsertNewsAsyncTask extends AsyncTask<News, Void, Void> {
-
-        private NewsDao newsDao;
-
-        InsertNewsAsyncTask(NewsDao newsDao) {
-            this.newsDao = newsDao;
-        }
-
-        @Override
-        protected Void doInBackground(final News... news) {
-            newsDao.insert(news);
-            return null;
+        protected void onPostExecute(Results results) {
+            postExecuteInterface.onPostExecute(results);
         }
     }
 
@@ -157,6 +162,21 @@ public class NewsRepository {
             for (State state : states) {
                 Log.d(TAG, "InsertStateAsyncTask: " + state);
             }
+            return null;
+        }
+    }
+
+    private static class DeleteNewsByIDListAsyncTask extends AsyncTask<Long, Void, Void> {
+
+        private NewsDao newsDao;
+
+        public DeleteNewsByIDListAsyncTask(NewsDao newsDao) {
+            this.newsDao = newsDao;
+        }
+
+        @Override
+        protected Void doInBackground(Long... ids) {
+            newsDao.deleteByIDs(ids);
             return null;
         }
     }

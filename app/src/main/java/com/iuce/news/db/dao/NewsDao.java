@@ -2,6 +2,7 @@ package com.iuce.news.db.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -20,17 +21,20 @@ public interface NewsDao {
     /**
      * Aynı URL değerine sahip haberleri eklemez (atlar)
      * @param news Haber objesi {@link News}
+     * @return Eklenen haberlerin ID'si @see <a href="https://stackoverflow.com/a/44364516/9770490">Android Room - Get the id of new inserted row with auto-generate</a>
      */
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(News... news);
+    Long[] insert(News... news);
 
-    // Update multiple entries with one call.
-    @Update
-    void updateNews(News... news);
+    @Query("DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:idList)")
+    void deleteByIDs(Long... idList);
 
-    // Simple query that does not take parameters and returns nothing.
+    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)")
+    LiveData<News> getByIDs(Long... ids);
+
+    /*// Simple query that does not take parameters and returns nothing.
     @Query("DELETE FROM " + News.TABLE_NAME)
-    void deleteAll();
+    void deleteAll();*/
 
     // Simple query without parameters that returns values.
     @Query("SELECT * from " + News.TABLE_NAME + " ORDER BY " + News.COLUMN_ID + " ASC")
@@ -38,9 +42,6 @@ public interface NewsDao {
 
     @Query("DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " = :id")
     void delete(int id);
-
-    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " = :id")
-    LiveData<News> getById(int id);
 
     // Query with parameter that returns a specific news or news.
     @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_TITLE + " LIKE :" + News.COLUMN_TITLE + " ")

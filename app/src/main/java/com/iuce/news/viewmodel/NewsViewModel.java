@@ -29,15 +29,15 @@ public class NewsViewModel extends AndroidViewModel {
         return allNewWithState;
     }
 
-    public void insertFeedNews(News... news) {
-        repository.insertFeedNews(news);
+    public void deleteNewsByIDList(Long... idList) {
+        repository.deleteNewsByIDList(idList);
+    }
+
+    public void insertNews(News... news) {
+        repository.insertNews(news);
     }
 
     public void insertState(State... states) {
         repository.insertState(states);
-    }
-
-    public void deleteOnlyFeed() {
-        repository.deleteOnlyFeed();
     }
 }

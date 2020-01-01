@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class NewsAPI {
@@ -50,7 +51,7 @@ public class NewsAPI {
                 if (status.equals("ok")) {
                     JSONArray articles = new JSONObject(response).getJSONArray("articles");
 
-                    ArrayList<News> newsDataList = new ArrayList<>();
+                    List<News> newsDataList = new ArrayList<>();
                     for (int i = 0; i < articles.length(); i++) {
                         JSONObject article = articles.getJSONObject(i);
 
@@ -79,6 +80,6 @@ public class NewsAPI {
     }
 
     public interface ResponseListener {
-        void onResponse(ArrayList<News> newsDataList);
+        void onResponse(List<News> newsDataList);
     }
 }
