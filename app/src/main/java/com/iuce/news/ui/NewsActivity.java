@@ -116,7 +116,7 @@ public class NewsActivity extends AppCompatActivity {
 
             item.setIcon(R.drawable.ic_favorite_white_24dp);
             State state = new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED);
-            newsViewModel.insertState(state);
+            newsViewModel.insertStates(state);
 
         }
 
