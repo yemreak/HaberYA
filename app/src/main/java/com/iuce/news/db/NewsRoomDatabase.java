@@ -9,13 +9,14 @@ import androidx.room.RoomDatabase;
 import com.iuce.news.db.dao.NewsDao;
 import com.iuce.news.db.dao.NewsWithStateDao;
 import com.iuce.news.db.dao.StateDao;
+import com.iuce.news.db.entity.Feed;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 
 /**
  * Details: https://android.yemreak.com/veriler/room-database#room-database
  */
-@Database(entities = {News.class, State.class}, version = 6, exportSchema =
+@Database(entities = {News.class, State.class, Feed.class}, version = 6, exportSchema =
         false)
 public abstract class NewsRoomDatabase extends RoomDatabase {
 
