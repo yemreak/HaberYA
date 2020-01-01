@@ -20,8 +20,12 @@
 
 ### 💠 Metotlar
 
-- insertState(nid, type)`
-- `getStates(nid)`
+| Metot | Açıklama |
+|-|-|
+| `insert` | Durum ekleme
+| `delete`| Durum silme
+
+> 💡 Durumlar: Beğenme, kaydetme, okunma
 
 ## 📰 News
 
@@ -29,15 +33,29 @@
 
 ### 💠 Metotlar
 
-- `deleteByID(ids)`
-- `insertNews(news)`
--  `getNewsByIDs(ids)`
+| Metot | Açıklama |
+|-|-|
+| `deleteRow` | Belirli sayıdaki ilk kaydedilen haber kayıtlarını siler
+| `deleteByIDs`| Haberleri ID'sine göre silme
+| `insert` | Haberleri ekleme
+| `getByIDs` | Haberleri ID'sine göre alma
+
 
 ## 🐣 NewsWithState
 
-- `getNewsByState(stype)`
+- 🔗 News ve State tablolarını `@Relation` yapısı ile bağlamaktadır
+- 🚧 Tüm metotları `@Transaction` özelliğine sahiptir
+- ⭐ Haber ve haberin durum verilerini almak için tanımlanmıştır
 
-> 💡 `SavedNews` ismi `NewsWithState` olarak ele alınabilir.
+### 💠 Metotlar
+
+| Metot | Açıklama |
+| - | - |
+| `getALlNewsWithState()` | Tüm haberleri durumları ile alır
+| `getNewsWithStateByState(stateType)` | Duruma göre haberleri duurmları ile alır
+| `getAllNewsWithStateHasStates()` | Duruma sahip olan haberleri alır
+
+> 💡 Durumlar: Beğenme, kaydetme, okunma
 
 ## 📝 DB Notları
 
