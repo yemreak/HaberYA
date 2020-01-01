@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iuce.news.api.NewsAPI;
 import com.iuce.news.R;
+import com.iuce.news.api.NewsAPI;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.pojo.NewsWithState;
 import com.iuce.news.viewmodel.NewsViewModel;
