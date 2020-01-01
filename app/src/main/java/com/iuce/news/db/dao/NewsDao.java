@@ -43,7 +43,4 @@ public interface NewsDao {
             + " ORDER BY " + News.COLUMN_ID + " ASC LIMIT :rowCount )"
     )
     void deleteRow(int rowCount);
-
-    @Query("SELECT COUNT(*) FROM " + News.TABLE_NAME)
-    LiveData<Integer> getCount();
 }

@@ -24,5 +24,4 @@ public interface NewsWithStateDao {
     @Transaction
     @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)")
     LiveData<List<NewsWithState>> getNewsWithStateByIDs(Long... ids);
-
 }
