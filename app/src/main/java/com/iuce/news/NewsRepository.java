@@ -42,6 +42,15 @@ public class NewsRepository {
         return instance;
     }
 
+    public LiveData<List<NewsWithState>> getNewsWithStateByState(int stateType) {
+        return db.newsWithStateDao().getNewsWithStateByState(stateType);
+    }
+
+    public LiveData<List<NewsWithState>> getAllNewsWithStateHasStates() {
+        return db.newsWithStateDao().getAllNewsWithStateHasStates();
+    }
+
+
     public LiveData<List<NewsWithState>> getAllNewsWithState() {
         return allNewsWithState;
     }

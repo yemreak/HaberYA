@@ -28,6 +28,7 @@ public class NewsViewModel extends AndroidViewModel {
     public NewsViewModel(Application application) {
         super(application);
         repository = NewsRepository.getInstance(application);
+
         allNewsWithState = repository.getAllNewsWithState();
 }
 
@@ -60,6 +61,14 @@ public class NewsViewModel extends AndroidViewModel {
 
     public LiveData<List<NewsWithState>> getAllNewsWithState() {
         return allNewsWithState;
+    }
+
+    public LiveData<List<NewsWithState>> getAllNewsWithStateHasStates() {
+        return repository.getAllNewsWithStateHasStates();
+    }
+
+    public LiveData<List<NewsWithState>> getAllNewsWithStateByState(int stateType) {
+        return repository.getNewsWithStateByState(stateType);
     }
 
     public void deleteNewsByIDList(Long... idList) {

@@ -6,6 +6,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.iuce.news.db.entity.News;
+import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 
 import java.util.List;
@@ -24,4 +25,17 @@ public interface NewsWithStateDao {
     @Transaction
     @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)")
     LiveData<List<NewsWithState>> getNewsWithStateByIDs(Long... ids);
+
+    @Transaction
+    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
+            + "SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + " WHERE "
+            + State.COLUMN_TYPE + " = :stateType )"
+    )
+    LiveData<List<NewsWithState>> getNewsWithStateByState(int stateType);
+
+    @Transaction
+    @Query("SElECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
+            + "SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + ")"
+    )
+    LiveData<List<NewsWithState>> getAllNewsWithStateHasStates();
 }
