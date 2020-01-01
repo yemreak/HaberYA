@@ -23,9 +23,9 @@ public class NewsAPI {
     private static final String[] API_KEYS = {"cf9168e3e5ff4e8987492262f92632fb", "f82c72913e944b0c838e24a52e90db8c"}; // Not secure!
     private static final String URL_TEMPLATE = "https://newsapi.org/v2/top-headlines?country=tr&apiKey=%s";
 
-
     /**
      * Gets URL
+     *
      * @return Generated {@link #URL_TEMPLATE} with a random {@link #API_KEYS}
      */
     private static String generateURL() {
@@ -55,7 +55,7 @@ public class NewsAPI {
                     for (int i = 0; i < articles.length(); i++) {
                         JSONObject article = articles.getJSONObject(i);
 
-                        News news =  new News(
+                        News news = new News(
                                 article.getString("title"),
                                 article.getString("description"),
                                 article.getString("urlToImage"),
