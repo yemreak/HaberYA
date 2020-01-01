@@ -106,18 +106,29 @@ public class NewsActivity extends AppCompatActivity {
         }
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.get_all_reacted_but:
+                switchContent(-1);
+                return true;
+            case R.id.get_liked_but:
+                switchContent(State.TYPE_LIKED);
+                return true;
+            case R.id.get_saved_but:
+                switchContent(State.TYPE_LATER);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    
     public void toggleLikeIcon(MenuItem item){
+        State state = new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED);
         if (isLiked()){
-
+            newsViewModel.deleteStates(state);
             item.setIcon(R.drawable.ic_favorite_border_white_24dp);
-            // delete like state fonksiyonu çağrılacak
-
         } else {
-
-            item.setIcon(R.drawable.ic_favorite_white_24dp);
-            State state = new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED);
             newsViewModel.insertStates(state);
-
+            item.setIcon(R.drawable.ic_favorite_white_24dp);
         }
 
         Log.e(TAG, Globals.getInstance().getSelectedNewsWithState().getStates().toString());
