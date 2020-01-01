@@ -2,17 +2,14 @@ package com.iuce.news;
 
 import android.app.Application;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import com.iuce.news.db.NewsRoomDatabase;
-import com.iuce.news.db.entity.Feed;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,53 +46,42 @@ public class NewsRepository {
         return allNewsWithState;
     }
 
+    public void insertNews(News... news) {
+        async(db.newsDao()::insert);
+        new DaoAsyncTask(() -> db.newsDao().insert(news)).execute();
+    }
+
     public void insertStates(State... states) {
-        new DaoAsyncTask<State>(
-                iStates -> db.stateDao().insert(states)
-        ).execute(states);
+        async(db.stateDao()::insert);
     }
 
     public void deleteStates(State... states) {
-        new DaoAsyncTask<State>(
-                states1 -> db.stateDao().delete(states)
-        ).execute(states);
+        async(db.stateDao()::delete);
     }
 
     public void deleteNewsByIDList(Long... ids) {
-        new DaoAsyncTask<Long>(
-                longs -> db.newsDao().deleteByIDs(ids)
-        ).execute(ids);
+        async(db.newsDao()::deleteByIDs);
     }
 
-    public void insertFeed(News... news) {
-        new DaoWithResultAsyncTask<News, Long[]>(
-                news1 -> db.newsDao().insert(news),
-                longs -> {
-                    Log.i(TAG, "insertNews: News IDs" + Arrays.toString(longs));
-                    new DaoAsyncTask<Long>(
-                            longs1 -> db.feedDao().insert(Feed.Builder(longs))
-                    ).execute(longs);
-                }
-        ).execute(news);
+    public void async(DaoAsyncTask.BackgroundTaskInterface backgroundTaskInterface) {
+        new DaoAsyncTask(backgroundTaskInterface).execute();
     }
 
-    private static final class DaoAsyncTask<Params> extends AsyncTask<Params, Void,
-            Void> {
+    private static final class DaoAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        private BackgroundTaskInterface<Params> backgroundTaskInterface;
+        private BackgroundTaskInterface backgroundTaskInterface;
 
-        public interface BackgroundTaskInterface<Params> {
-            void doInBackground(Params... params);
+        public interface BackgroundTaskInterface {
+            void doInBackground();
         }
 
-        public DaoAsyncTask(BackgroundTaskInterface<Params> backgroundTaskInterface) {
+        public DaoAsyncTask(BackgroundTaskInterface backgroundTaskInterface) {
             this.backgroundTaskInterface = backgroundTaskInterface;
         }
 
-        @SafeVarargs
         @Override
-        protected final Void doInBackground(Params... params) {
-            backgroundTaskInterface.doInBackground(params);
+        protected final Void doInBackground(Void... voids) {
+            backgroundTaskInterface.doInBackground();
             return null;
         }
     }

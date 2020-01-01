@@ -2,14 +2,10 @@ package com.iuce.news.db.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Transaction;
-import androidx.room.Update;
 
-import com.iuce.news.db.entity.Feed;
 import com.iuce.news.db.entity.News;
 
 import java.util.List;
@@ -35,17 +31,6 @@ public interface NewsDao {
     @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)")
     LiveData<News> getByIDs(Long... ids);
 
-    @Query("SELECT * FROM "
-            + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
-            + "SELECT " + Feed.COLUMN_NEWS_ID + " FROM " + Feed.TABLE_NAME
-            + ")"
-    )
-    LiveData<News> getAllFeed();
-
-    @Query("DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (" +
-            "SELECT " + Feed.COLUMN_NEWS_ID + " FROM " + Feed.TABLE_NAME
-            + " )")
-    void deleteAllFeed();
 
     /*// Simple query that does not take parameters and returns nothing.
     @Query("DELETE FROM " + News.TABLE_NAME)

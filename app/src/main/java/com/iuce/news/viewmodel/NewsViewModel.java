@@ -29,7 +29,7 @@ public class NewsViewModel extends AndroidViewModel {
     }
 
     public void insertNews(News... news) {
-        repository.insertFeed(news);
+        repository.insertNews(news);
     }
 
     public void insertStates(State... states) {
