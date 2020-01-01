@@ -7,8 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.iuce.news.db.entity.News;
-
-import java.util.List;
+import com.iuce.news.db.entity.State;
 
 /**
  * Details: https://android.yemreak.com/veriler/room-database#dao-yapisi
@@ -31,19 +30,20 @@ public interface NewsDao {
     @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)")
     LiveData<News> getByIDs(Long... ids);
 
+    /**
+     * Haberler tablosundan ilk eklenen kayıtları silme
+     *
+     * @param rowCount Silenecek satır sayısı
+     * @see <a href="https://stackoverflow.com/a/9800582/9770490">Delete first N rows in android sqlite database</a>
+     */
+    @Query("DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
+            + "SELECT " + News.COLUMN_ID + " FROM " + News.TABLE_NAME + " WHERE NOT EXISTS ("
+            + "SELECT * FROM " + State.TABLE_NAME + " WHERE " + State.COLUMN_NEWS_ID + " = "
+            + News.COLUMN_ID + ") "
+            + " ORDER BY " + News.COLUMN_ID + " ASC LIMIT :rowCount )"
+    )
+    void deleteRow(int rowCount);
 
-    /*// Simple query that does not take parameters and returns nothing.
-    @Query("DELETE FROM " + News.TABLE_NAME)
-    void deleteAll();*/
-
-    // Simple query without parameters that returns values.
-    @Query("SELECT * from " + News.TABLE_NAME + " ORDER BY " + News.COLUMN_ID + " ASC")
-    LiveData<List<News>> getAll();
-
-    @Query("DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " = :id")
-    void delete(int id);
-
-    // Query with parameter that returns a specific news or news.
-    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_TITLE + " LIKE :" + News.COLUMN_TITLE + " ")
-    LiveData<List<News>> findByTitle(String title);
+    @Query("SELECT COUNT(*) FROM " + News.TABLE_NAME)
+    LiveData<Integer> getCount();
 }
