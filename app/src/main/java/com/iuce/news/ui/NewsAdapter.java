@@ -100,16 +100,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
-
-                    if(NewsAdapter.isSaved( newsWithStates.get(pos).getStates())){
-                        v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-                        newsViewModel.deleteStates(state);
-                    }else{
-                        v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
-                        newsViewModel.insertStates(state);
-                        Log.e(TAG, state.toString());
+                    //State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
+                    List<State> stateList = newsWithStates.get(pos).getStates();
+                    for (State state : stateList) {
+                        if (state.getType() == State.TYPE_LATER) {
+                            newsViewModel.deleteStates(state);
+                            v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
+                            return;
+                        }
                     }
+                    newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER));
+                    v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
 
                 }
             });

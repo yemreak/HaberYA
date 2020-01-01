@@ -98,16 +98,17 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    if(NewsAdapter.isSaved( newsWithStates.get(pos).getStates())){
-                        v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-                        //imgBtn.setImageResource(R.drawable.ic_add_read_later_black_24dp);
-                        // delete saved state fonksiyonu çağrılacak
-                    }else{
-                        v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
-                        State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
-                        newsViewModel.insertStates(state);
-                        Log.e(TAG, state.toString());
+                    //State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
+                    List<State> stateList = newsWithStates.get(pos).getStates();
+                    for (State state : stateList) {
+                        if (state.getType() == State.TYPE_LATER) {
+                            newsViewModel.deleteStates(state);
+                            v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
+                            return;
+                        }
                     }
+                    newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER));
+                    v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
 
                 }
             });
