@@ -56,7 +56,7 @@ public class NewsRepository {
     }
 
     public LiveData<List<NewsWithState>> getNewsWithStateByIDs(Integer... stateIds) {
-        doInBackground(() -> db.newsWithStateDao().getNewsWithStateByIDs(stateIds));
+       return db.newsWithStateDao().getNewsWithStateByIDs(stateIds);
     }
 
     public void deleteRow(int rowCount) {
