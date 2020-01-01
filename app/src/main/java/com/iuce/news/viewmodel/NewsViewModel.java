@@ -71,6 +71,10 @@ public class NewsViewModel extends AndroidViewModel {
         return repository.getNewsWithStateByState(stateType);
     }
 
+    public LiveData<List<NewsWithState>> getNewsWithStateByIDs(Integer... stateIds) {
+        return repository.getNewsWithStateByIDs(stateIds);
+    }
+
     public void deleteNewsByIDList(Long... idList) {
         repository.deleteNewsByIDList(idList);
     }
