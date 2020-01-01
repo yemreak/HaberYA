@@ -2,14 +2,17 @@ package com.iuce.news;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import com.iuce.news.db.NewsRoomDatabase;
+import com.iuce.news.db.entity.Feed;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,13 +49,15 @@ public class NewsRepository {
         return allNewsWithState;
     }
 
-    public void getNewsByIDs(Long... ids) {
-        // TODO: Shared mı yoksa roomDB mi karar verilmeli
-    }
-
-    public void insertState(State... states) {
+    public void insertStates(State... states) {
         new DaoAsyncTask<State>(
                 iStates -> db.stateDao().insert(states)
+        ).execute(states);
+    }
+
+    public void deleteStates(State... states) {
+        new DaoAsyncTask<State>(
+                states1 -> db.stateDao().delete(states)
         ).execute(states);
     }
 
@@ -62,10 +67,15 @@ public class NewsRepository {
         ).execute(ids);
     }
 
-    public void insertNews(News... news) {
+    public void insertFeed(News... news) {
         new DaoWithResultAsyncTask<News, Long[]>(
-                iNews -> db.newsDao().insert(iNews),
-                longs -> Globals.getInstance().setNewsIDList(longs)
+                news1 -> db.newsDao().insert(news),
+                longs -> {
+                    Log.i(TAG, "insertNews: News IDs" + Arrays.toString(longs));
+                    new DaoAsyncTask<Long>(
+                            longs1 -> db.feedDao().insert(Feed.Builder(longs))
+                    ).execute(longs);
+                }
         ).execute(news);
     }
 

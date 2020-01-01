@@ -1,7 +1,6 @@
 package com.iuce.news.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -11,7 +10,6 @@ import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewsViewModel extends AndroidViewModel {
@@ -24,7 +22,6 @@ public class NewsViewModel extends AndroidViewModel {
         super(application);
         repository = NewsRepository.getInstance(application);
         allNewsWithState = repository.getAllNewsWithState();
-
     }
 
     public void deleteNewsByIDList(Long... idList) {
@@ -32,11 +29,15 @@ public class NewsViewModel extends AndroidViewModel {
     }
 
     public void insertNews(News... news) {
-        repository.insertNews(news);
+        repository.insertFeed(news);
     }
 
-    public void insertState(State... states) {
-        repository.insertState(states);
+    public void insertStates(State... states) {
+        repository.insertStates(states);
+    }
+
+    public void deleteStates(State... states) {
+        repository.deleteStates(states);
     }
 
     public LiveData<List<NewsWithState>> getAllNewsWithState() {

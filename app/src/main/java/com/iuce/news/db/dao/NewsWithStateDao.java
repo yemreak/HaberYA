@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.iuce.news.db.entity.Feed;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
@@ -26,23 +27,11 @@ public interface NewsWithStateDao {
     @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)")
     LiveData<List<NewsWithState>> getNewsWithStateByIDs(Long... ids);
 
-    // https://stackoverflow.com/q/51553855/9770490
-    @Query(
-            "DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
-                    + "SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + " "
-                    + "WHERE " + State.COLUMN_TYPE + " = " + State.TYPE_FEED
-                    + ")"
-
+    @Transaction
+    @Query("SELECT * FROM "
+            + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
+            + "SELECT " + Feed.COLUMN_NEWS_ID + " FROM " + Feed.TABLE_NAME
+            + ")"
     )
-    void deleteOnlyFeed();
-
-
-    /*@Transaction
-    @TypeConverter
-    @Query("SELECT * FROM " + News.TABLE_NAME + ", " + State.TABLE_NAME + " WHERE " + State.COLUMN_TYPE +
-            "= " + ":stateName")
-    LiveData<List<NewsWithState>> getAllNewsWithStateByState(State stateName);
-
-    @Query("SELECT " + State.COLUMN_TYPE + " FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + "= :nid")
-    public LiveData<List<NewsWithState>> getNewsWithStateByNid(int nid);*/
+    LiveData<List<NewsWithState>> getAllFeedWithState();
 }

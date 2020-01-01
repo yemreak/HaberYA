@@ -37,7 +37,7 @@ public class NewsActivity extends AppCompatActivity {
         fillView();
 
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        newsViewModel.insertState(
+        newsViewModel.insertStates(
                 new State(
                         Globals.getInstance().getSelectedNewsWithState().getNews().getId(),
                         State.TYPE_READ
