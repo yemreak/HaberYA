@@ -107,7 +107,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
                     }else{
                         v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
                         State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
-                        newsViewModel.insertState(state);
+                        newsViewModel.insertStates(state);
                         Log.e(TAG, state.toString());
                     }
 

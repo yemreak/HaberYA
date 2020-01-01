@@ -14,20 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iuce.news.Globals;
-import com.iuce.news.api.NewsAPI;
 import com.iuce.news.R;
+import com.iuce.news.api.NewsAPI;
 import com.iuce.news.db.entity.News;
-import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 import com.iuce.news.viewmodel.NewsViewModel;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+
     private NewsViewModel newsViewModel;
 
     public static final String TAG = "MainActivity";
@@ -58,11 +55,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveToDB(List<News> newsList) {
-        Long[] newsIDList = Globals.getInstance().getNewsIDList();
-        if (newsIDList != null) {
-            newsViewModel.deleteNewsByIDList(newsIDList);
-        }
-
         newsViewModel.insertNews(newsList.toArray(new News[0]));
     }
 

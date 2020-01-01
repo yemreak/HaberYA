@@ -2,15 +2,12 @@ package com.iuce.news.db.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import com.iuce.news.db.entity.News;
-
-import java.util.List;
+import com.iuce.news.db.entity.State;
 
 /**
  * Details: https://android.yemreak.com/veriler/room-database#dao-yapisi
@@ -20,6 +17,7 @@ public interface NewsDao {
 
     /**
      * Aynı URL değerine sahip haberleri eklemez (atlar)
+     *
      * @param news Haber objesi {@link News}
      * @return Eklenen haberlerin ID'si @see <a href="https://stackoverflow.com/a/44364516/9770490">Android Room - Get the id of new inserted row with auto-generate</a>
      */
@@ -32,18 +30,17 @@ public interface NewsDao {
     @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)")
     LiveData<News> getByIDs(Long... ids);
 
-    /*// Simple query that does not take parameters and returns nothing.
-    @Query("DELETE FROM " + News.TABLE_NAME)
-    void deleteAll();*/
-
-    // Simple query without parameters that returns values.
-    @Query("SELECT * from " + News.TABLE_NAME + " ORDER BY " + News.COLUMN_ID + " ASC")
-    LiveData<List<News>> getAllNews();
-
-    @Query("DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " = :id")
-    void delete(int id);
-
-    // Query with parameter that returns a specific news or news.
-    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_TITLE + " LIKE :" + News.COLUMN_TITLE + " ")
-    LiveData<List<News>> findNewsByTitle(String title);
+    /**
+     * Haberler tablosundan ilk eklenen kayıtları silme
+     *
+     * @param rowCount Silenecek satır sayısı
+     * @see <a href="https://stackoverflow.com/a/9800582/9770490">Delete first N rows in android sqlite database</a>
+     */
+    @Query("DELETE FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
+            + "SELECT " + News.COLUMN_ID + " FROM " + News.TABLE_NAME + " WHERE NOT EXISTS ("
+            + "SELECT * FROM " + State.TABLE_NAME + " WHERE " + State.COLUMN_NEWS_ID + " = "
+            + News.COLUMN_ID + ") "
+            + " ORDER BY " + News.COLUMN_ID + " ASC LIMIT :rowCount )"
+    )
+    void deleteRow(int rowCount);
 }

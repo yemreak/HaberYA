@@ -9,7 +9,8 @@ import androidx.room.PrimaryKey;
 /**
  * @see <a href="https://android.jlelse.eu/android-architecture-components-room-relationships-bf473510c14a"> Foreign Key</a>
  */
-@Entity(tableName = State.TABLE_NAME, indices = {@Index(value = State.COLUMN_NEWS_ID)})
+@Entity(tableName = State.TABLE_NAME, indices = {@Index(value = {State.COLUMN_ID,
+        State.COLUMN_NEWS_ID}, unique = true)})
 
 public class State {
 
@@ -22,7 +23,6 @@ public class State {
     public static final int TYPE_READ = 1;
     public static final int TYPE_LIKED = 2;
     public static final int TYPE_LATER = 3;
-    public static final int TYPE_FEED = 0;
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)

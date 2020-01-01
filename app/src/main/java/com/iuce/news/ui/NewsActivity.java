@@ -1,8 +1,5 @@
 package com.iuce.news.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.iuce.news.Globals;
 import com.iuce.news.R;
@@ -40,7 +40,7 @@ public class NewsActivity extends AppCompatActivity {
         fillView();
 
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        newsViewModel.insertState(
+        newsViewModel.insertStates(
                 new State(
                         Globals.getInstance().getSelectedNewsWithState().getNews().getId(),
                         State.TYPE_READ
@@ -116,7 +116,7 @@ public class NewsActivity extends AppCompatActivity {
 
             item.setIcon(R.drawable.ic_favorite_white_24dp);
             State state = new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED);
-            newsViewModel.insertState(state);
+            newsViewModel.insertStates(state);
 
         }
 

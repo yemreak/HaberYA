@@ -11,12 +11,17 @@ import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class NewsViewModel extends AndroidViewModel {
 
     private NewsRepository repository;
+
+    public static final String TAG = "NewsViewModel";
+
+    public static final int LIMIT_NEWS = 400;
+    public static final int COUNT_DEL = 200;
 
     private LiveData<List<NewsWithState>> allNewsWithState;
 
@@ -24,22 +29,41 @@ public class NewsViewModel extends AndroidViewModel {
         super(application);
         repository = NewsRepository.getInstance(application);
         allNewsWithState = repository.getAllNewsWithState();
+}
 
+    public void insertNews(News... news) {
+        clearDB();
+        repository.insertNews(news);
+    }
+
+    public void clearDB() {
+        try {
+            int size = Objects.requireNonNull(allNewsWithState.getValue()).size();
+            Log.d(TAG, "clearDB: News count: " + size);
+
+            if (size >= LIMIT_NEWS) {
+                Log.d(TAG, "clearDB: News deletion has been started.");
+                repository.deleteRow(COUNT_DEL);
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertStates(State... states) {
+        repository.insertStates(states);
+    }
+
+    public void deleteStates(State... states) {
+        repository.deleteStates(states);
+    }
+
+    public LiveData<List<NewsWithState>> getAllNewsWithState() {
+        return allNewsWithState;
     }
 
     public void deleteNewsByIDList(Long... idList) {
         repository.deleteNewsByIDList(idList);
     }
 
-    public void insertNews(News... news) {
-        repository.insertNews(news);
-    }
-
-    public void insertState(State... states) {
-        repository.insertState(states);
-    }
-
-    public LiveData<List<NewsWithState>> getAllNewsWithState() {
-        return allNewsWithState;
-    }
 }

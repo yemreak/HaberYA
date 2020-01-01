@@ -46,46 +46,45 @@ public class NewsRepository {
         return allNewsWithState;
     }
 
-    public void getNewsByIDs(Long... ids) {
-        // TODO: Shared mı yoksa roomDB mi karar verilmeli
-    }
-
-    public void insertState(State... states) {
-        new DaoAsyncTask<State>(
-                iStates -> db.stateDao().insert(states)
-        ).execute(states);
-    }
-
-    public void deleteNewsByIDList(Long... ids) {
-        new DaoAsyncTask<Long>(
-                longs -> db.newsDao().deleteByIDs(ids)
-        ).execute(ids);
+    public void deleteRow(int rowCount) {
+        doInBackground(() -> db.newsDao().deleteRow(rowCount));
     }
 
     public void insertNews(News... news) {
-        new DaoWithResultAsyncTask<News, Long[]>(
-                iNews -> db.newsDao().insert(iNews),
-                longs -> Globals.getInstance().setNewsIDList(longs)
-        ).execute(news);
+        doInBackground(() -> db.newsDao().insert(news));
     }
 
-    private static final class DaoAsyncTask<Params> extends AsyncTask<Params, Void,
-            Void> {
+    public void insertStates(State... states) {
+        doInBackground(() -> db.stateDao().insert(states));
+    }
 
-        private BackgroundTaskInterface<Params> backgroundTaskInterface;
+    public void deleteStates(State... states) {
+        doInBackground(() -> db.stateDao().delete(states));
+    }
 
-        public interface BackgroundTaskInterface<Params> {
-            void doInBackground(Params... params);
+    public void deleteNewsByIDList(Long... ids) {
+        doInBackground(() -> db.newsDao().deleteByIDs(ids));
+    }
+
+    private void doInBackground(DaoAsyncTask.BackgroundTaskInterface backgroundTaskInterface) {
+        new DaoAsyncTask(backgroundTaskInterface).execute();
+    }
+
+    private static final class DaoAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private BackgroundTaskInterface backgroundTaskInterface;
+
+        public interface BackgroundTaskInterface {
+            void doInBackground();
         }
 
-        public DaoAsyncTask(BackgroundTaskInterface<Params> backgroundTaskInterface) {
+        public DaoAsyncTask(BackgroundTaskInterface backgroundTaskInterface) {
             this.backgroundTaskInterface = backgroundTaskInterface;
         }
 
-        @SafeVarargs
         @Override
-        protected final Void doInBackground(Params... params) {
-            backgroundTaskInterface.doInBackground(params);
+        protected final Void doInBackground(Void... voids) {
+            backgroundTaskInterface.doInBackground();
             return null;
         }
     }
