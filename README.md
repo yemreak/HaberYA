@@ -1,7 +1,7 @@
 
 # 📰 News-App
 
-📰⛅ Haber ve hava durumu uygulaması
+📰 Haber uygulaması
 
 ## 🏗️ Temel Yapı
 
