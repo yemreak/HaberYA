@@ -47,23 +47,22 @@ public class NewsRepository {
     }
 
     public void insertNews(News... news) {
-        async(db.newsDao()::insert);
-        new DaoAsyncTask(() -> db.newsDao().insert(news)).execute();
+        doInBackground(() -> db.newsDao().insert(news));
     }
 
     public void insertStates(State... states) {
-        async(db.stateDao()::insert);
+        doInBackground(() -> db.stateDao().insert(states));
     }
 
     public void deleteStates(State... states) {
-        async(db.stateDao()::delete);
+        doInBackground(() -> db.stateDao().delete(states));
     }
 
     public void deleteNewsByIDList(Long... ids) {
-        async(db.newsDao()::deleteByIDs);
+        doInBackground(() -> db.newsDao().deleteByIDs(ids));
     }
 
-    public void async(DaoAsyncTask.BackgroundTaskInterface backgroundTaskInterface) {
+    public void doInBackground(DaoAsyncTask.BackgroundTaskInterface backgroundTaskInterface) {
         new DaoAsyncTask(backgroundTaskInterface).execute();
     }
 
