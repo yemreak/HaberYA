@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             NewsAPI.requestNewsData(this, (this::saveToDB));
         }
 
-        newsViewModel.getAllNewsWithState().observe(this, this::fillView);
+        // newsViewModel.getAllNewsWithState().observe(this, this::fillView);
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
