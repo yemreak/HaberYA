@@ -3,7 +3,6 @@ package com.iuce.news.viewmodel;
 import android.app.Application;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
@@ -30,7 +29,7 @@ public class NewsViewModel extends AndroidViewModel {
         super(application);
         repository = NewsRepository.getInstance(application);
         allNewsWithState = repository.getAllNewsWithState();
-    }
+}
 
     public void insertNews(News... news) {
         clearDB();
@@ -62,7 +61,6 @@ public class NewsViewModel extends AndroidViewModel {
     public LiveData<List<NewsWithState>> getAllNewsWithState() {
         return allNewsWithState;
     }
-
 
     public void deleteNewsByIDList(Long... idList) {
         repository.deleteNewsByIDList(idList);
