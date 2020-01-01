@@ -21,3 +21,5 @@
         - 🔀 Haberleri sağ üst köşeden paylaşabilirsiniz
 - 📌 Herhangi bir durumla işaretlenen haberler, saklanmaktadır
 - ✨ Tüm bu işlemlerin her biri room üzerinde tablolarda saklanmaktadır
+
+> ⚠️ Okundu bilgisi için id silin**me**yecek (yapılmadı)

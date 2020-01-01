@@ -1,22 +1,12 @@
 # 🏗️ Veri Tabanı Yapısı
 
-👮‍♂️ Verilerin tekrarlı kaydedilmesini engellemek adına:
-
-- [ ] 🗃️ `News` ve `Status` adlı tablolar oluşturulacak
-- [ ] 🔗 Tablolar [@Relation ve POJO yapısı](https://developer.android.com/reference/androidx/room/Relation.html) ile bağlanacak
-- [ ] 🐣 Asıl işlem yaptığımız obje `NewsWithState` olacak
-
-## 👨‍💼 API Yönetimi
-
-- [ ] 📂 API üzerinden gelen her haber için *local variable* üzerinde idler saklananacak
-- [ ] 🧹 Beğenme, kaydetme gibi işlemlerde id silinecek,
-  - [ ] ➕ `State` tablosuna konulacak
-  - [ ] ⚠️ Okundu bilgisi için id silin**me**yecek
-
 ## 🐥 State
 
 - 🆔 `nid` News ID
 - ⭐ `type` State number (liked, saved, read)
+- 💎 Her haber birden fazla durum alabilir
+- 🦄 Ama aynı durumdan sadece 1 kere alabilir
+- 👨‍💼 Alttaki koşulların kontrolü için `indices` ve `unique` kullanılmıştır
 
 ### 💠 Metotlar
 
@@ -29,7 +19,9 @@
 
 ## 📰 News
 
-❣️ Sadece haber bilgilerini barındırır.
+- ❣️ Sadece haber bilgilerini barındırır
+- 👮‍♂️ Tekrarklı haber kayıtları URL kontrolü ile engellenir
+- 👨‍💼 Haberlerde çoklu kaydetme işlemleri görmezden gelinir
 
 ### 💠 Metotlar
 
