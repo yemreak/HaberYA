@@ -15,7 +15,7 @@ import com.iuce.news.db.entity.State;
 /**
  * Details: https://android.yemreak.com/veriler/room-database#room-database
  */
-@Database(entities = {News.class, State.class}, version = 5, exportSchema =
+@Database(entities = {News.class, State.class}, version = 6, exportSchema =
         false)
 public abstract class NewsRoomDatabase extends RoomDatabase {
 

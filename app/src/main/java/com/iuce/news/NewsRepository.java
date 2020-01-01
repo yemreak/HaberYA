@@ -3,12 +3,18 @@ package com.iuce.news;
 import android.app.Application;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
+
 import com.iuce.news.db.NewsRoomDatabase;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
+import com.iuce.news.db.pojo.NewsWithState;
+
+import java.util.List;
 
 /**
- * Details: https://android.yemreak.com/veriler/room-database#repository-yapisi
+ * @see <a href="https://android.yemreak.com/veriler/room-database#repository-yapisi">Repository Yapısı ~ YEmreAk</a>
+ * @see <a href="https://github.com/android/architecture-components-samples/blob/master/BasicSample/app/src/main/java/com/example/android/persistence/DataRepository.java#L21">RoomDB Example ~ Android Dev</a>
  */
 public class NewsRepository {
 
@@ -17,8 +23,12 @@ public class NewsRepository {
     private static NewsRoomDatabase db;
     private static NewsRepository instance;
 
+    private LiveData<List<NewsWithState>> allNewsWithState;
+
     private NewsRepository(Application application) {
         db = NewsRoomDatabase.getDatabase(application);
+
+        allNewsWithState = db.newsWithStateDao().getAllNewsWithState();
     }
 
     public static NewsRepository getInstance(final Application application) {
@@ -30,6 +40,14 @@ public class NewsRepository {
             }
         }
         return instance;
+    }
+
+    public LiveData<List<NewsWithState>> getAllNewsWithState() {
+        return allNewsWithState;
+    }
+
+    public void getNewsByIDs(Long... ids) {
+        // TODO: Shared mı yoksa roomDB mi karar verilmeli
     }
 
     public void insertState(State... states) {
