@@ -106,18 +106,15 @@ public class NewsActivity extends AppCompatActivity {
         }
     }
 
+
     public void toggleLikeIcon(MenuItem item){
+        State state = new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED);
         if (isLiked()){
-
+            newsViewModel.deleteStates(state);
             item.setIcon(R.drawable.ic_favorite_border_white_24dp);
-            // delete like state fonksiyonu çağrılacak
-
         } else {
-
-            item.setIcon(R.drawable.ic_favorite_white_24dp);
-            State state = new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED);
             newsViewModel.insertStates(state);
-
+            item.setIcon(R.drawable.ic_favorite_white_24dp);
         }
 
         Log.e(TAG, Globals.getInstance().getSelectedNewsWithState().getStates().toString());

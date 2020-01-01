@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/get_all_reacted_but"
+        android:title="🎈 Haberleriniz"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/get_liked_but"
+        android:title="♥ Beğenilenler"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/get_saved_but"
+        android:title="💾 Kaydedilenler"
+        app:showAsAction="never"
+        />
+</menu>
