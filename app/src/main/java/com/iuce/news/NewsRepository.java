@@ -14,10 +14,22 @@ public class NewsRepository {
 
     public static final String TAG = "NewsRepository";
 
-    private NewsRoomDatabase db;
+    private static NewsRoomDatabase db;
+    private static NewsRepository instance;
 
     private NewsRepository(Application application) {
         db = NewsRoomDatabase.getDatabase(application);
+    }
+
+    public static NewsRepository getInstance(final Application application) {
+        if (instance == null) {
+            synchronized (NewsRepository.class) {
+                if (instance == null) {
+                    instance = new NewsRepository(application);
+                }
+            }
+        }
+        return instance;
     }
 
     public void insertState(State... states) {
