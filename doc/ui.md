@@ -5,7 +5,7 @@
 - [x] 🕐 `Main Activity`'de Daha sonra oku ikonu blunmakta
   - 🔃 Create edilirken haber önceden kaydedildiyse saat ikonu dolu tik ✔️ içermekte, aksi halde artı içermekte ➕
   - 🚙 İkona basılınca yeni durum veri tabanına aktarılmakta
-- [x] 👇 `Main Activity`'de bir habere tıklandığı zaman haber içeriği `Globals`'a kaydedilmekte
+- [x] 👇 `Main Activity`'de bir habere tıklandığı zaman haber içeriği `Globals`'a kaydedilip _Explicit Intent_ ile `News Activity`'ye yölendirilmekte
   - 👷‍♀️ Daha sonra `News Activity`'sinde `Globals`'dan çekilip gösterilmekte
 - [x] 💫 `Main Activity`'deki `Opitons menu` seçenekleriyle 💖 beğenilen haberler, 💾 kaydedilen haberler veya tüm etkileşim alan haberler listelenmekte
   - ➰ `Reacted Activity`'de `RecyclerView` yapısıyla `Main Activity`'deki fonksiyonelliğe sahip bir yapı gösterilmekte
