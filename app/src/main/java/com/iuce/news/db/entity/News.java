@@ -2,6 +2,7 @@ package com.iuce.news.db.entity;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -48,6 +49,10 @@ public class News {
     @ColumnInfo(name = COLUMN_PUBLISHED_AT)
     private String publishedAt;
 
+    public News() {
+    }
+
+    @Ignore
     public News(String title, String description, String urlToImage, String url, String content, String source, String publishedAt) {
         this.title = title;
         this.description = description;
