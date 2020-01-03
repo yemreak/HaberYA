@@ -84,11 +84,7 @@ public class State {
 
     @Ignore
     public static State Builder(NewsWithState newsWithState, Type type) {
-        State state = new State();
-        state.nid = newsWithState.getNews().getId();
-        state.type = type.getId();
-
-        return state;
+        return Builder(newsWithState.getNews(), type);
     }
 
     @Ignore
