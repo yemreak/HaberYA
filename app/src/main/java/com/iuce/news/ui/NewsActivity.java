@@ -3,7 +3,6 @@ package com.iuce.news.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,20 +12,22 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.iuce.news.Globals;
 import com.iuce.news.R;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
+import com.iuce.news.db.pojo.NewsWithState;
 import com.iuce.news.viewmodel.NewsViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.ListIterator;
 
 public class NewsActivity extends AppCompatActivity {
+
     public static final String TAG = "NewsActivity";
+    public static final String NAME_NEWS_ID = "newsID";
 
     private NewsViewModel newsViewModel;
+    private NewsWithState selectedNewsWithState;
 
     TextView source;
     TextView date;
@@ -41,14 +42,19 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.full_news_activity);
 
         initViews();
-        fillView();
 
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-        newsViewModel.insertStates(
-                new State(
-                        Globals.getInstance().getSelectedNewsWithState().getNews().getId(),
-                        State.TYPE_READ
-                )
+        newsViewModel.getNewsWithStateByIDs(getIntent().getIntExtra(NAME_NEWS_ID, 0)).observe(this,
+                newsWithStates -> {
+                    selectedNewsWithState = newsWithStates.get(0);
+                    fillView(selectedNewsWithState.getNews());
+                    newsViewModel.insertStates(
+                            new State(
+                                    selectedNewsWithState.getNews().getId(),
+                                    State.TYPE_READ
+                            )
+                    );
+                }
         );
     }
 
@@ -61,9 +67,7 @@ public class NewsActivity extends AppCompatActivity {
         image = findViewById(R.id.news_image);
     }
 
-    public void fillView() {
-        News news = Globals.getInstance().getSelectedNewsWithState().getNews();
-        
+    public void fillView(News news) {
         source.setText(news.getSource());
         date.setText(news.getPublishedAt());
         description.setText(news.getDescription());
@@ -84,7 +88,7 @@ public class NewsActivity extends AppCompatActivity {
          */
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
 
-        if (isLiked()){
+        if (isLiked()) {
             menu.findItem(R.id.fav_button).setIcon(R.drawable.ic_favorite_white_24dp);
         } else {
             menu.findItem(R.id.fav_button).setIcon(R.drawable.ic_favorite_border_white_24dp);
@@ -96,11 +100,10 @@ public class NewsActivity extends AppCompatActivity {
     public void onShareClick(MenuItem item) {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        
-        News news = Globals.getInstance().getSelectedNewsWithState().getNews();
-        shareIntent.putExtra(Intent.EXTRA_TEXT, news.getTitle() + "\n"
-                + news.getDescription() + "\n"
-                + news.getUrl());
+
+        shareIntent.putExtra(Intent.EXTRA_TEXT, selectedNewsWithState.getNews().getTitle() + "\n"
+                + selectedNewsWithState.getNews().getDescription() + "\n"
+                + selectedNewsWithState.getNews().getUrl());
         shareIntent.setType("text/plain");
         Intent chooser = Intent.createChooser(shareIntent, "title");
 
@@ -111,8 +114,8 @@ public class NewsActivity extends AppCompatActivity {
     }
 
 
-    public void toggleLikeIcon(MenuItem item){
-        List<State> stateList = Globals.getInstance().getSelectedNewsWithState().getStates();
+    public void toggleLikeIcon(MenuItem item) {
+        List<State> stateList = selectedNewsWithState.getStates();
 
         for (State state : stateList) {
             if (state.getType() == State.TYPE_LIKED) {
@@ -121,14 +124,14 @@ public class NewsActivity extends AppCompatActivity {
                 return;
             }
         }
-        newsViewModel.insertStates(new State(Globals.getInstance().getSelectedNewsWithState().getNews().getId(), State.TYPE_LIKED));
+        newsViewModel.insertStates(new State(selectedNewsWithState.getNews().getId(), State.TYPE_LIKED));
         item.setIcon(R.drawable.ic_favorite_white_24dp);
 
-        Log.e(TAG, Globals.getInstance().getSelectedNewsWithState().getStates().toString());
+        Log.d(TAG, selectedNewsWithState.getStates().toString());
     }
 
-    public boolean isLiked(){
-        for (State state : Globals.getInstance().getSelectedNewsWithState().getStates()) {
+    public boolean isLiked() {
+        for (State state : selectedNewsWithState.getStates()) {
             if (state.getType() == State.TYPE_LIKED) {
                 return true;
             }

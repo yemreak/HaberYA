@@ -1,11 +1,8 @@
 package com.iuce.news.ui;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iuce.news.Globals;
 import com.iuce.news.R;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
@@ -96,23 +92,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
             imgBtn = itemView.findViewById(R.id.read_later_button);
 
 
-            imgBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    //State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
-                    List<State> stateList = newsWithStates.get(pos).getStates();
-                    for (State state : stateList) {
-                        if (state.getType() == State.TYPE_LATER) {
-                            newsViewModel.deleteStates(state);
-                            v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-                            return;
-                        }
-                    }
-                    newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER));
-                    v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
+            imgBtn.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
 
+                List<State> stateList = newsWithStates.get(pos).getStates();
+                for (State state : stateList) {
+                    if (state.getType() == State.TYPE_LATER) {
+                        newsViewModel.deleteStates(state);
+                        v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
+                        return;
+                    }
                 }
+                newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER));
+                v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
+
             });
             itemView.setOnClickListener(this);
         }
@@ -121,11 +114,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         public void onClick(View v) {
             int pos = getAdapterPosition();
 
-            NewsWithState newsWithState = newsWithStates.get(pos);
-            Globals.getInstance().setSelectedNewsWithState(newsWithState);
-
-            Intent messageIntent = new Intent(context, NewsActivity.class);
-            context.startActivity(messageIntent);
+            Intent newsIntent = new Intent(context, NewsActivity.class);
+            newsIntent.putExtra(NewsActivity.NAME_NEWS_ID, newsWithStates.get(pos).getNews().getId());
+            context.startActivity(newsIntent);
         }
 
     }

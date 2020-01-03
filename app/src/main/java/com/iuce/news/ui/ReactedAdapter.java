@@ -3,7 +3,6 @@ package com.iuce.news.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iuce.news.Globals;
 import com.iuce.news.R;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
@@ -26,15 +24,17 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> {
-    public static final String TAG = "Adapter";
+
+    public static final String TAG = "ReactedAdapter";
 
     private NewsViewModel newsViewModel;
     private List<NewsWithState> newsWithStates;
     private Context context;
+
     public ReactedAdapter(Context context, List<NewsWithState> newsWithStateList) {
         this.context = context;
         this.newsWithStates = newsWithStateList;
-        newsViewModel = new ViewModelProvider((ReactedActivity)context).get(NewsViewModel.class);
+        newsViewModel = new ViewModelProvider((ReactedActivity) context).get(NewsViewModel.class);
     }
 
     @NonNull
@@ -54,9 +54,9 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
         /*if (newsWithStates.get(position).getNews().isRead()) {
             holder.rlMain.setAlpha(0.6f);
         }*/
-        if(isSaved( newsWithStates.get(position).getStates())){
+        if (isSaved(newsWithStates.get(position).getStates())) {
             holder.imgBtn.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-        }else{
+        } else {
             holder.imgBtn.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
 
         }
@@ -94,23 +94,20 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
             imgBtn = itemView.findViewById(R.id.read_later_button);
 
 
-            imgBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    //State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
-                    List<State> stateList = newsWithStates.get(pos).getStates();
-                    for (State state : stateList) {
-                        if (state.getType() == State.TYPE_LATER) {
-                            newsViewModel.deleteStates(state);
-                            v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-                            return;
-                        }
+            imgBtn.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                //State state = new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER);
+                List<State> stateList = newsWithStates.get(pos).getStates();
+                for (State state : stateList) {
+                    if (state.getType() == State.TYPE_LATER) {
+                        newsViewModel.deleteStates(state);
+                        v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
+                        return;
                     }
-                    newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER));
-                    v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
-
                 }
+                newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER));
+                v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
+
             });
             itemView.setOnClickListener(this);
         }
@@ -119,16 +116,17 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
         public void onClick(View v) {
             int pos = getAdapterPosition();
 
-            NewsWithState newsWithState = newsWithStates.get(pos);
-            Globals.getInstance().setSelectedNewsWithState(newsWithState);
-
-            Intent messageIntent = new Intent(context, NewsActivity.class);
-            context.startActivity(messageIntent);
+            Intent newsIntent = new Intent(context, NewsActivity.class);
+            newsIntent.putExtra(
+                    NewsActivity.NAME_NEWS_ID,
+                    newsWithStates.get(pos).getNews().getId())
+            ;
+            context.startActivity(newsIntent);
         }
 
     }
 
-    public static boolean isSaved(List<State> states){
+    public static boolean isSaved(List<State> states) {
         for (State state : states) {
             if (state.getType() == State.TYPE_LATER) {
                 return true;
