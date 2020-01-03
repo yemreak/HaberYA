@@ -8,6 +8,8 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.iuce.news.db.pojo.NewsWithState;
+
 import java.util.List;
 
 /**
@@ -81,9 +83,21 @@ public class State {
     }
 
     @Ignore
-    public State(long nid, Type type) {
-        this.nid = nid;
-        this.type = type.getId();
+    public static State Builder(NewsWithState newsWithState, Type type) {
+        State state = new State();
+        state.nid = newsWithState.getNews().getId();
+        state.type = type.getId();
+
+        return state;
+    }
+
+    @Ignore
+    public static State Builder(News news, Type type) {
+        State state = new State();
+        state.nid = news.getId();
+        state.type = type.getId();
+
+        return state;
     }
 
     public long getId() {
@@ -118,21 +132,5 @@ public class State {
                 ", nid=" + nid +
                 ", type=" + type +
                 '}';
-    }
-
-    @Ignore
-    public static void findState(List<State> stateList, Type type,
-                                 onResultListener onResultListener) {
-        for (State state : stateList) {
-            if (state.getType() == type.getId()) {
-                onResultListener.onFound(state);
-                return;
-            }
-        }
-        onResultListener.onFound(null);
-    }
-
-    public interface onResultListener {
-        void onFound(State state);
     }
 }

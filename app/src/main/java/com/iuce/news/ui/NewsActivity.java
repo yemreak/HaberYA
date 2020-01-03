@@ -46,12 +46,7 @@ public class NewsActivity extends AppCompatActivity {
                 newsWithStates -> {
                     selectedNewsWithState = newsWithStates.get(0);
                     fillView(selectedNewsWithState.getNews());
-                    newsViewModel.insertStates(
-                            new State(
-                                    selectedNewsWithState.getNews().getId(),
-                                    State.Type.READ
-                            )
-                    );
+                    newsViewModel.insertStates(State.Builder(selectedNewsWithState, State.Type.READ));
                 }
         );
     }
@@ -113,16 +108,14 @@ public class NewsActivity extends AppCompatActivity {
 
 
     public void toggleLikeIcon(MenuItem item) {
-        State.findState(selectedNewsWithState.getStates(), State.Type.LIKED, state -> {
-            if (state != null) {
-                newsViewModel.deleteStates(state);
-                item.setIcon(R.drawable.ic_favorite_border_white_24dp);
-            } else {
-                newsViewModel.insertStates(new State(selectedNewsWithState.getNews().getId(),
-                        State.Type.LIKED));
-                item.setIcon(R.drawable.ic_favorite_white_24dp);
-            }
-        });
+        State state = State.Type.LIKED.findState(selectedNewsWithState.getStates());
+        if (state != null) {
+            newsViewModel.deleteStates(state);
+            item.setIcon(R.drawable.ic_favorite_border_white_24dp);
+        } else {
+            newsViewModel.insertStates(State.Builder(selectedNewsWithState, State.Type.LIKED));
+            item.setIcon(R.drawable.ic_favorite_white_24dp);
+        }
 
         Log.d(TAG, "toggleLikeIcon: " + selectedNewsWithState.getStates());
     }

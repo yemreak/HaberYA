@@ -97,16 +97,15 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
             imgBtn.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
 
-                State.findState(newsWithStates.get(pos).getStates(), State.Type.LATER, state -> {
-                    if (state != null) {
-                        newsViewModel.deleteStates(state);
-                        v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-                    } else {
-                        newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.Type.LATER));
-                        v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
-                    }
-                });
-
+                State state = State.Type.LATER.findState(newsWithStates.get(pos).getStates());
+                if (state != null) {
+                    newsViewModel.deleteStates(state);
+                    v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
+                } else {
+                    newsViewModel.insertStates(State.Builder(newsWithStates.get(pos),
+                            State.Type.LATER));
+                    v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
+                }
             });
             itemView.setOnClickListener(this);
         }
