@@ -1,11 +1,14 @@
 package com.iuce.news.db.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import java.util.List;
 
 /**
  * @see <a href="https://android.jlelse.eu/android-architecture-components-room-relationships-bf473510c14a"> Foreign Key</a>
@@ -21,9 +24,42 @@ public class State {
     public static final String COLUMN_NEWS_ID = "nid";
     public static final String COLUMN_TYPE = "type";
 
-    public static final int TYPE_READ = 1;
-    public static final int TYPE_LIKED = 2;
-    public static final int TYPE_LATER = 3;
+
+    public enum StateType {
+
+        TYPE_READ, TYPE_LIKED, TYPE_LATER;
+
+        private int id;
+
+        static {
+            TYPE_READ.id = 1;
+            TYPE_LIKED.id = 2;
+            TYPE_LATER.id = 3;
+        }
+
+        public int getId() {
+            return this.id;
+        }
+
+        public State findState(List<State> stateList) {
+            for (State state : stateList) {
+                if (state.getType() == this.getId()) {
+                    return state;
+                }
+            }
+            return null;
+        }
+
+        public boolean isExist(List<State> stateList) {
+            return findState(stateList) != null;
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return String.valueOf(this.getId());
+        }
+    }
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
@@ -45,9 +81,9 @@ public class State {
     }
 
     @Ignore
-    public State(long nid, long type) {
+    public State(long nid, StateType stateType) {
         this.nid = nid;
-        this.type = type;
+        this.type = stateType.getId();
     }
 
     public long getId() {
@@ -82,5 +118,21 @@ public class State {
                 ", nid=" + nid +
                 ", type=" + type +
                 '}';
+    }
+
+    @Ignore
+    public static void findState(List<State> stateList, StateType stateType,
+                                 onResultListener onResultListener) {
+        for (State state : stateList) {
+            if (state.getType() == stateType.getId()) {
+                onResultListener.onFound(state);
+                return;
+            }
+        }
+        onResultListener.onFound(null);
+    }
+
+    public interface onResultListener {
+        void onFound(State state);
     }
 }

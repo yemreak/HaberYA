@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -76,21 +73,21 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.get_all_reacted_but:
-                switchActivity(-1);
+                switchActivity(null);
                 return true;
             case R.id.get_liked_but:
-                switchActivity(State.TYPE_LIKED);
+                switchActivity(State.StateType.TYPE_LIKED);
                 return true;
             case R.id.get_saved_but:
-                switchActivity(State.TYPE_LATER);
+                switchActivity(State.StateType.TYPE_LATER);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void switchActivity(int option){
+    public void switchActivity(State.StateType stateType) {
         Intent intent = new Intent(this, ReactedActivity.class);
-        intent.putExtra(ReactedActivity.NAME_STATE_TYPE, option);
+        intent.putExtra(ReactedActivity.NAME_STATE_TYPE, stateType);
         this.startActivity(intent);
     }
 

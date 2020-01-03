@@ -19,8 +19,6 @@ import com.iuce.news.db.pojo.NewsWithState;
 import com.iuce.news.viewmodel.NewsViewModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 public class NewsActivity extends AppCompatActivity {
 
     public static final String TAG = "NewsActivity";
@@ -51,7 +49,7 @@ public class NewsActivity extends AppCompatActivity {
                     newsViewModel.insertStates(
                             new State(
                                     selectedNewsWithState.getNews().getId(),
-                                    State.TYPE_READ
+                                    State.StateType.TYPE_READ
                             )
                     );
                 }
@@ -88,7 +86,7 @@ public class NewsActivity extends AppCompatActivity {
          */
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
 
-        if (isLiked()) {
+        if (State.StateType.TYPE_LIKED.isExist(selectedNewsWithState.getStates())) {
             menu.findItem(R.id.fav_button).setIcon(R.drawable.ic_favorite_white_24dp);
         } else {
             menu.findItem(R.id.fav_button).setIcon(R.drawable.ic_favorite_border_white_24dp);
@@ -115,27 +113,17 @@ public class NewsActivity extends AppCompatActivity {
 
 
     public void toggleLikeIcon(MenuItem item) {
-        List<State> stateList = selectedNewsWithState.getStates();
-
-        for (State state : stateList) {
-            if (state.getType() == State.TYPE_LIKED) {
+        State.findState(selectedNewsWithState.getStates(), State.StateType.TYPE_LIKED, state -> {
+            if (state != null) {
                 newsViewModel.deleteStates(state);
                 item.setIcon(R.drawable.ic_favorite_border_white_24dp);
-                return;
+            } else {
+                newsViewModel.insertStates(new State(selectedNewsWithState.getNews().getId(),
+                        State.StateType.TYPE_LIKED));
+                item.setIcon(R.drawable.ic_favorite_white_24dp);
             }
-        }
-        newsViewModel.insertStates(new State(selectedNewsWithState.getNews().getId(), State.TYPE_LIKED));
-        item.setIcon(R.drawable.ic_favorite_white_24dp);
+        });
 
-        Log.d(TAG, selectedNewsWithState.getStates().toString());
-    }
-
-    public boolean isLiked() {
-        for (State state : selectedNewsWithState.getStates()) {
-            if (state.getType() == State.TYPE_LIKED) {
-                return true;
-            }
-        }
-        return false;
+        Log.d(TAG, "toggleLikeIcon: " + selectedNewsWithState.getStates());
     }
 }

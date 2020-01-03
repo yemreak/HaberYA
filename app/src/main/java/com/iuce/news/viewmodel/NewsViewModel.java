@@ -67,7 +67,7 @@ public class NewsViewModel extends AndroidViewModel {
         return repository.getAllNewsWithStateHasStates();
     }
 
-    public LiveData<List<NewsWithState>> getAllNewsWithStateByState(int stateType) {
+    public LiveData<List<NewsWithState>> getAllNewsWithStateByState(State.StateType stateType) {
         return repository.getNewsWithStateByState(stateType);
     }
 

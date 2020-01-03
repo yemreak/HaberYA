@@ -1,6 +1,5 @@
 package com.iuce.news.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,21 +22,21 @@ public class ReactedActivity extends AppCompatActivity {
     public static final String NAME_STATE_TYPE = "sType";
 
     private NewsViewModel newsViewModel;
-    private int TYPE;
+    private State.StateType TYPE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reacted);
 
-        TYPE = getIntent().getIntExtra(NAME_STATE_TYPE, -1);
+        TYPE = (State.StateType) getIntent().getSerializableExtra(NAME_STATE_TYPE);
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
         initRecyclerView();
     }
 
     private void initRecyclerView() {
-        if (TYPE != -1) {
+        if (TYPE != null) {
             newsViewModel.getAllNewsWithStateByState(TYPE).observe(this, this::fillView);
 
         } else {
@@ -66,19 +65,19 @@ public class ReactedActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.get_all_reacted_but:
-                switchContent(-1);
+                switchContent(null);
                 return true;
             case R.id.get_liked_but:
-                switchContent(State.TYPE_LIKED);
+                switchContent(State.StateType.TYPE_LIKED);
                 return true;
             case R.id.get_saved_but:
-                switchContent(State.TYPE_LATER);
+                switchContent(State.StateType.TYPE_LATER);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void switchContent(int type) {
+    public void switchContent(State.StateType type) {
         TYPE = type;
         initRecyclerView();
     }

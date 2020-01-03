@@ -29,10 +29,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
     private NewsViewModel newsViewModel;
     private List<NewsWithState> newsWithStates;
     private Context context;
+
     public NewsAdapter(Context context, List<NewsWithState> newsWithStateList) {
         this.context = context;
         this.newsWithStates = newsWithStateList;
-        newsViewModel = new ViewModelProvider((MainActivity)context).get(NewsViewModel.class);
+        newsViewModel = new ViewModelProvider((MainActivity) context).get(NewsViewModel.class);
     }
 
     @NonNull
@@ -49,12 +50,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         holder.itemSource.setText(newsWithStates.get(position).getNews().getSource());
         holder.itemDate.setText(newsWithStates.get(position).getNews().getPublishedAt());
 
-        if(isRead(newsWithStates.get(position).getStates())){
+        if (State.StateType.TYPE_READ.isExist(newsWithStates.get(position).getStates())) {
             holder.rlMain.setAlpha(0.6f);
         }
-        if(isSaved( newsWithStates.get(position).getStates())){
+        if (State.StateType.TYPE_LATER.isExist(newsWithStates.get(position).getStates())) {
             holder.imgBtn.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-        }else{
+        } else {
             holder.imgBtn.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
         }
         Picasso.get()
@@ -95,16 +96,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
             imgBtn.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
 
-                List<State> stateList = newsWithStates.get(pos).getStates();
-                for (State state : stateList) {
-                    if (state.getType() == State.TYPE_LATER) {
+                State.findState(newsWithStates.get(pos).getStates(), State.StateType.TYPE_LATER, state -> {
+                    if (state != null) {
                         newsViewModel.deleteStates(state);
                         v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-                        return;
+                    } else {
+                        newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.StateType.TYPE_LATER));
+                        v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
                     }
-                }
-                newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.TYPE_LATER));
-                v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
+                });
 
             });
             itemView.setOnClickListener(this);
@@ -119,23 +119,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
             context.startActivity(newsIntent);
         }
 
-    }
-
-    public static boolean isSaved(List<State> states){
-        for (State state : states) {
-            if (state.getType() == State.TYPE_LATER) {
-                return true;
-            }
-        }
-        return false;
-    }
-    public static boolean isRead(List<State> states){
-        for (State state : states) {
-            if (state.getType() == State.TYPE_READ) {
-                return true;
-            }
-        }
-        return false;
     }
 }
 
