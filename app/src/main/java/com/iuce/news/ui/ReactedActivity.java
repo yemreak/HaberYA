@@ -22,14 +22,14 @@ public class ReactedActivity extends AppCompatActivity {
     public static final String NAME_STATE_TYPE = "sType";
 
     private NewsViewModel newsViewModel;
-    private State.StateType TYPE;
+    private State.Type TYPE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reacted);
 
-        TYPE = (State.StateType) getIntent().getSerializableExtra(NAME_STATE_TYPE);
+        TYPE = (State.Type) getIntent().getSerializableExtra(NAME_STATE_TYPE);
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
         initRecyclerView();
@@ -68,16 +68,16 @@ public class ReactedActivity extends AppCompatActivity {
                 switchContent(null);
                 return true;
             case R.id.get_liked_but:
-                switchContent(State.StateType.TYPE_LIKED);
+                switchContent(State.Type.LIKED);
                 return true;
             case R.id.get_saved_but:
-                switchContent(State.StateType.TYPE_LATER);
+                switchContent(State.Type.LATER);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void switchContent(State.StateType type) {
+    public void switchContent(State.Type type) {
         TYPE = type;
         initRecyclerView();
     }

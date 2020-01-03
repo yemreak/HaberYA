@@ -44,7 +44,7 @@
 | Metot | Açıklama |
 | - | - |
 | `getALlNewsWithState()` | Tüm haberleri durumları ile alır
-| `getNewsWithStateByState(stateType)` | Duruma göre haberleri duurmları ile alır
+| `getNewsWithStateByState(type)` | Duruma göre haberleri duurmları ile alır
 | `getAllNewsWithStateHasStates()` | Duruma sahip olan haberleri alır
 
 > 💡 Durumlar: Beğenme, kaydetme, okunma

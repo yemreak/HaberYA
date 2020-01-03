@@ -76,18 +76,18 @@ public class MainActivity extends AppCompatActivity {
                 switchActivity(null);
                 return true;
             case R.id.get_liked_but:
-                switchActivity(State.StateType.TYPE_LIKED);
+                switchActivity(State.Type.LIKED);
                 return true;
             case R.id.get_saved_but:
-                switchActivity(State.StateType.TYPE_LATER);
+                switchActivity(State.Type.LATER);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void switchActivity(State.StateType stateType) {
+    public void switchActivity(State.Type type) {
         Intent intent = new Intent(this, ReactedActivity.class);
-        intent.putExtra(ReactedActivity.NAME_STATE_TYPE, stateType);
+        intent.putExtra(ReactedActivity.NAME_STATE_TYPE, type);
         this.startActivity(intent);
     }
 

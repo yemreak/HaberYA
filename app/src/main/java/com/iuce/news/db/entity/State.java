@@ -25,16 +25,16 @@ public class State {
     public static final String COLUMN_TYPE = "type";
 
 
-    public enum StateType {
+    public enum Type {
 
-        TYPE_READ, TYPE_LIKED, TYPE_LATER;
+        READ, LIKED, LATER;
 
         private int id;
 
         static {
-            TYPE_READ.id = 1;
-            TYPE_LIKED.id = 2;
-            TYPE_LATER.id = 3;
+            READ.id = 1;
+            LIKED.id = 2;
+            LATER.id = 3;
         }
 
         public int getId() {
@@ -81,9 +81,9 @@ public class State {
     }
 
     @Ignore
-    public State(long nid, StateType stateType) {
+    public State(long nid, Type type) {
         this.nid = nid;
-        this.type = stateType.getId();
+        this.type = type.getId();
     }
 
     public long getId() {
@@ -121,10 +121,10 @@ public class State {
     }
 
     @Ignore
-    public static void findState(List<State> stateList, StateType stateType,
+    public static void findState(List<State> stateList, Type type,
                                  onResultListener onResultListener) {
         for (State state : stateList) {
-            if (state.getType() == stateType.getId()) {
+            if (state.getType() == type.getId()) {
                 onResultListener.onFound(state);
                 return;
             }

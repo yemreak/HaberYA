@@ -49,7 +49,7 @@ public class NewsActivity extends AppCompatActivity {
                     newsViewModel.insertStates(
                             new State(
                                     selectedNewsWithState.getNews().getId(),
-                                    State.StateType.TYPE_READ
+                                    State.Type.READ
                             )
                     );
                 }
@@ -86,7 +86,7 @@ public class NewsActivity extends AppCompatActivity {
          */
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
 
-        if (State.StateType.TYPE_LIKED.isExist(selectedNewsWithState.getStates())) {
+        if (State.Type.LIKED.isExist(selectedNewsWithState.getStates())) {
             menu.findItem(R.id.fav_button).setIcon(R.drawable.ic_favorite_white_24dp);
         } else {
             menu.findItem(R.id.fav_button).setIcon(R.drawable.ic_favorite_border_white_24dp);
@@ -113,13 +113,13 @@ public class NewsActivity extends AppCompatActivity {
 
 
     public void toggleLikeIcon(MenuItem item) {
-        State.findState(selectedNewsWithState.getStates(), State.StateType.TYPE_LIKED, state -> {
+        State.findState(selectedNewsWithState.getStates(), State.Type.LIKED, state -> {
             if (state != null) {
                 newsViewModel.deleteStates(state);
                 item.setIcon(R.drawable.ic_favorite_border_white_24dp);
             } else {
                 newsViewModel.insertStates(new State(selectedNewsWithState.getNews().getId(),
-                        State.StateType.TYPE_LIKED));
+                        State.Type.LIKED));
                 item.setIcon(R.drawable.ic_favorite_white_24dp);
             }
         });

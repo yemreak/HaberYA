@@ -50,10 +50,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         holder.itemSource.setText(newsWithStates.get(position).getNews().getSource());
         holder.itemDate.setText(newsWithStates.get(position).getNews().getPublishedAt());
 
-        if (State.StateType.TYPE_READ.isExist(newsWithStates.get(position).getStates())) {
+        if (State.Type.READ.isExist(newsWithStates.get(position).getStates())) {
             holder.rlMain.setAlpha(0.6f);
         }
-        if (State.StateType.TYPE_LATER.isExist(newsWithStates.get(position).getStates())) {
+        if (State.Type.LATER.isExist(newsWithStates.get(position).getStates())) {
             holder.imgBtn.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
         } else {
             holder.imgBtn.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
@@ -96,12 +96,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
             imgBtn.setOnClickListener(v -> {
                 int pos = getAdapterPosition();
 
-                State.findState(newsWithStates.get(pos).getStates(), State.StateType.TYPE_LATER, state -> {
+                State.findState(newsWithStates.get(pos).getStates(), State.Type.LATER, state -> {
                     if (state != null) {
                         newsViewModel.deleteStates(state);
                         v.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
                     } else {
-                        newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.StateType.TYPE_LATER));
+                        newsViewModel.insertStates(new State(newsWithStates.get(pos).getNews().getId(), State.Type.LATER));
                         v.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
                     }
                 });
