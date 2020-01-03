@@ -1,14 +1,14 @@
 package com.iuce.news.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.iuce.news.R;
 import com.iuce.news.db.entity.State;
@@ -19,26 +19,30 @@ import java.util.List;
 
 public class ReactedActivity extends AppCompatActivity {
 
+    public static final String TAG = "ReactedActivity";
+    public static final String NAME_STATE_TYPE = "sType";
+
     private NewsViewModel newsViewModel;
     private int TYPE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reacted);
-        Intent intent = getIntent();
-        TYPE = intent.getExtras().getInt("stype", -1);
+
+        TYPE = getIntent().getIntExtra(NAME_STATE_TYPE, -1);
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+
         initRecyclerView();
     }
-    private void initRecyclerView() {
 
-        if(TYPE != -1){
+    private void initRecyclerView() {
+        if (TYPE != -1) {
             newsViewModel.getAllNewsWithStateByState(TYPE).observe(this, this::fillView);
 
-        }else{
+        } else {
             newsViewModel.getAllNewsWithStateHasStates().observe(this, this::fillView);
         }
-
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
@@ -74,7 +78,7 @@ public class ReactedActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void switchContent(int type){
+    public void switchContent(int type) {
         TYPE = type;
         initRecyclerView();
     }

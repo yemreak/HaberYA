@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void switchActivity(int option){
         Intent intent = new Intent(this, ReactedActivity.class);
-        intent.putExtra("stype", option);
+        intent.putExtra(ReactedActivity.NAME_STATE_TYPE, option);
         this.startActivity(intent);
     }
 
