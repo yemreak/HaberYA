@@ -43,10 +43,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        if (isConnected()) {
-            NewsAPI.requestNewsData(this, (this::saveToDB));
-        }
-
         newsViewModel.getAllNewsWithState().observe(this, this::fillView);
     }
 
@@ -57,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void saveToDB(List<News> newsList) {
-        newsViewModel.insertNews(newsList.toArray(new News[0]));
-    }
+
 
 
     @Override
@@ -94,17 +88,6 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    private boolean isConnected() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo networkInfo = Objects.requireNonNull(connMgr).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        boolean isWifiConn = Objects.requireNonNull(networkInfo).isConnected();
-
-        networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        boolean isMobileConn = Objects.requireNonNull(networkInfo).isConnected();
-
-        return isWifiConn || isMobileConn;
-    }
 
 
 
