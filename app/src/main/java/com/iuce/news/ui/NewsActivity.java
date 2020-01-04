@@ -99,6 +99,19 @@ public class NewsActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.fav_button:
+                toggleLikeIcon(item);
+                return true;
+            case R.id.share_button:
+                onShareClick(item);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void onShareClick(MenuItem item) {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);

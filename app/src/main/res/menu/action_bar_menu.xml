@@ -6,14 +6,12 @@
         android:id="@+id/fav_button"
         android:icon="@drawable/ic_favorite_border_white_24dp"
         android:title="React"
-        android:onClick="toggleLikeIcon"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/share_button"
         android:icon="@drawable/ic_share_black_24dp"
         android:title="Share"
-        android:onClick="onShareClick"
         app:showAsAction="always"/>
 
 </menu>
