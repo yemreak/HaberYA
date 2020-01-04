@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // lifecycle-extensions:$arch_lifecycle:2.2.0-beta01 versiyonuna uygun :'(
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         initRecyclerView();
+
     }
 
     private void initRecyclerView() {
@@ -102,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
         return isWifiConn || isMobileConn;
     }
+
+
 
 
 }

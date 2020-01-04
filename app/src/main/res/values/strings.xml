@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">📰 News</string>
     <string name="title_activity_news">NewsActivity</string>
+    <string name="license">Yunus Emre Ak ~ Asmaa Mirkhan \n The Appache License 2.0</string>
 </resources>
