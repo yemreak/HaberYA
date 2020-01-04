@@ -2,7 +2,7 @@
 
 ## 🎈 Genel İşleyiş
 
-- 📶 Interne varsa:
+- 📶 Internet varsa:
     -  API'den haber bilgileri alınır
     - 💾 Room'a kaydedilir
     - 🎳 Çok fazla veri oluşumunu engellemek adına veriler 400 ile sınırlıdır

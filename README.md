@@ -19,7 +19,7 @@
 - ✔️ Implicit Intent
 - ✔️ Explicit Intent
 - ✔️ Contextual Action Bar Actions
-- ✔️ POJO & Relatio in RoomDB
+- ✔️ POJO & Relation in RoomDB
 - ✔️ Interface & Lambda Functions
 
 
