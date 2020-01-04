@@ -23,7 +23,7 @@ public class SpalshScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spalsh_screen);
-
+        getSupportActionBar().hide();
         splashProgress = findViewById(R.id.splashProgress);
         playProgress();
 

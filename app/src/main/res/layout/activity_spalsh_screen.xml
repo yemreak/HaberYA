@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="News App"
+            android:text="@string/splash_title"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -34,8 +34,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorSecondary"/>
+            android:layout_marginTop="20dp"/>
 
 
     </LinearLayout>
@@ -44,10 +43,10 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/license"
-        android:paddingBottom="5dp"
+        android:paddingBottom="12dp"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="8sp"
+        android:textSize="10sp"
         android:fontFamily="@font/muli"
         android:layout_alignParentBottom="true"/>
 </RelativeLayout>
