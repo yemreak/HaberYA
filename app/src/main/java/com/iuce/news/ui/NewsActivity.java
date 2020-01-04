@@ -3,6 +3,8 @@ package com.iuce.news.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +35,7 @@ public class NewsActivity extends AppCompatActivity {
     TextView description;
     TextView content;
     ImageView image;
+    TextView tv_showInWeb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class NewsActivity extends AppCompatActivity {
         description = findViewById(R.id.news_description);
         content = findViewById(R.id.news_content);
         image = findViewById(R.id.news_image);
+        tv_showInWeb = findViewById(R.id.show_in_web);
     }
 
     public void fillView(News news) {
@@ -71,6 +75,11 @@ public class NewsActivity extends AppCompatActivity {
         Picasso.get()
                 .load(Uri.parse(news.getUrlToImage()))
                 .into(image);
+
+        // Details: https://stackoverflow.com/a/25380654
+        String html = "<a href=\""+ news.getUrl() +"\">🌐 Web sitesinde görüntüle</a>";
+        tv_showInWeb.setMovementMethod(LinkMovementMethod.getInstance());
+        tv_showInWeb.setText(Html.fromHtml(html));
     }
 
     @Override
