@@ -29,13 +29,14 @@ public interface NewsWithStateDao {
     @Transaction
     @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
             + "SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + " WHERE "
-            + State.COLUMN_TYPE + " = :stateType )"
+            + State.COLUMN_TYPE + " = :stateType ) " + " ORDER BY " + News.COLUMN_ID + " DESC"
     )
     LiveData<List<NewsWithState>> getNewsWithStateByState(int stateType);
 
     @Transaction
     @Query("SElECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("
             + "SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + ")"
+            + " ORDER BY " + News.COLUMN_ID + " DESC"
     )
     LiveData<List<NewsWithState>> getAllNewsWithStateHasStates();
 }
