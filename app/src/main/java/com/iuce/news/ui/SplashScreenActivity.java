@@ -37,7 +37,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
 
-        setContentView(R.layout.activity_spalsh_screen);
+        setContentView(R.layout.activity_splash_screen);
         splashProgress = findViewById(R.id.splashProgress);
 
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
