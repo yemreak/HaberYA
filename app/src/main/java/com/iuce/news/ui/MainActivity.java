@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,13 +27,11 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
-    private NewsViewModel newsViewModel;
-
     public static final String TAG = "MainActivity";
-
     private static final int REFRESH_TIME = 1000;
-
+    private NewsViewModel newsViewModel;
     private SwipeRefreshLayout swipeRefreshLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         initRecyclerView();
 
         swipeRefreshLayout = findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(()->{
+        swipeRefreshLayout.setOnRefreshListener(() -> {
             getNewNews();
             new Handler().postDelayed(() -> {
                 swipeRefreshLayout.setRefreshing(false);
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         newsViewModel.getAllNewsWithState().observe(this, this::fillView);
     }
 
-    private void getNewNews(){
+    private void getNewNews() {
         if (isConnected()) {
             NewsAPI.requestNewsData(this, (this::saveToDB));
         }
@@ -120,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
 
         return isWifiConn || isMobileConn;
     }
-
 
 
 }

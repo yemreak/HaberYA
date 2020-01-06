@@ -1,21 +1,12 @@
 package com.iuce.news.ui;
 
-import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.iuce.news.R;
-import com.iuce.news.viewmodel.NewsViewModel;
-
 
 
 /*

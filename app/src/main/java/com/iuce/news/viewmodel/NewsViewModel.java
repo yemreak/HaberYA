@@ -16,13 +16,11 @@ import java.util.Objects;
 
 public class NewsViewModel extends AndroidViewModel {
 
-    private NewsRepository repository;
-
     public static final String TAG = "NewsViewModel";
-
     public static final int LIMIT_NEWS = 400;
     public static final int COUNT_DEL = 200;
 
+    private NewsRepository repository;
     private LiveData<List<NewsWithState>> allNewsWithState;
 
     public NewsViewModel(Application application) {
@@ -30,7 +28,7 @@ public class NewsViewModel extends AndroidViewModel {
         repository = NewsRepository.getInstance(application);
 
         allNewsWithState = repository.getAllNewsWithState();
-}
+    }
 
     public void insertNews(News... news) {
         clearDB();
