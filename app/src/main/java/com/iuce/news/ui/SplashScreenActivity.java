@@ -42,8 +42,6 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
-        new FetchAsyncTask().execute();
-
         new Handler().postDelayed(() -> {
 
             Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
@@ -55,35 +53,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }, SPLASH_TIME);
     }
 
-    private class FetchAsyncTask extends AsyncTask<Void, Integer, Void> {
-        protected Void doInBackground(Void... val) {
-            if (isConnected()) {
-                NewsAPI.requestNewsData(getApplicationContext(), (this::saveToDB));
-                publishProgress(0);
-            }
-            return null;
-        }
 
-        protected void onProgressUpdate(Integer... progress) {
-            playProgress();
-        }
-
-        private void saveToDB(List<News> newsList) {
-            newsViewModel.insertNews(newsList.toArray(new News[0]));
-        }
-
-        private boolean isConnected() {
-            ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-            NetworkInfo networkInfo = Objects.requireNonNull(connMgr).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            boolean isWifiConn = Objects.requireNonNull(networkInfo).isConnected();
-
-            networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            boolean isMobileConn = Objects.requireNonNull(networkInfo).isConnected();
-
-            return isWifiConn || isMobileConn;
-        }
-    }
     private void playProgress() {
         ObjectAnimator.ofInt(splashProgress, "progress", 100)
                 .setDuration(SPLASH_TIME)

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.iuce.news.R;
 import com.iuce.news.api.NewsAPI;
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
+    private static final int REFRESH_TIME = 1000;
+
+    private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +42,32 @@ public class MainActivity extends AppCompatActivity {
 
         // lifecycle-extensions:$arch_lifecycle:2.2.0-beta01 versiyonuna uygun :'(
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
+
         initRecyclerView();
+
+        swipeRefreshLayout = findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(()->{
+            getNewNews();
+            new Handler().postDelayed(() -> {
+                swipeRefreshLayout.setRefreshing(false);
+            }, REFRESH_TIME);
+        });
 
     }
 
     private void initRecyclerView() {
         newsViewModel.getAllNewsWithState().observe(this, this::fillView);
+    }
+
+    private void getNewNews(){
+        if (isConnected()) {
+            NewsAPI.requestNewsData(this, (this::saveToDB));
+        }
+        newsViewModel.getAllNewsWithState().observe(this, this::fillView);
+    }
+
+    private void saveToDB(List<News> newsList) {
+        newsViewModel.insertNews(newsList.toArray(new News[0]));
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
@@ -52,9 +76,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,7 +109,17 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
+    private boolean isConnected() {
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        NetworkInfo networkInfo = Objects.requireNonNull(connMgr).getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        boolean isWifiConn = Objects.requireNonNull(networkInfo).isConnected();
+
+        networkInfo = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        boolean isMobileConn = Objects.requireNonNull(networkInfo).isConnected();
+
+        return isWifiConn || isMobileConn;
+    }
 
 
 
