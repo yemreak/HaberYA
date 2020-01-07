@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/news"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.OriginalNews"></activity>
         <activity android:name=".ui.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,9 +22,7 @@
         </activity>
         <activity android:name=".ui.ReactedActivity" />
         <activity android:name=".ui.NewsActivity" />
-        <activity android:name=".ui.MainActivity">
-
-        </activity>
+        <activity android:name=".ui.MainActivity"></activity>
     </application>
 
 </manifest>

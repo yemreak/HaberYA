@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -76,16 +76,26 @@
                     android:text="CONTENT"
                     android:id="@+id/news_content"
                     />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:paddingTop="10dp"
-                    android:fontFamily="@font/robotoslab_semibold"
-                    android:id="@+id/show_in_web"
-                    />
+
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/colorSecondary"
+        android:padding="3dp"
+        >
+
+        <Button
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:text="🌐"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@drawable/round_button"
+            android:id="@+id/btn_show_in_web"/>
+    </LinearLayout>
+</RelativeLayout>
