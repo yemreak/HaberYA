@@ -3,8 +3,6 @@ package com.iuce.news.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,10 +24,6 @@ public class NewsActivity extends AppCompatActivity {
 
     public static final String TAG = "NewsActivity";
     public static final String NAME_NEWS_ID = "newsID";
-
-    private NewsViewModel newsViewModel;
-    private NewsWithState selectedNewsWithState;
-
     TextView source;
     TextView date;
     TextView title;
@@ -38,6 +32,8 @@ public class NewsActivity extends AppCompatActivity {
     ImageView image;
     TextView tv_showInWeb;
     Button btn_web;
+    private NewsViewModel newsViewModel;
+    private NewsWithState selectedNewsWithState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
