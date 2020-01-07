@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        Log.e(TAG,""+newsViewModel.getAllNewsWithState().getValue());
-        
+        Log.e(TAG,"" + newsViewModel.getAllNewsWithState().getValue());
+
         if(newsViewModel.getAllNewsWithState().getValue() == null){
             getNewNews();
         } else {
