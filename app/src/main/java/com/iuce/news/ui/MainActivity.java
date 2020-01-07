@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -53,7 +54,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        newsViewModel.getAllNewsWithState().observe(this, this::fillView);
+        Log.e(TAG,""+newsViewModel.getAllNewsWithState().getValue());
+        
+        if(newsViewModel.getAllNewsWithState().getValue() == null){
+            getNewNews();
+        } else {
+            newsViewModel.getAllNewsWithState().observe(this, this::fillView);
+        }
     }
 
     private void getNewNews() {
@@ -72,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         NewsAdapter newsAdapter = new NewsAdapter(this, newsWithStateList);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override
