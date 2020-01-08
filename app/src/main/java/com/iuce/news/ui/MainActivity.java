@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -40,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         // lifecycle-extensions:$arch_lifecycle:2.2.0-beta01 versiyonuna uygun :'(
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-
-        initRecyclerView();
+        newsViewModel.getAllNewsWithState().observe(this, this::initRecyclerView);
 
         swipeRefreshLayout = findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -50,16 +48,13 @@ public class MainActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }, REFRESH_TIME);
         });
-
     }
 
-    private void initRecyclerView() {
-        Log.e(TAG,"" + newsViewModel.getAllNewsWithState().getValue());
-
-        if(newsViewModel.getAllNewsWithState().getValue() == null){
+    private void initRecyclerView(List<NewsWithState> newsWithStateList) {
+        if (newsWithStateList.size() == 0) {
             getNewNews();
         } else {
-            newsViewModel.getAllNewsWithState().observe(this, this::fillView);
+            fillView(newsWithStateList);
         }
     }
 
