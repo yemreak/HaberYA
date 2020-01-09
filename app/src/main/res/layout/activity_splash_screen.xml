@@ -23,22 +23,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/montserrat_bold"
             android:text="@string/splash_title"
             android:textColor="@android:color/white"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/montserrat_bold"/>
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/splashProgress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:text="@string/license"
+        android:fontFamily="@font/muli"
         android:paddingBottom="12dp"
+        android:text="@string/license"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="10sp"
-        android:fontFamily="@font/muli"
-        android:layout_alignParentBottom="true"/>
+        android:textSize="10sp" />
 </RelativeLayout>
