@@ -1,101 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.NewsActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:scrollbars = "vertical">
+        android:scrollbars="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/news_image"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher"
                 android:adjustViewBounds="true"
-                android:id="@+id/news_image"
-                />
+                android:src="@drawable/news" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="12dp">
+
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/info_layout"
-                    >
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Kaynak"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:textSize="12sp"
                         android:id="@+id/news_source"
-                        />
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:text="Tarih"
-                        android:fontFamily="@font/montserrat"
-                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="Kaynak"
+                        android:textSize="12sp" />
+
+                    <TextView
                         android:id="@+id/news_date"
-                        />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Tarih"
+                        android:textSize="12sp" />
                 </RelativeLayout>
+
                 <TextView
+                    android:id="@+id/news_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TITLE"
-                    android:textSize="22sp"
                     android:fontFamily="@font/montserrat_bold"
                     android:paddingTop="5dp"
+                    android:text="TITLE"
                     android:textColor="@color/colorPrimaryDark"
-                    android:id="@+id/news_title"
-                    />
+                    android:textSize="22sp" />
+
                 <TextView
+                    android:id="@+id/news_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
                     android:fontFamily="@font/montserrat"
                     android:paddingTop="5dp"
-                    android:textColor="@color/colorPrimary"
                     android:text="DESC"
-                    android:id="@+id/news_description"
-                    />
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
                 <TextView
+                    android:id="@+id/news_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:paddingTop="5dp"
                     android:fontFamily="@font/robotoslab_semibold"
+                    android:paddingTop="5dp"
                     android:text="CONTENT"
-                    android:id="@+id/news_content"
-                    />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
     <LinearLayout
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorSecondary"
-        android:padding="3dp"
-        >
+        android:gravity="center"
+        android:padding="3dp">
 
         <Button
+            android:id="@+id/btn_show_in_web"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:text="🌐"
-            android:textColor="@color/colorPrimaryDark"
             android:background="@drawable/round_button"
-            android:id="@+id/btn_show_in_web"/>
+            android:text="🌐"
+            android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
 </RelativeLayout>

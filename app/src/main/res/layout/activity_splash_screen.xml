@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
-            android:src="@mipmap/news" />
+            android:src="@drawable/news" />
 
         <TextView
             android:layout_width="wrap_content"
