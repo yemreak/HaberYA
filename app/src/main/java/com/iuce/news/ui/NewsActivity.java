@@ -73,12 +73,6 @@ public class NewsActivity extends AppCompatActivity {
         Picasso.get()
                 .load(Uri.parse(news.getUrlToImage()))
                 .into(image);
-
-       /* btn_web.setOnClickListener(v -> {
-            Intent webIntent = new Intent(this, OriginalNews.class);
-            webIntent.putExtra("URL", news.getUrl());
-            this.startActivity(webIntent);
-        });*/
     }
 
     public void openInWeb(View v) {
