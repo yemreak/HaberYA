@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -73,11 +74,17 @@ public class NewsActivity extends AppCompatActivity {
                 .load(Uri.parse(news.getUrlToImage()))
                 .into(image);
 
-        btn_web.setOnClickListener(v -> {
+       /* btn_web.setOnClickListener(v -> {
             Intent webIntent = new Intent(this, OriginalNews.class);
             webIntent.putExtra("URL", news.getUrl());
             this.startActivity(webIntent);
-        });
+        });*/
+    }
+
+    public void openInWeb(View v) {
+        Intent webIntent = new Intent(this, OriginalNews.class);
+        webIntent.putExtra("URL", selectedNewsWithState.getNews().getUrl());
+        this.startActivity(webIntent);
     }
 
     @Override
