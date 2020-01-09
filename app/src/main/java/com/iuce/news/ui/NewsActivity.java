@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,8 +30,7 @@ public class NewsActivity extends AppCompatActivity {
     TextView description;
     TextView content;
     ImageView image;
-    TextView tv_showInWeb;
-    Button btn_web;
+    ImageButton btn_web;
     private NewsViewModel newsViewModel;
     private NewsWithState selectedNewsWithState;
 
