@@ -19,7 +19,6 @@ import java.util.Map;
 
 public class OriginalNews extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +31,8 @@ public class OriginalNews extends AppCompatActivity {
             WebView webView = findViewById(R.id.original_web_view);
             WebSettings webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);
+
+            // https://www.hidroh.com/2016/05/19/hacking-up-ad-blocker-android/
             webView.setWebViewClient(new WebViewClient() {
                 private final Map<String, Boolean> loadedUrls = new HashMap<>();
 

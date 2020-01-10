@@ -22,6 +22,9 @@ import okhttp3.HttpUrl;
 import okio.BufferedSource;
 import okio.Okio;
 
+/**
+ * @see <a href="https://android.yemreak.com/yazilarim/webview-uzerindeki-reklamlari-engelleme">WebView Üzerindeki Reklamları Engelleme ~ YEmreAk</a>
+ */
 public class AdBlocker {
     public static final String TAG = AdBlocker.class.getName();
 
