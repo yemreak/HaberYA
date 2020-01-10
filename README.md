@@ -3,6 +3,12 @@
 
 📰 Haber uygulaması
 
+## ✨ Özellikleri
+
+- 🚫 Reklamsız haber okuma (sitelerde dahi reklamı engeller)
+- 🗃️ Farklı kaynaklardan haberleri tek bir arayüzde görme
+- ✨ Temiz ve hızlı arayüz
+
 ## 🏗️ Temel Yapı
 
 ## 🧰 Kullanılan Yapılar
