@@ -9,7 +9,7 @@
 - 🗃️ Farklı kaynaklardan haberleri tek bir arayüzde görme
 - ✨ Temiz ve hızlı arayüz
 
-> 👀 Detaylı bilgi için [📂 docs](./docss) dizinine bakabilirsiniz
+> 👀 Detaylı bilgi için [📂 docs](./docs) dizinine bakabilirsiniz
 
 ## 🏗️ Temel Yapı
 
