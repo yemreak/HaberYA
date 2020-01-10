@@ -40,6 +40,7 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.full_news_activity);
 
+        setBackButton();
         initViews();
 
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
@@ -107,6 +108,9 @@ public class NewsActivity extends AppCompatActivity {
             case R.id.share_button:
                 onShareClick(item);
                 return true;
+            case android.R.id.home:
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -140,4 +144,10 @@ public class NewsActivity extends AppCompatActivity {
 
         Log.d(TAG, "toggleLikeIcon: " + selectedNewsWithState.getStates());
     }
+
+    private void setBackButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
 }

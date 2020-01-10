@@ -29,6 +29,7 @@ public class ReactedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reacted);
 
+        setBackButton();
         TYPE = (State.Type) getIntent().getSerializableExtra(NAME_STATE_TYPE);
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
@@ -73,6 +74,9 @@ public class ReactedActivity extends AppCompatActivity {
             case R.id.get_saved_but:
                 switchContent(State.Type.LATER);
                 return true;
+            case android.R.id.home:
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -81,4 +85,10 @@ public class ReactedActivity extends AppCompatActivity {
         TYPE = type;
         initRecyclerView();
     }
+
+    private void setBackButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
 }
