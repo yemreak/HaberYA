@@ -10,7 +10,7 @@ public class NewsAPIOptions {
     private String country;
     private String category;
     private String sources;
-    private String q;
+    private String query;
 
     private int pageSize;
     private int page;
@@ -19,7 +19,7 @@ public class NewsAPIOptions {
         this.country = builder.country;
         this.category = builder.category;
         this.sources = builder.sources;
-        this.q = builder.q;
+        this.query = builder.query;
         this.pageSize = builder.pageSize;
         this.page = builder.page;
     }
@@ -39,8 +39,8 @@ public class NewsAPIOptions {
         if (sources != null) {
             stringBuilder.append("sources=").append(sources).append("&");
         }
-        if (q != null) {
-            stringBuilder.append("q=").append(q).append("&");
+        if (query != null) {
+            stringBuilder.append("query=").append(query).append("&");
         }
         if (pageSize != -1) {
             stringBuilder.append("pageSize=").append(pageSize).append("&");
@@ -85,7 +85,7 @@ public class NewsAPIOptions {
         String country = "tr";
         String category;
         String sources;
-        String q;
+        String query;
 
         int pageSize = -1;
         int page = -1;
@@ -105,8 +105,8 @@ public class NewsAPIOptions {
             return this;
         }
 
-        public Builder setQ(String q) {
-            this.q = q;
+        public Builder setQuery(String query) {
+            this.query = query;
             return this;
         }
 
