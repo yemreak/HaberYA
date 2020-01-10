@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.iuce.news.R;
+import com.iuce.news.api.AdBlocker;
 import com.iuce.news.api.NewsAPI;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);
             }, REFRESH_TIME);
         });
+
+        AdBlocker.init(this);
     }
 
     private void initRecyclerView(List<NewsWithState> newsWithStateList) {
