@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -28,14 +29,19 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
+    public static int savedPosition = -1;
+    public static int top = -1;
     private NewsViewModel newsViewModel;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private LinearLayoutManager linearLayoutManager;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView = findViewById(R.id.news_recycler_view);
         // lifecycle-extensions:$arch_lifecycle:2.2.0-beta01 versiyonuna uygun :'(
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
         newsViewModel.getAllNewsWithState().observe(this, this::initRecyclerView);
@@ -46,6 +52,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
         AdBlocker.init(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        savedPosition = linearLayoutManager.findFirstVisibleItemPosition();
+        View view = recyclerView.getChildAt(0);
+        top = (view == null) ? 0 : (view.getTop() - recyclerView.getPaddingTop());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (savedPosition != -1) {
+            linearLayoutManager.scrollToPositionWithOffset(savedPosition, top);
+        }
     }
 
     private void initRecyclerView(List<NewsWithState> newsWithStateList) {
@@ -68,10 +90,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
-        RecyclerView recyclerView = findViewById(R.id.news_recycler_view);
         NewsAdapter newsAdapter = new NewsAdapter(this, newsWithStateList);
         recyclerView.setAdapter(newsAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(linearLayoutManager);
         swipeRefreshLayout.setRefreshing(false);
     }
 
