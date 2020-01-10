@@ -55,9 +55,7 @@ public class MainActivity extends AppCompatActivity {
         newsViewModel.getAllNewsWithState().observe(this, this::initRecyclerView);
 
         swipeRefreshLayout = findViewById(R.id.refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            getNewNews();
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::getNewNews);
 
         AdBlocker.init(this);
     }
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getNewNews() {
         if (isConnected()) {
-            NewsAPI.requestNewsData(this, (this::saveToDB));
+            NewsAPI.requestTopHeadlines(this, this::saveToDB, null);
         }
         newsViewModel.getAllNewsWithState().observe(this, this::fillView);
     }
