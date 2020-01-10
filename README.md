@@ -9,6 +9,8 @@
 - 🗃️ Farklı kaynaklardan haberleri tek bir arayüzde görme
 - ✨ Temiz ve hızlı arayüz
 
+> 👀 Detaylı bilgi için [📂 docs](./docss) dizinine bakabilirsiniz
+
 ## 🏗️ Temel Yapı
 
 ## 🧰 Kullanılan Yapılar
