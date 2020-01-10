@@ -2,8 +2,10 @@ package com.iuce.news.ui;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -35,6 +37,20 @@ public class OriginalNews extends AppCompatActivity {
             // https://www.hidroh.com/2016/05/19/hacking-up-ad-blocker-android/
             webView.setWebViewClient(new WebViewClient() {
                 private final Map<String, Boolean> loadedUrls = new HashMap<>();
+
+                @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    super.onPageStarted(view, url, favicon);
+                    findViewById(R.id.web_progressbar).setVisibility(View.VISIBLE);
+                    webView.setVisibility(View.INVISIBLE);
+                }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    super.onPageFinished(view, url);
+                    findViewById(R.id.web_progressbar).setVisibility(View.GONE);
+                    webView.setVisibility(View.VISIBLE);
+                }
 
                 @SuppressWarnings("ConstantConditions")
                 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
