@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -46,34 +45,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initNavigationDrawer();
+
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.news_recycler_view);
-        drawerLayout = findViewById(R.id.main_activity_drawer_layout);
-        navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                switch (id) {
-                    case R.id.get_all_reacted_but:
-                        switchActivity(null);
-                        return true;
-                    case R.id.get_liked_but:
-                        switchActivity(State.Type.LIKED);
-                        return true;
-                    case R.id.get_saved_but:
-                        switchActivity(State.Type.LATER);
-                        return true;
-                    default:
-                        return true;
-                }
-            }
-        });
-
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.app_name, R.string.app_name);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // lifecycle-extensions:$arch_lifecycle:2.2.0-beta01 versiyonuna uygun :'(
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
@@ -129,15 +104,32 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setRefreshing(false);
     }
 
-    //@Override
-    //public boolean onCreateOptionsMenu(Menu menu) {
-    /*
-     * Details:
-     * https://google-developer-training.github.io/android-developer-fundamentals-course-concepts-v2/unit-2-user-experience/lesson-4-user-interaction/4-3-c-menus-and-pickers/4-3-c-menus-and-pickers.html
-     */
-    //  getMenuInflater().inflate(R.menu.main_layout_menu, menu);
-    //return true;
-    //}
+    private void initNavigationDrawer() {
+        drawerLayout = findViewById(R.id.main_activity_drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_nav, R.string.close_nav);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView = findViewById(R.id.navigation_view);
+
+        navigationView.setNavigationItemSelectedListener((MenuItem menuItem) -> {
+                    int id = menuItem.getItemId();
+                    switch (id) {
+                        case R.id.get_all_reacted_but:
+                            switchActivity(null);
+                            return true;
+                        case R.id.get_liked_but:
+                            switchActivity(State.Type.LIKED);
+                            return true;
+                        case R.id.get_saved_but:
+                            switchActivity(State.Type.LATER);
+                            return true;
+                        default:
+                            return true;
+                    }
+                }
+        );
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

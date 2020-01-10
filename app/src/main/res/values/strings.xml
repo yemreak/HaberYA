@@ -3,4 +3,6 @@
     <string name="title_activity_news">NewsActivity</string>
     <string name="license">Yunus Emre Ak ~ Asmaa Mirkhan \n The Appache License 2.0</string>
     <string name="splash_title">Turkey 24</string>
+    <string name="open_nav">Aç</string>
+    <string name="close_nav">Kapat</string>
 </resources>
