@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -29,7 +28,6 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
-    private static final int REFRESH_TIME = 1000;
     private NewsViewModel newsViewModel;
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -45,9 +43,6 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getNewNews();
-            new Handler().postDelayed(() -> {
-                swipeRefreshLayout.setRefreshing(false);
-            }, REFRESH_TIME);
         });
 
         AdBlocker.init(this);
@@ -77,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         NewsAdapter newsAdapter = new NewsAdapter(this, newsWithStateList);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
