@@ -9,6 +9,9 @@
 
 ### 🧱 Temel Kullanım
 
+- 🕊️ Tüm metotların kullanılması gerekmez
+- 💎 Varsayılan ülke `TR`
+
 ```java
 // Özellik tanımlama ile kullanma
 NewsAPIOptions options = NewsAPIOptions.Builder()
@@ -30,8 +33,6 @@ NewsAPI.requestSources(this, this::saveToDB, null);
 
 ```java
 NewsAPIOptions options = NewsAPIOptions.Builder()
-    .setCountry(NewsAPIOptions.Country.US)
-    .setCategory(NewsAPIOptions.Category.BUSINESS)
     .setQuery("Aranan metin")
     .build();
 ```
