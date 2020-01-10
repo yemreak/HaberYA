@@ -23,6 +23,7 @@
 - ✔️ Interface & Lambda Functions
 - ✔️ WebView ile gömülü tarayıcı
 - ✔️ Reklam Engelleme
+- ✔️ Navigation Drawer
 
 ## ✍ Elle Yazılmış Notlar
 
@@ -44,6 +45,7 @@
 - [📋 Ad Url List](https://pgl.yoyo.org/as/)
 - [🐣 How to access a file from asset/raw directory](https://stackoverflow.com/a/45908819/9770490)
 - [🙄 Suppress potential NullPointerException in Android Studio](https://stackoverflow.com/a/36253248/9770490)
+- [🎞 Navigation Drawer Tutorial](https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f)
 
 ### 👩‍🎨 Tasarım
 
