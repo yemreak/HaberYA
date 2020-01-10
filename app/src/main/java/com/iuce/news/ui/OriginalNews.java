@@ -51,6 +51,8 @@ public class OriginalNews extends AppCompatActivity {
                 }
             });
 
+            // HTTP protokolleri WebView'da düzgün çalışmıyor ve güvenli değil
+            url = url.replace("http://", "https://");
             webView.loadUrl(url);
         }
     }
