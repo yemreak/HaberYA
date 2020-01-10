@@ -10,6 +10,7 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +32,7 @@ public class OriginalNews extends AppCompatActivity {
         String url = intent.getStringExtra("URL");
         if (url != null) {
             WebView webView = findViewById(R.id.original_web_view);
+            ProgressBar webProgressBar = findViewById(R.id.web_progressbar);
             WebSettings webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);
 
@@ -38,17 +40,19 @@ public class OriginalNews extends AppCompatActivity {
             webView.setWebViewClient(new WebViewClient() {
                 private final Map<String, Boolean> loadedUrls = new HashMap<>();
 
+                // Details: https://stackoverflow.com/a/21458311
+                // More detailed: https://developer.android.com/reference/android/webkit/WebViewClient#public-methods_1
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
                     super.onPageStarted(view, url, favicon);
-                    findViewById(R.id.web_progressbar).setVisibility(View.VISIBLE);
+                    webProgressBar.setVisibility(View.VISIBLE);
                     webView.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
-                    findViewById(R.id.web_progressbar).setVisibility(View.GONE);
+                    webProgressBar.setVisibility(View.GONE);
                     webView.setVisibility(View.VISIBLE);
                 }
 
