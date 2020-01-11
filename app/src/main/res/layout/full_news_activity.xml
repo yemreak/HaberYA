@@ -93,7 +93,8 @@
         android:background="@color/colorSecondary"
         android:gravity="center"
         android:onClick="openInWeb"
-        android:padding="3dp">
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <ImageButton
             android:id="@+id/btn_show_in_web"
@@ -101,7 +102,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/round_button"
             android:onClick="openInWeb"
-            android:padding="10dp"
             android:src="@drawable/ic_web_black_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/muli"
+            android:text="@string/show_in_web"
+            android:textColor="@color/colorPrimaryLight"
+            android:textSize="12sp" />
     </LinearLayout>
 </RelativeLayout>
