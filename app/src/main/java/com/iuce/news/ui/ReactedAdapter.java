@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iuce.news.R;
-import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 import com.iuce.news.viewmodel.NewsViewModel;
 import com.squareup.picasso.Picasso;
@@ -40,7 +38,7 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
     @NonNull
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reacted_news_item, parent, false);
 
         return new Holder(view);
     }
@@ -51,15 +49,6 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
         holder.itemSource.setText(newsWithStates.get(position).getNews().getSource());
         holder.itemDate.setText(newsWithStates.get(position).getNews().getPublishedAt());
 
-        /*if (newsWithStates.get(position).getNews().isRead()) {
-            holder.rlMain.setAlpha(0.6f);
-        }*/
-        if (State.Type.LATER.isExist(newsWithStates.get(position).getStates())) {
-            holder.imgBtn.setBackgroundResource(R.drawable.ic_saved_read_later_black_24dp);
-        } else {
-            holder.imgBtn.setBackgroundResource(R.drawable.ic_add_read_later_black_24dp);
-
-        }
         Picasso.get()
                 .load(Uri.parse(newsWithStates.get(position).getNews().getUrlToImage()))
                 .fit()
@@ -80,31 +69,17 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
         TextView itemTitle;
         TextView itemSource;
         TextView itemDate;
-        ImageButton imgBtn;
 
         public Holder(View itemView) {
             super(itemView);
 
-            rlMain = itemView.findViewById(R.id.rl_main);
+            rlMain = itemView.findViewById(R.id.reacted_rl_main);
 
-            itemImage = itemView.findViewById(R.id.item_image);
-            itemTitle = itemView.findViewById(R.id.item_title);
-            itemSource = itemView.findViewById(R.id.item_source);
-            itemDate = itemView.findViewById(R.id.item_date);
-            imgBtn = itemView.findViewById(R.id.read_later_button);
+            itemImage = itemView.findViewById(R.id.reacted_item_image);
+            itemTitle = itemView.findViewById(R.id.reacted_item_title);
+            itemSource = itemView.findViewById(R.id.reacted_item_source);
+            itemDate = itemView.findViewById(R.id.reacted_item_date);
 
-
-            imgBtn.setOnClickListener(v -> {
-                int pos = getAdapterPosition();
-
-                State state = State.Type.LATER.findState(newsWithStates.get(pos).getStates());
-                if (state != null) {
-                    newsViewModel.deleteStates(state);
-                } else {
-                    newsViewModel.insertStates(State.Builder(newsWithStates.get(pos),
-                            State.Type.LATER));
-                }
-            });
             itemView.setOnClickListener(this);
         }
 
