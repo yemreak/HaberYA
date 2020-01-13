@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
             if (currentCountry == NewsAPIOptions.Country.TR && currentCategory == NewsAPIOptions.Category.ANY) {
                 getNewNews();
             } else if (currentCategory != NewsAPIOptions.Category.ANY) {
-                getNewNews(NewsAPIOptions.Builder().setCategory(currentCategory).build());
+                getCategorizedNews(currentCategory);
             } else {
-                getNewNews(NewsAPIOptions.Builder().setCountry(currentCountry).build());
+                getCountryNews(currentCountry);
             }
         });
 
@@ -103,23 +103,6 @@ public class MainActivity extends AppCompatActivity {
             NewsAPI.requestTopHeadlines(this, this::saveToDB, null);
         }
         newsViewModel.getAllNewsWithState().observe(this, this::fillView);
-    }
-
-    private void getNewNews(NewsAPIOptions options) {
-        if (isConnected()) {
-            NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
-        }
-        if (options.getCategory() != null) {
-            currentCountry = NewsAPIOptions.Country.TR;
-            currentCategory = NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase());
-            newsViewModel.getNewsByCategory(NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase())).observe(this, this::fillView);
-        }
-        if (options.getCountry() != null && NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase()) != NewsAPIOptions.Country.TR) {
-            currentCategory = NewsAPIOptions.Category.ANY;
-            currentCountry = NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase());
-            newsViewModel.getNewsByCountry(NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase())).observe(this, this::fillView);
-        }
-
     }
 
     private void saveToDB(List<News> newsList) {
@@ -192,13 +175,23 @@ public class MainActivity extends AppCompatActivity {
     private void getCategorizedNews(NewsAPIOptions.Category category) {
         NewsAPIOptions options = NewsAPIOptions.Builder().setCategory(category).build();
         drawerLayout.closeDrawers();
-        getNewNews(options);
+        if (isConnected()) {
+            NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
+        }
+        currentCountry = NewsAPIOptions.Country.TR;
+        currentCategory = NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase());
+        newsViewModel.getNewsByCategory(NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase())).observe(this, this::fillView);
     }
 
     private void getCountryNews(NewsAPIOptions.Country country) {
         NewsAPIOptions options = NewsAPIOptions.Builder().setCountry(country).build();
         drawerLayout.closeDrawers();
-        getNewNews(options);
+        if (isConnected()) {
+            NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
+        }
+        currentCategory = NewsAPIOptions.Category.ANY;
+        currentCountry = NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase());
+        newsViewModel.getNewsByCountry(NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase())).observe(this, this::fillView);
     }
 
     private boolean isConnected() {
