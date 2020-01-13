@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -96,6 +97,13 @@ public class MainActivity extends AppCompatActivity {
         if (isConnected()) {
             NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
         }
+        if (options.getCategory() != null) {
+            newsViewModel.getNewsByCategory(NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase())).observe(this, this::fillView);
+        }
+        if (options.getCountry() != null) {
+            newsViewModel.getNewsByCountry(NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase())).observe(this, this::fillView);
+        }
+
     }
 
     private void saveToDB(List<News> newsList) {
@@ -103,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
+        Log.e("ESMA", newsWithStateList.toString());
         NewsAdapter newsAdapter = new NewsAdapter(this, newsWithStateList);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -165,8 +174,8 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    private void getCategorizedNews(NewsAPIOptions.Category cat) {
-        NewsAPIOptions options = NewsAPIOptions.Builder().setCategory(cat).build();
+    private void getCategorizedNews(NewsAPIOptions.Category category) {
+        NewsAPIOptions options = NewsAPIOptions.Builder().setCategory(category).build();
         drawerLayout.closeDrawers();
         getNewNews(options);
     }
