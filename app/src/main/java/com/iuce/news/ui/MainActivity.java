@@ -33,6 +33,9 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
+    public static NewsAPIOptions.Category currentCategory = NewsAPIOptions.Category.ANY;
+    public static NewsAPIOptions.Country currentCountry = NewsAPIOptions.Country.TR;
+
     public static int savedPosition = -1;
     public static int top = -1;
     private NewsViewModel newsViewModel;
@@ -58,6 +61,16 @@ public class MainActivity extends AppCompatActivity {
 
         swipeRefreshLayout = findViewById(R.id.refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this::getNewNews);
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            if (currentCountry == NewsAPIOptions.Country.TR && currentCategory == NewsAPIOptions.Category.ANY) {
+                getNewNews();
+            } else if (currentCategory != NewsAPIOptions.Category.ANY) {
+                getNewNews(NewsAPIOptions.Builder().setCategory(currentCategory).build());
+            } else {
+                getNewNews(NewsAPIOptions.Builder().setCountry(currentCountry).build());
+            }
+        });
 
         AdBlocker.init(this);
     }
@@ -98,9 +111,13 @@ public class MainActivity extends AppCompatActivity {
             NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
         }
         if (options.getCategory() != null) {
+            currentCountry = NewsAPIOptions.Country.TR;
+            currentCategory = NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase());
             newsViewModel.getNewsByCategory(NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase())).observe(this, this::fillView);
         }
         if (options.getCountry() != null) {
+            currentCategory = NewsAPIOptions.Category.ANY;
+            currentCountry = NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase());
             newsViewModel.getNewsByCountry(NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase())).observe(this, this::fillView);
         }
 
