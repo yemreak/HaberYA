@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             currentCategory = NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase());
             newsViewModel.getNewsByCategory(NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase())).observe(this, this::fillView);
         }
-        if (options.getCountry() != null) {
+        if (options.getCountry() != null && NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase()) != NewsAPIOptions.Country.TR) {
             currentCategory = NewsAPIOptions.Category.ANY;
             currentCountry = NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase());
             newsViewModel.getNewsByCountry(NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase())).observe(this, this::fillView);
@@ -128,7 +127,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
-        Log.e("ESMA", newsWithStateList.toString());
+        /*for (NewsWithState nn : newsWithStateList) {
+            Log.e("ESMA", nn.getNews().getCategory() + "  " + nn.getNews().getCountry());
+        }*/
         NewsAdapter newsAdapter = new NewsAdapter(this, newsWithStateList);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
