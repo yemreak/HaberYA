@@ -25,6 +25,10 @@ public class NewsAPI {
     private static final String[] API_KEYS = {"cf9168e3e5ff4e8987492262f92632fb", "f82c72913e944b0c838e24a52e90db8c"}; // Not secure!
     private static final String URL_TEMPLATE = "https://newsapi.org/v2/%s?%s&apiKey=%s";
 
+    public static String category = null;
+    public static String country = null;
+
+
     private static String getRandomAPI() {
         return API_KEYS[new Random().nextInt(API_KEYS.length)];
     }
@@ -62,6 +66,8 @@ public class NewsAPI {
     }
 
     private static String BuildURL(String head, @Nullable NewsAPIOptions options) {
+        category = head;
+
         if (options == null) {
             options = NewsAPIOptions.Builder().build();
         }
@@ -71,6 +77,9 @@ public class NewsAPI {
                 options.BuildURL(),
                 getRandomAPI()
         );
+
+        category = options.getCategory();
+        country = options.getCountry();
 
         Log.i(TAG, "BuildURL: NewsAPI için url oluşturuldu:" + url);
 
@@ -104,15 +113,21 @@ public class NewsAPI {
     }
 
     private static News convertArticleToNews(JSONObject article) throws JSONException {
-        return new News(
+        News news =  new News(
                 article.getString("title"),
                 article.getString("description"),
                 article.getString("urlToImage"),
                 article.getString("url"),
                 article.getString("content"),
                 article.getJSONObject("source").getString("name"),
-                article.getString("publishedAt")
+                article.getString("publishedAt"),
+                category,
+                country
         );
+
+        Log.v(TAG, "convertArticleToNews: " + news);
+
+        return news;
     }
 
     public interface ResponseListener {

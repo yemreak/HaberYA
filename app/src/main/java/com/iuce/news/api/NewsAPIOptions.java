@@ -1,5 +1,7 @@
 package com.iuce.news.api;
 
+import java.nio.channels.UnsupportedAddressTypeException;
+
 /**
  * @see <a href="https://newsapi.org/docs/endpoints/top-headlines">NewsAPI Doc</a>
  */
@@ -56,9 +58,21 @@ public class NewsAPIOptions {
         return stringBuilder.toString();
     }
 
+    public String getCategory() {
+        if (category == null) {
+            return Category.ANY.getValue();
+        }
+        return category;
+    }
+
+
+    public String getCountry() {
+        return country;
+    }
+
     public enum Category {
 
-        BUSINESS, ENTERTAINMENT, GENERAL, HEALTH, SCIENCE, SPORTS, TECHNOLOGY;
+        ANY, BUSINESS, ENTERTAINMENT, GENERAL, HEALTH, SCIENCE, SPORTS, TECHNOLOGY;
 
         public String getValue() {
             return this.name().toLowerCase();
@@ -82,7 +96,7 @@ public class NewsAPIOptions {
      */
     public static final class Builder {
 
-        String country = "tr";
+        String country = Country.TR.getValue();
         String category;
         String sources;
         String query;

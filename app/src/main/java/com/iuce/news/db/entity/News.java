@@ -23,6 +23,8 @@ public class News {
     public static final String COLUMN_SOURCE = "source";
     public static final String COLUMN_PUBLISHED_AT = "published_at";
     public static final String COLUMN_URL = "url";
+    public static final String COLUMN_CATEGORY = "category";
+    public static final String COLUMN_COUNTRY = "country";
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = COLUMN_ID)
@@ -49,11 +51,17 @@ public class News {
     @ColumnInfo(name = COLUMN_PUBLISHED_AT)
     private String publishedAt;
 
+    @ColumnInfo(name = COLUMN_CATEGORY)
+    private String category;
+
+    @ColumnInfo(name = COLUMN_COUNTRY)
+    private String country;
+
     public News() {
     }
 
     @Ignore
-    public News(String title, String description, String urlToImage, String url, String content, String source, String publishedAt) {
+    public News(String title, String description, String urlToImage, String url, String content, String source, String publishedAt, String category, String country) {
         this.title = title;
         this.description = description;
         this.urlToImage = urlToImage;
@@ -61,9 +69,9 @@ public class News {
         this.content = content;
         this.source = source;
         this.publishedAt = publishedAt;
+        this.category = category;
+        this.country = country;
     }
-
-    private Boolean read;
 
     public int getId() {
         return id;
@@ -130,14 +138,23 @@ public class News {
         this.url = url;
     }
 
-    public Boolean isRead() {
-        return read;
+    public String getCategory() {
+        return category;
     }
 
-    public void setRead(Boolean read) {
-        this.read = read;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @Ignore
     @Override
     public String toString() {
         return "News{" +
@@ -149,6 +166,8 @@ public class News {
                 ", content='" + content + '\'' +
                 ", source='" + source + '\'' +
                 ", publishedAt='" + publishedAt + '\'' +
+                ", category='" + category + '\'' +
+                ", country='" + country + '\'' +
                 '}';
     }
 }
