@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.get_all_news_item:
                             drawerLayout.closeDrawers();
                             getNewNews();
+                            return true;
                         case R.id.get_science_item:
                             getCategorizedNews(NewsAPIOptions.Category.SCIENCE);
                             return true;
