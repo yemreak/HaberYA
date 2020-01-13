@@ -38,7 +38,7 @@ public class ReactedActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         if (TYPE != null) {
-            newsViewModel.getAllNewsWithStateByState(TYPE).observe(this, this::fillView);
+            newsViewModel.getAllNewsWithStateByStates(TYPE).observe(this, this::fillView);
 
         } else {
             newsViewModel.getAllNewsWithStateHasStates().observe(this, this::fillView);

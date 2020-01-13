@@ -30,7 +30,7 @@ public class NewsRepository {
     private NewsRepository(Application application) {
         db = NewsRoomDatabase.getDatabase(application);
 
-        allNewsWithState = db.newsWithStateDao().getAllNewsWithState();
+        allNewsWithState = db.newsWithStateDao().getAll();
     }
 
     public static NewsRepository getInstance(final Application application) {
@@ -44,12 +44,17 @@ public class NewsRepository {
         return instance;
     }
 
-    public LiveData<List<NewsWithState>> getNewsWithStateByState(State.Type type) {
-        return db.newsWithStateDao().getNewsWithStateByState(type.getId());
+    public LiveData<List<NewsWithState>> getNewsWithStateByStates(State.Type... types) {
+        List<Integer> typeList = new ArrayList<>();
+        for (State.Type type : types) {
+            typeList.add(type.getId());
+        }
+
+        return db.newsWithStateDao().getByStates(typeList.toArray(new Integer[0]));
     }
 
     public LiveData<List<NewsWithState>> getAllNewsWithStateHasStates() {
-        return db.newsWithStateDao().getAllNewsWithStateHasStates();
+        return db.newsWithStateDao().getAllHasStates();
     }
 
 
@@ -58,7 +63,7 @@ public class NewsRepository {
     }
 
     public LiveData<List<NewsWithState>> getNewsWithStateByIDs(Integer... stateIds) {
-        return db.newsWithStateDao().getNewsWithStateByIDs(stateIds);
+        return db.newsWithStateDao().getByIDs(stateIds);
     }
 
     public LiveData<List<NewsWithState>> getNewsWithStateByCountries(NewsAPIOptions.Country... countries) {
