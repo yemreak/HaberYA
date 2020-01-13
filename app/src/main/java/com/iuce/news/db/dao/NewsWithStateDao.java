@@ -23,7 +23,7 @@ public interface NewsWithStateDao {
     LiveData<List<NewsWithState>> getAllNewsWithState();
 
     @Transaction
-    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)")
+    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN (:ids)" + " ORDER BY " + News.COLUMN_ID + " DESC")
     LiveData<List<NewsWithState>> getNewsWithStateByIDs(Integer... ids);
 
     @Transaction
@@ -39,4 +39,12 @@ public interface NewsWithStateDao {
             + " ORDER BY " + News.COLUMN_ID + " DESC"
     )
     LiveData<List<NewsWithState>> getAllNewsWithStateHasStates();
+
+    @Transaction
+    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_CATEGORY + " IN (:categories)" + " ORDER BY " + News.COLUMN_ID + " DESC")
+    LiveData<List<NewsWithState>> getByCategories(String... categories);
+
+    @Transaction
+    @Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_COUNTRY + " IN (:countries)" + " ORDER BY " + News.COLUMN_ID + " DESC")
+    LiveData<List<NewsWithState>> getByCountries(String... countries);
 }

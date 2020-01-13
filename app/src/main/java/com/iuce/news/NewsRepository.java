@@ -5,11 +5,13 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.iuce.news.api.NewsAPIOptions;
 import com.iuce.news.db.NewsRoomDatabase;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +58,25 @@ public class NewsRepository {
     }
 
     public LiveData<List<NewsWithState>> getNewsWithStateByIDs(Integer... stateIds) {
-       return db.newsWithStateDao().getNewsWithStateByIDs(stateIds);
+        return db.newsWithStateDao().getNewsWithStateByIDs(stateIds);
+    }
+
+    public LiveData<List<NewsWithState>> getNewsWithStateByCountries(NewsAPIOptions.Country... countries) {
+        List<String> countryList = new ArrayList<>();
+        for (NewsAPIOptions.Country country : countries) {
+            countryList.add(country.getValue());
+        }
+
+        return db.newsWithStateDao().getByCountries(countryList.toArray(new String[0]));
+    }
+
+    public LiveData<List<NewsWithState>> getNewsWithStateByCategories(NewsAPIOptions.Category... categories) {
+        List<String> categoryList = new ArrayList<>();
+        for (NewsAPIOptions.Category category : categories) {
+            categoryList.add(category.getValue());
+        }
+
+        return db.newsWithStateDao().getByCategories(categoryList.toArray(new String[0]));
     }
 
     public void deleteRow(int rowCount) {
