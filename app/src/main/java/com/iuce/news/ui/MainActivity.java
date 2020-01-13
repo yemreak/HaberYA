@@ -127,9 +127,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
-        /*for (NewsWithState nn : newsWithStateList) {
-            Log.e("ESMA", nn.getNews().getCategory() + "  " + nn.getNews().getCountry());
-        }*/
         NewsAdapter newsAdapter = new NewsAdapter(this, newsWithStateList);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
