@@ -4,15 +4,44 @@
     <group android:checkableBehavior="single">
         <item
             android:checkable="false"
-            android:title="Size Özel" />
+            android:title="@string/world_news"
+            />
+        <item
+            android:id="@+id/get_middle_east_item"
+            android:title="@string/middle_east" />
+
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:checkable="false"
+            android:title="@string/category" />
+        <item
+            android:id="@+id/get_all_news_item"
+            android:title="@string/all" />
+        <item
+            android:id="@+id/get_science_item"
+            android:title="@string/science" />
+        <item
+            android:id="@+id/get_health_item"
+            android:title="@string/health" />
+        <item
+            android:id="@+id/get_technology_item"
+            android:title="@string/technology" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:checkable="false"
+            android:title="@string/custom_news" />
         <item
             android:id="@+id/get_all_reacted_but"
-            android:title="🎈 Haberleriniz" />
+            android:title="@string/your_news" />
         <item
             android:id="@+id/get_liked_but"
-            android:title="♥ Beğenilenler" />
+            android:title="@string/liked_news" />
         <item
             android:id="@+id/get_saved_but"
-            android:title="💾 Kaydedilenler" />
+            android:title="@string/saved_news" />
     </group>
 </menu>

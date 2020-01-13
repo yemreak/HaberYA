@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.iuce.news.R;
 import com.iuce.news.api.AdBlocker;
 import com.iuce.news.api.NewsAPI;
+import com.iuce.news.api.NewsAPIOptions;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
@@ -91,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         newsViewModel.getAllNewsWithState().observe(this, this::fillView);
     }
 
+    private void getNewNews(NewsAPIOptions options) {
+        if (isConnected()) {
+            NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
+        }
+    }
+
     private void saveToDB(List<News> newsList) {
         newsViewModel.insertNews(newsList.toArray(new News[0]));
     }
@@ -122,6 +129,22 @@ public class MainActivity extends AppCompatActivity {
                         case R.id.get_saved_but:
                             switchActivity(State.Type.LATER);
                             return true;
+                        case R.id.get_middle_east_item:
+                            // TODO: birden fazla ülke seçimi imkanı sunulabilir (?)
+                            getCountryNews(NewsAPIOptions.Country.AE);
+                            return true;
+                        case R.id.get_all_news_item:
+                            drawerLayout.closeDrawers();
+                            getNewNews();
+                        case R.id.get_science_item:
+                            getCategorizedNews(NewsAPIOptions.Category.SCIENCE);
+                            return true;
+                        case R.id.get_technology_item:
+                            getCategorizedNews(NewsAPIOptions.Category.TECHNOLOGY);
+                            return true;
+                        case R.id.get_health_item:
+                            getCategorizedNews(NewsAPIOptions.Category.HEALTH);
+                            return true;
                         default:
                             return true;
                     }
@@ -140,6 +163,18 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ReactedActivity.class);
         intent.putExtra(ReactedActivity.NAME_STATE_TYPE, type);
         this.startActivity(intent);
+    }
+
+    private void getCategorizedNews(NewsAPIOptions.Category cat) {
+        NewsAPIOptions options = NewsAPIOptions.Builder().setCategory(cat).build();
+        drawerLayout.closeDrawers();
+        getNewNews(options);
+    }
+
+    private void getCountryNews(NewsAPIOptions.Country country) {
+        NewsAPIOptions options = NewsAPIOptions.Builder().setCountry(country).build();
+        drawerLayout.closeDrawers();
+        getNewNews(options);
     }
 
     private boolean isConnected() {
