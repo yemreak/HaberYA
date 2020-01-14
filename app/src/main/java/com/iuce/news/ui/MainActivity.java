@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private void saveRecyclerViewPosition() {
         savedPosition = linearLayoutManager.findFirstVisibleItemPosition();
         View view = recyclerView.getChildAt(0);
+        // TODO: getLeft() çalışma mantığı gözden geçirilecek 
         top = (view == null) ? 0 : (view.getTop() - view.getLeft() - recyclerView.getPaddingTop());
     }
 
@@ -118,10 +119,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
+        saveRecyclerViewPosition();
         NewsAdapter newsAdapter = new NewsAdapter(this, newsWithStateList);
         recyclerView.setAdapter(newsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         swipeRefreshLayout.setRefreshing(false);
+        restoreRecyclerViewPosition();
     }
 
     private void initNavigationDrawer() {
