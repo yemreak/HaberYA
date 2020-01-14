@@ -3,6 +3,7 @@ package com.iuce.news.ui;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +22,11 @@ public class ReactedActivity extends AppCompatActivity {
     public static final String TAG = "ReactedActivity";
     public static final String NAME_STATE_TYPE = "sType";
 
+
+    public static int savedPosition = -1;
+    public static int top = -1;
+    private LinearLayoutManager reactedLinearLayoutManager;
+    private RecyclerView reactedRecyclerView;
     private NewsViewModel newsViewModel;
     private State.Type TYPE;
 
@@ -29,11 +35,38 @@ public class ReactedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reacted);
 
+        reactedLinearLayoutManager = new LinearLayoutManager(this);
+        reactedRecyclerView = findViewById(R.id.reacted_news_recycler_view);
+
         setBackButton();
         TYPE = (State.Type) getIntent().getSerializableExtra(NAME_STATE_TYPE);
         newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
         initRecyclerView();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveRecyclerViewPosition();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        restoreRecyclerViewPosition();
+    }
+
+    private void saveRecyclerViewPosition() {
+        savedPosition = reactedLinearLayoutManager.findFirstVisibleItemPosition();
+        View view = reactedRecyclerView.getChildAt(0);
+        top = (view == null) ? 0 : (view.getTop() - view.getLeft() - reactedRecyclerView.getPaddingTop());
+    }
+
+    private void restoreRecyclerViewPosition() {
+        if (savedPosition != -1) {
+            reactedLinearLayoutManager.scrollToPositionWithOffset(savedPosition, top);
+        }
     }
 
     private void initRecyclerView() {
@@ -46,10 +79,9 @@ public class ReactedActivity extends AppCompatActivity {
     }
 
     private void fillView(List<NewsWithState> newsWithStateList) {
-        RecyclerView recyclerView = findViewById(R.id.reacted_news_recycler_view);
         ReactedAdapter newsAdapter = new ReactedAdapter(this, newsWithStateList);
-        recyclerView.setAdapter(newsAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        reactedRecyclerView.setAdapter(newsAdapter);
+        reactedRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
