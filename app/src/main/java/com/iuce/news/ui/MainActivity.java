@@ -77,14 +77,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        savedPosition = linearLayoutManager.findFirstVisibleItemPosition();
-        View view = recyclerView.getChildAt(0);
-        top = (view == null) ? 0 : (view.getTop() - recyclerView.getPaddingTop());
+        saveRecyclerViewPosition();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        restoreRecyclerViewPosition();
+    }
+
+    private void saveRecyclerViewPosition() {
+        savedPosition = linearLayoutManager.findFirstVisibleItemPosition();
+        View view = recyclerView.getChildAt(0);
+        top = (view == null) ? 0 : (view.getTop() - view.getLeft() - recyclerView.getPaddingTop());
+    }
+
+    private void restoreRecyclerViewPosition() {
         if (savedPosition != -1) {
             linearLayoutManager.scrollToPositionWithOffset(savedPosition, top);
         }
