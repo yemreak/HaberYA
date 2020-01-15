@@ -19,6 +19,7 @@ import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity {
 
+    public static final String SEARCH_QUERY = "query";
     private static String query;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
@@ -30,7 +31,7 @@ public class SearchActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.search_recycler_view);
 
-        query = getIntent().getStringExtra("QUERY");
+        query = getIntent().getStringExtra(SEARCH_QUERY);
         getRequestedNews();
     }
 
