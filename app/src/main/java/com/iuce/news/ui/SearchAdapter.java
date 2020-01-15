@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iuce.news.Globals;
 import com.iuce.news.R;
 import com.iuce.news.db.entity.News;
 import com.squareup.picasso.Picasso;
@@ -81,11 +82,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.Holder> {
         public void onClick(View v) {
             int pos = getAdapterPosition();
 
-            Intent newsIntent = new Intent(context, NewsActivity.class);
-            newsIntent.putExtra(
-                    NewsActivity.NAME_NEWS_ID,
-                    requestedNews.get(pos).getId())
-            ;
+            Intent newsIntent = new Intent(context, DetailedSearchNews.class);
+            Globals.getInstance().setSelectedNews(requestedNews.get(pos));
             context.startActivity(newsIntent);
         }
     }
