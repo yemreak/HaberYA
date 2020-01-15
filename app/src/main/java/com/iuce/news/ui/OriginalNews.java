@@ -14,7 +14,6 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.iuce.news.R;
 import com.iuce.news.api.AdBlocker;
@@ -24,7 +23,7 @@ import java.util.Map;
 
 public class OriginalNews extends AppCompatActivity {
 
-    private Toolbar toolbar;
+    public static final String NEWS_URL = "url";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class OriginalNews extends AppCompatActivity {
         setBackButton();
 
         Intent intent = getIntent();
-        String url = intent.getStringExtra("URL");
+        String url = intent.getStringExtra(NEWS_URL);
         if (url != null) {
             WebView webView = findViewById(R.id.original_web_view);
             ProgressBar webProgressBar = findViewById(R.id.web_progressbar);

@@ -78,7 +78,7 @@ public class NewsActivity extends AppCompatActivity {
 
     public void openInWeb(View v) {
         Intent webIntent = new Intent(this, OriginalNews.class);
-        webIntent.putExtra("URL", selectedNewsWithState.getNews().getUrl());
+        webIntent.putExtra(OriginalNews.NEWS_URL, selectedNewsWithState.getNews().getUrl());
         this.startActivity(webIntent);
     }
 
