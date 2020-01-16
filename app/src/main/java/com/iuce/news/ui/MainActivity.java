@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onQueryTextSubmit(String query) {
                     Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                     intent.putExtra(SearchActivity.SEARCH_QUERY, query);
-                    getApplicationContext().startActivity(intent);
+                    MainActivity.this.startActivity(intent);
                     return false;
                 }
 
