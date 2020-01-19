@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -73,7 +73,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        RelativeLayout rlMain;
+        LinearLayout rlMain;
 
         ImageView itemImage;
         TextView itemTitle;
@@ -84,7 +84,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
         public Holder(View itemView) {
             super(itemView);
 
-            rlMain = itemView.findViewById(R.id.rl_main);
+            rlMain = itemView.findViewById(R.id.item_linear_layout);
 
             itemImage = itemView.findViewById(R.id.item_image);
             itemTitle = itemView.findViewById(R.id.item_title);
