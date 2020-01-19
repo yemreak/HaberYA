@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iuce.news.R;
+import com.iuce.news.api.NewsAPIOptions;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
 import com.iuce.news.viewmodel.NewsViewModel;
@@ -63,6 +64,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
                 .fit()
                 .centerCrop()
                 .into(holder.itemImage);
+
+        if (MainActivity.currentCountry == NewsAPIOptions.Country.AE) {
+            holder.rlMain.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            holder.itemImage.setPadding(25, 0, 0, 0);
+        }
+
     }
 
 

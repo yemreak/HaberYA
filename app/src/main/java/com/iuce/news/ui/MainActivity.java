@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        currentCountry = NewsAPIOptions.Country.TR;
         saveRecyclerViewPosition();
     }
 
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getNewNews() {
+        currentCountry = NewsAPIOptions.Country.TR;
         if (isConnected()) {
             NewsAPI.requestTopHeadlines(this, this::saveToDB, null);
         }
@@ -253,5 +255,5 @@ public class MainActivity extends AppCompatActivity {
 
         return isWifiConn || isMobileConn;
     }
-    
+
 }
