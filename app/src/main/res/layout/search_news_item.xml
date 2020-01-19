@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/search_item_image"
             android:orientation="vertical"
-            android:paddingLeft="15dp">
+            android:paddingLeft="12dp">
 
             <RelativeLayout
                 android:id="@+id/search_info_layout"
@@ -62,10 +62,12 @@
                 android:id="@+id/search_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:fontFamily="@font/muli"
+                android:maxLines="3"
                 android:text="Title"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
