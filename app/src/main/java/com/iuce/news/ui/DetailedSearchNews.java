@@ -33,6 +33,7 @@ public class DetailedSearchNews extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.full_news_activity);
+        setBackButton();
         initViews();
         selectedNews = Globals.getInstance().getSelectedNews();
         fillViews();
@@ -65,5 +66,16 @@ public class DetailedSearchNews extends AppCompatActivity {
         Intent webIntent = new Intent(this, OriginalNews.class);
         webIntent.putExtra("URL", selectedNews.getUrl());
         this.startActivity(webIntent);
+    }
+
+    private void setBackButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

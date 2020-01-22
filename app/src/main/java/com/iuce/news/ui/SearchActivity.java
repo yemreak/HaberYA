@@ -28,6 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        setBackButton();
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView = findViewById(R.id.search_recycler_view);
 
@@ -58,5 +59,16 @@ public class SearchActivity extends AppCompatActivity {
         boolean isMobileConn = Objects.requireNonNull(networkInfo).isConnected();
 
         return isWifiConn || isMobileConn;
+    }
+
+    private void setBackButton() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
