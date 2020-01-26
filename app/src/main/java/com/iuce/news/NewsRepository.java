@@ -5,7 +5,8 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.iuce.news.api.NewsAPIOptions;
+import com.iuce.news.api.newsapi.BaseOptions;
+import com.iuce.news.api.newsapi.THOptions;
 import com.iuce.news.db.NewsRoomDatabase;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
@@ -66,18 +67,18 @@ public class NewsRepository {
         return db.newsWithStateDao().getByIDs(stateIds);
     }
 
-    public LiveData<List<NewsWithState>> getNewsWithStateByCountries(NewsAPIOptions.Country... countries) {
+    public LiveData<List<NewsWithState>> getNewsWithStateByCountries(THOptions.Country... countries) {
         List<String> countryList = new ArrayList<>();
-        for (NewsAPIOptions.Country country : countries) {
+        for (THOptions.Country country : countries) {
             countryList.add(country.getValue());
         }
 
         return db.newsWithStateDao().getByCountries(countryList.toArray(new String[0]));
     }
 
-    public LiveData<List<NewsWithState>> getNewsWithStateByCategories(NewsAPIOptions.Category... categories) {
+    public LiveData<List<NewsWithState>> getNewsWithStateByCategories(BaseOptions.Category... categories) {
         List<String> categoryList = new ArrayList<>();
-        for (NewsAPIOptions.Category category : categories) {
+        for (BaseOptions.Category category : categories) {
             categoryList.add(category.getValue());
         }
 
@@ -112,10 +113,6 @@ public class NewsRepository {
 
         private BackgroundTaskInterface backgroundTaskInterface;
 
-        public interface BackgroundTaskInterface {
-            void doInBackground();
-        }
-
         public DaoAsyncTask(BackgroundTaskInterface backgroundTaskInterface) {
             this.backgroundTaskInterface = backgroundTaskInterface;
         }
@@ -125,6 +122,10 @@ public class NewsRepository {
             backgroundTaskInterface.doInBackground();
             return null;
         }
+
+        public interface BackgroundTaskInterface {
+            void doInBackground();
+        }
     }
 
     private static final class DaoWithResultAsyncTask<Params, Results> extends AsyncTask<Params,
@@ -132,14 +133,6 @@ public class NewsRepository {
 
         private BackgroundTaskInterface<Params, Results> backgroundTaskInterface;
         private PostExecuteInterface<Results> postExecuteInterface;
-
-        public interface BackgroundTaskInterface<Params, Results> {
-            Results doInBackground(Params... params);
-        }
-
-        public interface PostExecuteInterface<Results> {
-            void onPostExecute(Results results);
-        }
 
         public DaoWithResultAsyncTask(BackgroundTaskInterface<Params, Results> backgroundTaskInterface,
                                       PostExecuteInterface<Results> postExecuteInterface) {
@@ -156,6 +149,14 @@ public class NewsRepository {
         @Override
         protected void onPostExecute(Results results) {
             postExecuteInterface.onPostExecute(results);
+        }
+
+        public interface BackgroundTaskInterface<Params, Results> {
+            Results doInBackground(Params... params);
+        }
+
+        public interface PostExecuteInterface<Results> {
+            void onPostExecute(Results results);
         }
     }
 }

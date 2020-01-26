@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.iuce.news.R;
 import com.iuce.news.api.AdBlocker;
 import com.iuce.news.api.NewsAPI;
-import com.iuce.news.api.NewsAPIOptions;
+import com.iuce.news.api.newsapi.THOptions;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
 import com.iuce.news.db.pojo.NewsWithState;
@@ -35,11 +35,13 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
-    public static NewsAPIOptions.Category currentCategory = NewsAPIOptions.Category.ANY;
-    public static NewsAPIOptions.Country currentCountry = NewsAPIOptions.Country.TR;
+
+    public static THOptions.Category currentCategory = THOptions.Category.ANY;
+    public static THOptions.Country currentCountry = THOptions.Country.TR;
 
     public static int savedPosition = -1;
     public static int top = -1;
+
     private NewsViewModel newsViewModel;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager linearLayoutManager;
@@ -65,9 +67,9 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(this::getNewNews);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (currentCountry == NewsAPIOptions.Country.TR && currentCategory == NewsAPIOptions.Category.ANY) {
+            if (currentCountry == THOptions.Country.TR && currentCategory == THOptions.Category.ANY) {
                 getNewNews();
-            } else if (currentCategory != NewsAPIOptions.Category.ANY) {
+            } else if (currentCategory != THOptions.Category.ANY) {
                 getCategorizedNews(currentCategory);
             } else {
                 getCountryNews(currentCountry);
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        currentCountry = NewsAPIOptions.Country.TR;
+        currentCountry = THOptions.Country.TR;
         saveRecyclerViewPosition();
     }
 
@@ -112,9 +114,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getNewNews() {
-        currentCountry = NewsAPIOptions.Country.TR;
+        currentCountry = THOptions.Country.TR;
         if (isConnected()) {
-            NewsAPI.requestTopHeadlines(this, this::saveToDB, null);
+            NewsAPI.requestTopHeadlines(
+                    this,
+                    this::saveToDB,
+                    THOptions.Builder().setCountry(currentCountry).build()
+            );
         }
         newsViewModel.getAllNewsWithState().observe(this, this::fillView);
     }
@@ -154,20 +160,20 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                         case R.id.get_middle_east_item:
                             // TODO: birden fazla ülke seçimi imkanı sunulabilir (?)
-                            getCountryNews(NewsAPIOptions.Country.AE);
+                            getCountryNews(THOptions.Country.AE);
                             return true;
                         case R.id.get_all_news_item:
                             drawerLayout.closeDrawers();
                             getNewNews();
                             return true;
                         case R.id.get_science_item:
-                            getCategorizedNews(NewsAPIOptions.Category.SCIENCE);
+                            getCategorizedNews(THOptions.Category.SCIENCE);
                             return true;
                         case R.id.get_technology_item:
-                            getCategorizedNews(NewsAPIOptions.Category.TECHNOLOGY);
+                            getCategorizedNews(THOptions.Category.TECHNOLOGY);
                             return true;
                         case R.id.get_health_item:
-                            getCategorizedNews(NewsAPIOptions.Category.HEALTH);
+                            getCategorizedNews(THOptions.Category.HEALTH);
                             return true;
                         default:
                             return true;
@@ -222,26 +228,26 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    private void getCategorizedNews(NewsAPIOptions.Category category) {
-        NewsAPIOptions options = NewsAPIOptions.Builder().setCategory(category).build();
+    private void getCategorizedNews(THOptions.Category category) {
+        THOptions options = THOptions.Builder().setCategory(category).build();
         drawerLayout.closeDrawers();
         if (isConnected()) {
             NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
         }
-        currentCountry = NewsAPIOptions.Country.TR;
-        currentCategory = NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase());
-        newsViewModel.getNewsByCategory(NewsAPIOptions.Category.valueOf(options.getCategory().toUpperCase())).observe(this, this::fillView);
+        currentCountry = THOptions.Country.TR;
+        currentCategory = THOptions.Category.valueOf(options.getCategory().toUpperCase());
+        newsViewModel.getNewsByCategory(THOptions.Category.valueOf(options.getCategory().toUpperCase())).observe(this, this::fillView);
     }
 
-    private void getCountryNews(NewsAPIOptions.Country country) {
-        NewsAPIOptions options = NewsAPIOptions.Builder().setCountry(country).build();
+    private void getCountryNews(THOptions.Country country) {
+        THOptions options = THOptions.Builder().setCountry(country).build();
         drawerLayout.closeDrawers();
         if (isConnected()) {
             NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
         }
-        currentCategory = NewsAPIOptions.Category.ANY;
-        currentCountry = NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase());
-        newsViewModel.getNewsByCountry(NewsAPIOptions.Country.valueOf(options.getCountry().toUpperCase())).observe(this, this::fillView);
+        currentCategory = THOptions.Category.ANY;
+        currentCountry = THOptions.Country.valueOf(options.getCountry().toUpperCase());
+        newsViewModel.getNewsByCountry(THOptions.Country.valueOf(options.getCountry().toUpperCase())).observe(this, this::fillView);
     }
 
     private boolean isConnected() {

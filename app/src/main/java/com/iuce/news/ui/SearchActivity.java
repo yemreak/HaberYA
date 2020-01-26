@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iuce.news.R;
 import com.iuce.news.api.NewsAPI;
-import com.iuce.news.api.NewsAPIOptions;
+import com.iuce.news.api.newsapi.THOptions;
 import com.iuce.news.db.entity.News;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void getRequestedNews() {
-        NewsAPIOptions options = NewsAPIOptions.Builder().setQuery(query).build();
+        THOptions options = THOptions.Builder().setQuery(query).build();
         if (isConnected()) {
             NewsAPI.requestTopHeadlines(this, this::initRecyclerView, options);
         }
