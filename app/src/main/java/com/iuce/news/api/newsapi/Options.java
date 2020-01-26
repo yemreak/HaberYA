@@ -3,7 +3,9 @@ package com.iuce.news.api.newsapi;
 
 import androidx.annotation.NonNull;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * NewsAPI kullanımı için gerekli olan temel ayarlar
@@ -13,6 +15,10 @@ import java.util.Date;
 public abstract class Options {
 
     private static final String URL_TEMPLATE = "https://newsapi.org/v2/%s?%s&apiKey=%s";
+
+    public static Date getDate(int theDayBefore) {
+        return new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * theDayBefore);
+    }
 
     String buildUrl(String head, String queries, String apiKey) {
         return String.format(URL_TEMPLATE, head, queries, apiKey);
@@ -25,7 +31,7 @@ public abstract class Options {
     }
 
     String generateQuery(@NonNull String name, int value) {
-        if (value == -1)
+        if (value == 0)
             return "";
         return name + "=" + value + "&";
     }
@@ -37,11 +43,10 @@ public abstract class Options {
         return name + "=" + value.toString() + "&";
     }
 
-    @SuppressWarnings("SameParameterValue")
     String generateQuery(@NonNull String name, Date value) {
         if (value == null)
             return "";
-        return name + "=" + value.toString() + "&";
+        return name + "=" + getFormattedDate(value) + "&";
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -72,6 +77,11 @@ public abstract class Options {
         return string;
     }
 
+    String getFormattedDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.getDefault());
+        return sdf.format(date);
+    }
+
     @SuppressWarnings("unused")
     public enum Category {
 
@@ -85,7 +95,7 @@ public abstract class Options {
     @SuppressWarnings("unused")
     public enum Country {
 
-        AE, AR, AT, AU, BE, BG, BR, CA, CH, CN, CO, CU, CZ, DE, EG, FR,
+        ANY, AE, AR, AT, AU, BE, BG, BR, CA, CH, CN, CO, CU, CZ, DE, EG, FR,
         GB, GR, HK, HU, ID, IE, IL, IN, IT, JP, KR, LT, LV, MA, MX, MY,
         NG, NL, NO, NZ, PH, PL, PT, RO, RS, RU, SA, SE, SG, SI, SK, TH,
         TR, TW, UA, US, VE, ZA;

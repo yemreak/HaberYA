@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
-    public static Options.Category currentCategory = Options.Category.ANY;
+    public static Options.Category currentCategory = null;
     public static Options.Country currentCountry = Options.Country.TR;
 
     public static int savedPosition = -1;
@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(this::getNewNews);
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (currentCountry == THOptions.Country.TR && currentCategory == THOptions.Category.ANY) {
+            if (currentCountry == THOptions.Country.TR && currentCategory == null) {
                 getNewNews();
-            } else if (currentCategory != THOptions.Category.ANY) {
+            } else if (currentCategory != null) {
                 getCategorizedNews(currentCategory);
             } else {
                 getCountryNews(currentCountry);
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         if (isConnected()) {
             NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
         }
-        currentCategory = THOptions.Category.ANY;
+        currentCategory = null;
         currentCountry = options.getCountry();
         newsViewModel.getNewsByCountry(options.getCountry()).observe(this, this::fillView);
     }
