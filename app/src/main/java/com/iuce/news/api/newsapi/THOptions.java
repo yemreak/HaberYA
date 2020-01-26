@@ -55,22 +55,27 @@ public class THOptions extends Options {
         return category;
     }
 
+    @SuppressWarnings("unused")
     public String getSources() {
         return sources;
     }
 
+    @SuppressWarnings("unused")
     public String getQuery() {
         return query;
     }
 
+    @SuppressWarnings("unused")
     public int getPageSize() {
         return pageSize;
     }
 
+    @SuppressWarnings("unused")
     public int getPage() {
         return page;
     }
 
+    @SuppressWarnings("unused")
     public static final class Builder {
 
         private Country country;
