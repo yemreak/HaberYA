@@ -3,12 +3,16 @@ package com.iuce.news.api;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.iuce.news.api.newsapi.EOptions;
+import com.iuce.news.api.newsapi.Options;
+import com.iuce.news.api.newsapi.SOptions;
+import com.iuce.news.api.newsapi.THOptions;
 import com.iuce.news.db.entity.News;
 
 import org.json.JSONArray;
@@ -25,9 +29,8 @@ public class NewsAPI {
     private static final String[] API_KEYS = {"cf9168e3e5ff4e8987492262f92632fb", "f82c72913e944b0c838e24a52e90db8c"}; // Not secure!
     private static final String URL_TEMPLATE = "https://newsapi.org/v2/%s?%s&apiKey=%s";
 
-    public static String category = null;
-    public static String country = null;
-
+    public static Options.Category category = null;
+    public static Options.Country country = null;
 
     private static String getRandomAPI() {
         return API_KEYS[new Random().nextInt(API_KEYS.length)];
@@ -50,40 +53,23 @@ public class NewsAPI {
         queue.add(stringRequest);
     }
 
-    public static void requestTopHeadlines(Context context, ResponseListener responseListener, @Nullable NewsAPIOptions options) {
-        String url = BuildURL("top-headlines", options);
-        requestNewsData(context, url, responseListener);
-    }
-
-    public static void requestSources(Context context, ResponseListener responseListener, @Nullable NewsAPIOptions options) {
-        String url = BuildURL("sources", options);
-        requestNewsData(context, url, responseListener);
-    }
-
-    public static void requestEverything(Context context, ResponseListener responseListener, @Nullable NewsAPIOptions options) {
-        String url = BuildURL("everything", options);
-        requestNewsData(context, url, responseListener);
-    }
-
-    private static String BuildURL(String head, @Nullable NewsAPIOptions options) {
-        category = head;
-
-        if (options == null) {
-            options = NewsAPIOptions.Builder().build();
-        }
-
-        String url = String.format(
-                URL_TEMPLATE, head,
-                options.BuildURL(),
-                getRandomAPI()
-        );
+    public static void requestTopHeadlines(Context context, ResponseListener responseListener, @NonNull THOptions options) {
+        String url = options.buildUrl(getRandomAPI());
 
         category = options.getCategory();
         country = options.getCountry();
 
-        Log.i(TAG, "BuildURL: NewsAPI için url oluşturuldu:" + url);
+        requestNewsData(context, url, responseListener);
+    }
 
-        return url;
+    public static void requestSources(Context context, ResponseListener responseListener, @NonNull SOptions options) {
+        String url = options.buildUrl(getRandomAPI());
+        requestNewsData(context, url, responseListener);
+    }
+
+    public static void requestEverything(Context context, ResponseListener responseListener, @NonNull EOptions options) {
+        String url = options.buildUrl(getRandomAPI());
+        requestNewsData(context, url, responseListener);
     }
 
     /**
@@ -113,7 +99,7 @@ public class NewsAPI {
     }
 
     private static News convertArticleToNews(JSONObject article) throws JSONException {
-        News news =  new News(
+        News news = new News(
                 article.getString("title"),
                 article.getString("description"),
                 article.getString("urlToImage"),
@@ -121,8 +107,8 @@ public class NewsAPI {
                 article.getString("content"),
                 article.getJSONObject("source").getString("name"),
                 article.getString("publishedAt"),
-                category,
-                country
+                category.getValue(),
+                country.getValue()
         );
 
         Log.v(TAG, "convertArticleToNews: " + news);
