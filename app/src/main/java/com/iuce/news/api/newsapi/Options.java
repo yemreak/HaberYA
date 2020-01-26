@@ -16,7 +16,7 @@ public abstract class Options {
 
     private static final String URL_TEMPLATE = "https://newsapi.org/v2/%s?%s&apiKey=%s";
 
-    public static Date getDate(int theDayBefore) {
+    public static Date getTheDayBefore(int theDayBefore) {
         return new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * theDayBefore);
     }
 
