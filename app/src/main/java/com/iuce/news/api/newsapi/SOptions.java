@@ -1,55 +1,67 @@
 package com.iuce.news.api.newsapi;
 
-public class SOptions extends BaseOptions {
+
+/**
+ * Sources işlemleri için gerekli ayarlar
+ *
+ * @see <a href="https://newsapi.org/docs/endpoints/sources">Sources ~ NewsAPI</a>
+ */
+public class SOptions extends Options {
 
     public static final String HEAD = "sources";
 
+    private Category category;
+
+    private Language language;
+
+    private Country country;
+
     SOptions(Builder builder) {
-        super(builder);
+        this.country = builder.country;
+        this.category = builder.category;
+        this.language = builder.language;
+
     }
 
     public static Builder Builder() {
         return new Builder();
     }
 
-    @Override
     public String buildUrl(String apiKey) {
-        return super.buildUrl(HEAD, apiKey);
+        return super.buildUrl(HEAD, buildQueries(), apiKey);
     }
 
-    public static final class Builder extends BaseOptions.Builder {
+    private String buildQueries() {
+        return trimQuery("" // 🦅
+                + generateQuery("category", category)
+                + generateQuery("language", language)
+                + generateQuery("country", country)
+        );
+    }
 
-        @Override
+    public static final class Builder {
+
+        private Category category;
+
+        private Language language;
+
+        private Country country;
+
         public Builder setCategory(Category category) {
-            this.category = category.getValue();
+            this.category = category;
             return this;
         }
 
-        @Override
-        public Builder setSources(String sources) {
-            this.sources = sources;
+        public Builder setLanguage(Language language) {
+            this.language = language;
             return this;
         }
 
-        @Override
-        public Builder setQuery(String query) {
-            this.query = query;
+        public Builder setCountry(Country country) {
+            this.country = country;
             return this;
         }
 
-        @Override
-        public Builder setPageSize(int pageSize) {
-            this.pageSize = pageSize;
-            return this;
-        }
-
-        @Override
-        public Builder setPage(int page) {
-            this.page = page;
-            return this;
-        }
-
-        @Override
         public SOptions build() {
             return new SOptions(this);
         }

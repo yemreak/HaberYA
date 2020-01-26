@@ -1,89 +1,117 @@
 package com.iuce.news.api.newsapi;
 
-public class THOptions extends BaseOptions {
+
+/**
+ * Top Headlines işlemleri için gerekli ayarlar
+ *
+ * @see <a href="https://newsapi.org/docs/endpoints/top-headlines">Top Headlines ~ NewsAPI</a>
+ */
+public class THOptions extends Options {
 
     public static final String HEAD = "top-headlines";
 
-    private String country;
+    private Country country;
+    private Category category;
+
+    private String sources;
+    private String query;
+
+    private int pageSize;
+    private int page;
 
     THOptions(Builder builder) {
-        super(builder);
         this.country = builder.country;
+        this.category = builder.category;
+        this.sources = builder.sources;
+        this.query = builder.query;
+        this.pageSize = builder.pageSize;
+        this.page = builder.page;
     }
 
     public static Builder Builder() {
         return new Builder();
     }
 
-    @Override
     public String buildUrl(String apiKey) {
-        return super.buildUrl(HEAD, apiKey);
+        return super.buildUrl(HEAD, buildQueries(), apiKey);
     }
 
-    @Override
-    String buildQueries() {
-        return "" // 🦅
+    private String buildQueries() {
+        return trimQuery("" // 🦅
                 + generateQuery("country", country)
-                + super.buildQueries();
+                + generateQuery("category", category)
+                + generateQuery("sources", sources)
+                + generateQuery("q", query)
+                + generateQuery("pageSize", pageSize)
+                + generateQuery("page", page)
+        );
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public enum Country {
-
-        AE, AR, AT, AU, BE, BG, BR, CA, CH, CN, CO, CU, CZ, DE, EG, FR,
-        GB, GR, HK, HU, ID, IE, IL, IN, IT, JP, KR, LT, LV, MA, MX, MY,
-        NG, NL, NO, NZ, PH, PL, PT, RO, RS, RU, SA, SE, SG, SI, SK, TH,
-        TR, TW, UA, US, VE, ZA;
-
-        public String getValue() {
-            return this.name().toLowerCase();
-        }
+    public Category getCategory() {
+        return category;
     }
 
-    public static final class Builder extends BaseOptions.Builder {
+    public String getSources() {
+        return sources;
+    }
 
-        private String country;
+    public String getQuery() {
+        return query;
+    }
 
-        @Override
-        public Builder setCategory(Category category) {
-            this.category = category.getValue();
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public static final class Builder {
+
+        private Country country;
+        private Category category;
+
+        private String sources;
+        private String query;
+
+        private int pageSize;
+        private int page;
+
+        public Builder setCountry(Country country) {
+            this.country = country;
             return this;
         }
 
-        @Override
+        public Builder setCategory(Category category) {
+            this.category = category;
+            return this;
+        }
+
         public Builder setSources(String sources) {
             this.sources = sources;
             return this;
         }
 
-        @Override
         public Builder setQuery(String query) {
             this.query = query;
             return this;
         }
 
-        @Override
         public Builder setPageSize(int pageSize) {
             this.pageSize = pageSize;
             return this;
         }
 
-        @Override
         public Builder setPage(int page) {
             this.page = page;
             return this;
         }
 
-        public Builder setCountry(Country country) {
-            this.country = country.getValue();
-            return this;
-        }
-
-
-        @Override
         public THOptions build() {
             return new THOptions(this);
         }

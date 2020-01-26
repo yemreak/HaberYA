@@ -2,120 +2,140 @@ package com.iuce.news.api.newsapi;
 
 import java.util.Date;
 
-public class EOptions extends BaseOptions {
+/**
+ * Everything işlemleri için gerekli ayarlar
+ *
+ * @see <a href="https://newsapi.org/docs/endpoints/everything">Everything ~ NewsAPI</a>
+ */
+public class EOptions extends Options {
 
     public static final String HEAD = "everything";
 
-    private String language;
-    private String from;
-    private String to;
-    private String sortBy;
+    private String query;
+    private String qInTitle;
+    private String sources;
+    private String domains;
+    private String excludeDomains;
+
+    private Date from;
+    private Date to;
+
+    private Language language;
+    private SortBy sortBy;
+
+    private int pageSize;
+    private int page;
 
     EOptions(Builder builder) {
-        super(builder);
-        this.language = builder.language;
+        this.query = builder.query;
+        this.qInTitle = builder.qInTitle;
+        this.sources = builder.sources;
+        this.domains = builder.domains;
+        this.excludeDomains = builder.excludeDomains;
         this.from = builder.from;
         this.to = builder.to;
+        this.language = builder.language;
         this.sortBy = builder.sortBy;
+        this.pageSize = builder.pageSize;
+        this.page = builder.page;
     }
 
-    public static SOptions.Builder Builder() {
-        return new SOptions.Builder();
+    public static THOptions.Builder Builder() {
+        return new THOptions.Builder();
     }
 
-    @Override
     public String buildUrl(String apiKey) {
-        return super.buildUrl(HEAD, apiKey);
+        return super.buildUrl(HEAD, buildQueries(), apiKey);
     }
 
-    @Override
-    String buildQueries() {
-        return "" // 🦅
-                + generateQuery("language", language)
+    private String buildQueries() {
+        return trimQuery("" // 🦅
+                + generateQuery("q", query)
+                + generateQuery("qInTitle", qInTitle)
+                + generateQuery("sources", sources)
+                + generateQuery("domains", domains)
+                + generateQuery("excludeDomains", excludeDomains)
                 + generateQuery("from", from)
                 + generateQuery("to", to)
+                + generateQuery("language", language)
                 + generateQuery("sortBy", sortBy)
-                + super.buildQueries();
+                + generateQuery("pageSize", pageSize)
+                + generateQuery("page", page)
+        );
     }
 
-    public enum Language {
+    public static final class Builder {
 
-        AR, DE, EN, ES, FR, HE, IT, NL, NO, PT, RU, SE, UD, ZH;
+        private String query;
+        private String qInTitle;
+        private String sources;
+        private String domains;
+        private String excludeDomains;
 
-        public String getValue() {
-            return this.name().toLowerCase();
-        }
-    }
+        private Date from;
+        private Date to;
 
-    public enum SortBy {
+        private Language language;
+        private SortBy sortBy;
 
-        RELEVANCY, POPULARITY, PUBLISHED_AT;
+        private int pageSize;
+        private int page;
 
-        public String getValue() {
-            if (this == PUBLISHED_AT)
-                return "publishedAt";
-            return this.name().toLowerCase();
-        }
-    }
-
-    public static final class Builder extends BaseOptions.Builder {
-
-        private String language;
-        private String from;
-        private String to;
-        private String sortBy;
-
-        @Override
-        public Builder setCategory(Category category) {
-            this.category = category.getValue();
-            return this;
-        }
-
-        @Override
-        public Builder setSources(String sources) {
-            this.sources = sources;
-            return this;
-        }
-
-        @Override
         public Builder setQuery(String query) {
             this.query = query;
             return this;
         }
 
-        @Override
+        public Builder setQInTitle(String qInTitle) {
+            this.qInTitle = qInTitle;
+            return this;
+        }
+
+        public Builder setSources(String sources) {
+            this.sources = sources;
+            return this;
+        }
+
+        public Builder setDomains(String domains) {
+            this.domains = domains;
+            return this;
+        }
+
+        public Builder setExcludeDomains(String excludeDomains) {
+            this.excludeDomains = excludeDomains;
+            return this;
+        }
+
+        public Builder setFrom(Date from) {
+            this.from = from;
+            return this;
+        }
+
+        public Builder setTo(Date to) {
+            this.to = to;
+            return this;
+        }
+
+        public Builder setLanguage(Language language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder setSortBy(SortBy sortBy) {
+            this.sortBy = sortBy;
+            return this;
+        }
+
         public Builder setPageSize(int pageSize) {
             this.pageSize = pageSize;
             return this;
         }
 
-        @Override
         public Builder setPage(int page) {
             this.page = page;
             return this;
         }
 
-        public Builder setLanguage(Language language) {
-            this.language = language.getValue();
-            return this;
-        }
-
-        public Builder setFrom(Date from) {
-            this.from = from.toString();
-            return this;
-        }
-
-        public Builder setTo(Date to) {
-            this.to = to.toString();
-            return this;
-        }
-
-        public Builder setSortBy(SortBy sortBy) {
-            this.sortBy = sortBy.getValue();
-            return this;
-        }
-
-        @Override
         public EOptions build() {
             return new EOptions(this);
         }

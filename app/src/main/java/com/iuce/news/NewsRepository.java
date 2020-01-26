@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.iuce.news.api.newsapi.BaseOptions;
+import com.iuce.news.api.newsapi.Options;
 import com.iuce.news.api.newsapi.THOptions;
 import com.iuce.news.db.NewsRoomDatabase;
 import com.iuce.news.db.entity.News;
@@ -76,9 +76,9 @@ public class NewsRepository {
         return db.newsWithStateDao().getByCountries(countryList.toArray(new String[0]));
     }
 
-    public LiveData<List<NewsWithState>> getNewsWithStateByCategories(BaseOptions.Category... categories) {
+    public LiveData<List<NewsWithState>> getNewsWithStateByCategories(Options.Category... categories) {
         List<String> categoryList = new ArrayList<>();
-        for (BaseOptions.Category category : categories) {
+        for (Options.Category category : categories) {
             categoryList.add(category.getValue());
         }
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.iuce.news.NewsRepository;
-import com.iuce.news.api.newsapi.BaseOptions;
+import com.iuce.news.api.newsapi.Options;
 import com.iuce.news.api.newsapi.THOptions;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
@@ -75,7 +75,7 @@ public class NewsViewModel extends AndroidViewModel {
         return repository.getNewsWithStateByIDs(stateIds);
     }
 
-    public LiveData<List<NewsWithState>> getNewsByCategory(BaseOptions.Category... categories) {
+    public LiveData<List<NewsWithState>> getNewsByCategory(Options.Category... categories) {
         return repository.getNewsWithStateByCategories(categories);
     }
 

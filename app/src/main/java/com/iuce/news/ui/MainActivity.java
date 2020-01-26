@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.iuce.news.R;
 import com.iuce.news.api.AdBlocker;
 import com.iuce.news.api.NewsAPI;
+import com.iuce.news.api.newsapi.Options;
 import com.iuce.news.api.newsapi.THOptions;
 import com.iuce.news.db.entity.News;
 import com.iuce.news.db.entity.State;
@@ -36,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
 
-    public static THOptions.Category currentCategory = THOptions.Category.ANY;
-    public static THOptions.Country currentCountry = THOptions.Country.TR;
+    public static Options.Category currentCategory = Options.Category.ANY;
+    public static Options.Country currentCountry = Options.Country.TR;
 
     public static int savedPosition = -1;
     public static int top = -1;
@@ -235,8 +236,8 @@ public class MainActivity extends AppCompatActivity {
             NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
         }
         currentCountry = THOptions.Country.TR;
-        currentCategory = THOptions.Category.valueOf(options.getCategory().toUpperCase());
-        newsViewModel.getNewsByCategory(THOptions.Category.valueOf(options.getCategory().toUpperCase())).observe(this, this::fillView);
+        currentCategory = options.getCategory();
+        newsViewModel.getNewsByCategory(options.getCategory()).observe(this, this::fillView);
     }
 
     private void getCountryNews(THOptions.Country country) {
@@ -246,8 +247,8 @@ public class MainActivity extends AppCompatActivity {
             NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
         }
         currentCategory = THOptions.Category.ANY;
-        currentCountry = THOptions.Country.valueOf(options.getCountry().toUpperCase());
-        newsViewModel.getNewsByCountry(THOptions.Country.valueOf(options.getCountry().toUpperCase())).observe(this, this::fillView);
+        currentCountry = options.getCountry();
+        newsViewModel.getNewsByCountry(options.getCountry()).observe(this, this::fillView);
     }
 
     private boolean isConnected() {
