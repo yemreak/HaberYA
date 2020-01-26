@@ -12,7 +12,7 @@ public class EOptions extends Options {
     public static final String HEAD = "everything";
 
     private String query;
-    private String qInTitle;
+    private String queryInTitle;
     private String sources;
     private String domains;
     private String excludeDomains;
@@ -28,7 +28,7 @@ public class EOptions extends Options {
 
     EOptions(Builder builder) {
         this.query = builder.query;
-        this.qInTitle = builder.qInTitle;
+        this.queryInTitle = builder.queryInTitle;
         this.sources = builder.sources;
         this.domains = builder.domains;
         this.excludeDomains = builder.excludeDomains;
@@ -52,7 +52,7 @@ public class EOptions extends Options {
     private String buildQueries() {
         return trimQuery("" // 🦅
                 + generateQuery("q", query)
-                + generateQuery("qInTitle", qInTitle)
+                + generateQuery("qInTitle", queryInTitle)
                 + generateQuery("sources", sources)
                 + generateQuery("domains", domains)
                 + generateQuery("excludeDomains", excludeDomains)
@@ -71,8 +71,8 @@ public class EOptions extends Options {
     }
 
     @SuppressWarnings("unused")
-    public String getqInTitle() {
-        return qInTitle;
+    public String getQueryInTitle() {
+        return queryInTitle;
     }
 
     @SuppressWarnings("unused")
@@ -123,7 +123,7 @@ public class EOptions extends Options {
     public static final class Builder {
 
         private String query;
-        private String qInTitle;
+        private String queryInTitle;
         private String sources;
         private String domains;
         private String excludeDomains;
@@ -142,8 +142,8 @@ public class EOptions extends Options {
             return this;
         }
 
-        public Builder setQInTitle(String qInTitle) {
-            this.qInTitle = qInTitle;
+        public Builder setQInTitle(String queryInTitle) {
+            this.queryInTitle = queryInTitle;
             return this;
         }
 
