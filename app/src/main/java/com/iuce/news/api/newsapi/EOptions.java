@@ -12,7 +12,7 @@ public class EOptions extends Options {
     public static final String HEAD = "everything";
 
     private String query;
-    private String qInTitle;
+    private String queryInTitle;
     private String sources;
     private String domains;
     private String excludeDomains;
@@ -28,7 +28,7 @@ public class EOptions extends Options {
 
     EOptions(Builder builder) {
         this.query = builder.query;
-        this.qInTitle = builder.qInTitle;
+        this.queryInTitle = builder.queryInTitle;
         this.sources = builder.sources;
         this.domains = builder.domains;
         this.excludeDomains = builder.excludeDomains;
@@ -40,8 +40,9 @@ public class EOptions extends Options {
         this.page = builder.page;
     }
 
-    public static THOptions.Builder Builder() {
-        return new THOptions.Builder();
+    @SuppressWarnings("unused")
+    public static Builder Builder() {
+        return new Builder();
     }
 
     public String buildUrl(String apiKey) {
@@ -51,7 +52,7 @@ public class EOptions extends Options {
     private String buildQueries() {
         return trimQuery("" // 🦅
                 + generateQuery("q", query)
-                + generateQuery("qInTitle", qInTitle)
+                + generateQuery("qInTitle", queryInTitle)
                 + generateQuery("sources", sources)
                 + generateQuery("domains", domains)
                 + generateQuery("excludeDomains", excludeDomains)
@@ -64,10 +65,65 @@ public class EOptions extends Options {
         );
     }
 
+    @SuppressWarnings("unused")
+    public String getQuery() {
+        return query;
+    }
+
+    @SuppressWarnings("unused")
+    public String getQueryInTitle() {
+        return queryInTitle;
+    }
+
+    @SuppressWarnings("unused")
+    public String getSources() {
+        return sources;
+    }
+
+    @SuppressWarnings("unused")
+    public String getDomains() {
+        return domains;
+    }
+
+    @SuppressWarnings("unused")
+    public String getExcludeDomains() {
+        return excludeDomains;
+    }
+
+    public Date getFrom() {
+        return from;
+    }
+
+    @SuppressWarnings("unused")
+    public Date getTo() {
+        return to;
+    }
+
+    @SuppressWarnings("unused")
+    public Language getLanguage() {
+        return language;
+    }
+
+    @SuppressWarnings("unused")
+    public SortBy getSortBy() {
+        return sortBy;
+    }
+
+    @SuppressWarnings("unused")
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    @SuppressWarnings("unused")
+    public int getPage() {
+        return page;
+    }
+
+    @SuppressWarnings("unused")
     public static final class Builder {
 
         private String query;
-        private String qInTitle;
+        private String queryInTitle;
         private String sources;
         private String domains;
         private String excludeDomains;
@@ -86,8 +142,8 @@ public class EOptions extends Options {
             return this;
         }
 
-        public Builder setQInTitle(String qInTitle) {
-            this.qInTitle = qInTitle;
+        public Builder setQInTitle(String queryInTitle) {
+            this.queryInTitle = queryInTitle;
             return this;
         }
 

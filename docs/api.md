@@ -24,8 +24,8 @@
 
 ```java
 THOptions thOptions = THOptions.thOptions()
-    .setCountry(THOptions.Country.US)
-    .setCategory(THOptions.Category.BUSINESS)
+    .setCountry(Options.Country.US)
+    .setCategory(Options.Category.BUSINESS)
     .build();
 
 NewsAPI.requestTopHeadlines(this, this::saveToDB, thOptions);
@@ -38,8 +38,9 @@ NewsAPI.requestTopHeadlines(this, this::saveToDB, thOptions);
 ```java
 EOptions eOptions = EOptions.Builder()
     .setQuery("Aranan metin")
-    .setLanguage(EOptions.Language.EN,)
-    .setCategory(EOptions.Category.BUSINESS)
+    .setLanguage(Options.Language.EN,)
+    .setCategory(Options.Category.BUSINESS)
+    .setFrom(Options.getTheDayBefore(10)) // 10 gün öncesi
     .build();
 
 NewsAPI.requestEverything(this, this::saveToDB, eOptions);
@@ -51,9 +52,9 @@ NewsAPI.requestEverything(this, this::saveToDB, eOptions);
 
 ```java
 SOptions sOptions = SOptions.Builder()
-    .setCountry(SOptions.Language.EN,)
-    .setCountry(SOptions.Country.US)
-    .setCategory(SOptions.Category.BUSINESS)
+    .setCountry(Options.Language.EN,)
+    .setCountry(Options.Country.US)
+    .setCategory(Options.Category.BUSINESS)
     .build();
 
 NewsAPI.requestEverything(this, this::saveToDB, sOptions);
