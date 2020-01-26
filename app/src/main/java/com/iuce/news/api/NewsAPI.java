@@ -41,7 +41,7 @@ public class NewsAPI {
      * @see <a href="https://developer.android.com/training/volley/simple.html">Volley ~ Android
      * Developer</a>
      */
-    public static void requestNewsData(Context context, String url, ResponseListener responseListener) {
+    private static void requestNewsData(Context context, String url, ResponseListener responseListener) {
         RequestQueue queue = Volley.newRequestQueue(context);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, (response) -> {
             try {
