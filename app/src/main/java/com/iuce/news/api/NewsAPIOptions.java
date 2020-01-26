@@ -1,7 +1,5 @@
 package com.iuce.news.api;
 
-import java.nio.channels.UnsupportedAddressTypeException;
-
 /**
  * @see <a href="https://newsapi.org/docs/endpoints/top-headlines">NewsAPI Doc</a>
  */
@@ -42,7 +40,7 @@ public class NewsAPIOptions {
             stringBuilder.append("sources=").append(sources).append("&");
         }
         if (query != null) {
-            stringBuilder.append("query=").append(query).append("&");
+            stringBuilder.append("q=").append(query).append("&");
         }
         if (pageSize != -1) {
             stringBuilder.append("pageSize=").append(pageSize).append("&");
