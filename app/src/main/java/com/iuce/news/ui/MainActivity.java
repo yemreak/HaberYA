@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private void saveRecyclerViewPosition() {
         savedPosition = linearLayoutManager.findFirstVisibleItemPosition();
         View view = recyclerView.getChildAt(0);
-        // TODO: getLeft() çalışma mantığı gözden geçirilecek 
+        // TODO: getLeft() çalışma mantığı gözden geçirilecek
         top = (view == null) ? 0 : (view.getTop() - view.getLeft() - recyclerView.getPaddingTop());
     }
 
