@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/world_news">
-        <menu>
-            <item
-                android:id="@+id/get_middle_east_item"
-                android:title="@string/middle_east" />
-        </menu>
-    </item>
-
     <item android:title="@string/category">
         <menu>
             <item
@@ -23,9 +15,36 @@
             <item
                 android:id="@+id/get_technology_item"
                 android:title="@string/technology" />
+            <item
+                android:id="@+id/get_business_item"
+                android:title="@string/business" />
+            <item
+                android:id="@+id/get_entertainment_item"
+                android:title="@string/entertainment" />
+            <item
+                android:id="@+id/get_sport_item"
+                android:title="@string/sport" />
         </menu>
     </item>
-
+    <item android:title="@string/world_news">
+        <menu>
+            <item
+                android:id="@+id/get_middle_east_item"
+                android:title="@string/middle_east" />
+            <item
+                android:id="@+id/get_usa_item"
+                android:title="@string/usa" />
+            <item
+                android:id="@+id/get_europe_item"
+                android:title="@string/europe" />
+            <item
+                android:id="@+id/get_australia_item"
+                android:title="@string/australia" />
+            <item
+                android:id="@+id/get_asia_item"
+                android:title="@string/asia" />
+        </menu>
+    </item>
     <item android:title="@string/custom_news">
         <menu>
             <item

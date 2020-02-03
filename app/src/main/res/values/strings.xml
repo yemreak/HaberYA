@@ -12,9 +12,16 @@
     <string name="custom_news">Size Özel</string>
     <string name="world_news">Dünya Haberleri</string>
     <string name="middle_east">🌍 Orta Doğu</string>
+    <string name="usa">🌎 ABD</string>
+    <string name="europe">🌏 Avrupa</string>
+    <string name="australia">🌏 Avustralya</string>
+    <string name="asia">🌏 Asya</string>
     <string name="category">Kategori</string>
     <string name="all">💫 Hepsi</string>
     <string name="science">🔬 Bilim</string>
     <string name="health">🍀 Sağlık</string>
     <string name="technology">🚀 Teknoloji</string>
+    <string name="business">👜 İşletme</string>
+    <string name="entertainment">🎪 Eğlence</string>
+    <string name="sport">🏀 Spor</string>
 </resources>

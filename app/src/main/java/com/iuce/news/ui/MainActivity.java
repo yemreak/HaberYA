@@ -161,7 +161,24 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                         case R.id.get_middle_east_item:
                             // TODO: birden fazla ülke seçimi imkanı sunulabilir (?)
+                            // Birleşik arap emirlikeri
                             getCountryNews(THOptions.Country.AE);
+                            return true;
+                        case R.id.get_usa_item:
+                            // Amerika
+                            getCountryNews(THOptions.Country.US);
+                            return true;
+                        case R.id.get_europe_item:
+                            // İngiltere
+                            getCountryNews(THOptions.Country.GB);
+                            return true;
+                        case R.id.get_australia_item:
+                            // Avustralya
+                            getCountryNews(THOptions.Country.AU);
+                            return true;
+                        case R.id.get_asia_item:
+                            // Malezya
+                            getCountryNews(THOptions.Country.MY);
                             return true;
                         case R.id.get_all_news_item:
                             drawerLayout.closeDrawers();
@@ -175,6 +192,15 @@ public class MainActivity extends AppCompatActivity {
                             return true;
                         case R.id.get_health_item:
                             getCategorizedNews(THOptions.Category.HEALTH);
+                            return true;
+                        case R.id.get_business_item:
+                            getCategorizedNews(THOptions.Category.BUSINESS);
+                            return true;
+                        case R.id.get_entertainment_item:
+                            getCategorizedNews(THOptions.Category.ENTERTAINMENT);
+                            return true;
+                        case R.id.get_sport_item:
+                            getCategorizedNews(THOptions.Category.SPORTS);
                             return true;
                         default:
                             return true;
