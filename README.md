@@ -60,3 +60,18 @@
 - [ 🎴 Picasso kütüphanesi ile URL'den resim çekip ImageView'da gösterme](https://square.github.io/picasso/)
 - [🎨 Material Design'a uygun renk paleti oluşturma](https://material.io/resources/color)
 - [🔠 Google Fonts](https://fonts.google.com/)
+
+
+## 🛒 Store Açıklaması
+
+### 🎈 Short Decription
+- 🎉 Dünyanın farklı haber ajanslarından gelen haberlerin takip uygulaması
+
+### 🎀 Long Description
+- 🕵️‍♀️ YADünya uygulaması dünyanın farklı haber ajanslarından gelen haberleri takip etmenizi sağlar
+- 🎁 Farklı kategorilere, dillere ve ülkelere ait haber ajanslarının tek bir havuz olarak sunar
+- 💖 Sunduğu özel ve sade arayüzü ile beğendiğiniz veya diakkatinizi çeken daha sonra tekrar ulaşabilmek için kaydetmenizi veya farklı platformlar üzerinden paylaşmanızı sağlar
+- 🎉 Daha iyi bir deneyim sunmak için istediğiniz konu ile ilgili arama yapabilmenizi sağlar
+- 💁‍♂️ YADünya ile haberleri reklamsız okmanın keyfini çıkarın
+- ✨ Ve daha fazlası
+
