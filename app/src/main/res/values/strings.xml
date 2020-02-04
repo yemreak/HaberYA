@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">📰 Turkey24</string>
+    <string name="app_name">HaberYA</string>
     <string name="title_activity_news">NewsActivity</string>
     <string name="license">Yunus Emre Ak ~ Asmaa Mirkhan \n The Appache License 2.0</string>
     <string name="splash_title">Turkey 24</string>

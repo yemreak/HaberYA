@@ -68,10 +68,22 @@
 - 🎉 Dünyanın farklı haber ajanslarından gelen haberlerin takip uygulaması
 
 ### 🎀 Long Description
-- 🕵️‍♀️ YADünya uygulaması dünyanın farklı haber ajanslarından gelen haberleri takip etmenizi sağlar
+- 🕵️‍♀️ HaberYA uygulaması dünyanın farklı haber ajanslarından gelen haberleri takip etmenizi sağlar
 - 🎁 Farklı kategorilere, dillere ve ülkelere ait haber ajanslarının tek bir havuz olarak sunar
 - 💖 Sunduğu özel ve sade arayüzü ile beğendiğiniz veya diakkatinizi çeken daha sonra tekrar ulaşabilmek için kaydetmenizi veya farklı platformlar üzerinden paylaşmanızı sağlar
 - 🎉 Daha iyi bir deneyim sunmak için istediğiniz konu ile ilgili arama yapabilmenizi sağlar
-- 💁‍♂️ YADünya ile haberleri reklamsız okmanın keyfini çıkarın
+- 💁‍♂️ HaberYA ile haberleri reklamsız okmanın keyfini çıkarın
 - ✨ Ve daha fazlası
 
+### 🎴 Featured Image
+![](./res/banner.jpg)
+
+### 🤳 Screenshots
+![](./res/main_page.png)
+![](./res/detailed.png)
+![](./res/web_view.png)
+![](./res/nav_drawer.png)
+![](./res/various_items.png)
+![](./res/search.png)
+![](./res/share_action.png)
+![](./res/splash.png)
