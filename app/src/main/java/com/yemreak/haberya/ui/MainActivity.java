@@ -24,6 +24,7 @@ import com.yemreak.haberya.R;
 import com.yemreak.haberya.api.AdBlocker;
 import com.yemreak.haberya.api.NewsAPI;
 import com.yemreak.haberya.api.newsapi.Options;
+import com.yemreak.haberya.api.newsapi.SOptions;
 import com.yemreak.haberya.api.newsapi.THOptions;
 import com.yemreak.haberya.db.entity.News;
 import com.yemreak.haberya.db.entity.State;
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         AdBlocker.init(this);
+
+        // TODO: 2/5/2020 Asmaa Mirkhan ~ Varsayılan ayarları tanımlaama
+        THOptions.Builder.setDefaultCountry(Options.Country.TR);
+        SOptions.Builder.setDefaultCountry(Options.Country.TR);
     }
 
     @Override
@@ -144,8 +148,11 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        navigationView = findViewById(R.id.navigation_view);
+
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
 
         navigationView.setNavigationItemSelectedListener((MenuItem menuItem) -> {
                     int id = menuItem.getItemId();

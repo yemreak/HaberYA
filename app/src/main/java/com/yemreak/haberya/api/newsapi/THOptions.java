@@ -1,6 +1,8 @@
 package com.yemreak.haberya.api.newsapi;
 
 
+import androidx.annotation.NonNull;
+
 /**
  * Top Headlines işlemleri için gerekli ayarlar
  *
@@ -55,30 +57,27 @@ public class THOptions extends Options {
         return category;
     }
 
-    @SuppressWarnings("unused")
     public String getSources() {
         return sources;
     }
 
-    @SuppressWarnings("unused")
     public String getQuery() {
         return query;
     }
 
-    @SuppressWarnings("unused")
     public int getPageSize() {
         return pageSize;
     }
 
-    @SuppressWarnings("unused")
     public int getPage() {
         return page;
     }
 
-    @SuppressWarnings("unused")
     public static final class Builder {
 
-        private Country country;
+        private static Country defaultCountry;
+
+        private Country country = defaultCountry;
         private Category category;
 
         private String sources;
@@ -86,6 +85,10 @@ public class THOptions extends Options {
 
         private int pageSize;
         private int page;
+
+        public static void setDefaultCountry(@NonNull Country country) {
+            defaultCountry = country;
+        }
 
         public Builder setCountry(Country country) {
             this.country = country;

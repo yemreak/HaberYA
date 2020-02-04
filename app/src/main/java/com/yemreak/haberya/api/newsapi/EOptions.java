@@ -40,7 +40,7 @@ public class EOptions extends Options {
         this.page = builder.page;
     }
 
-    @SuppressWarnings("unused")
+
     public static Builder Builder() {
         return new Builder();
     }
@@ -65,27 +65,27 @@ public class EOptions extends Options {
         );
     }
 
-    @SuppressWarnings("unused")
+
     public String getQuery() {
         return query;
     }
 
-    @SuppressWarnings("unused")
+
     public String getQueryInTitle() {
         return queryInTitle;
     }
 
-    @SuppressWarnings("unused")
+
     public String getSources() {
         return sources;
     }
 
-    @SuppressWarnings("unused")
+
     public String getDomains() {
         return domains;
     }
 
-    @SuppressWarnings("unused")
+
     public String getExcludeDomains() {
         return excludeDomains;
     }
@@ -94,32 +94,32 @@ public class EOptions extends Options {
         return from;
     }
 
-    @SuppressWarnings("unused")
+
     public Date getTo() {
         return to;
     }
 
-    @SuppressWarnings("unused")
+
     public Language getLanguage() {
         return language;
     }
 
-    @SuppressWarnings("unused")
+
     public SortBy getSortBy() {
         return sortBy;
     }
 
-    @SuppressWarnings("unused")
+
     public int getPageSize() {
         return pageSize;
     }
 
-    @SuppressWarnings("unused")
+
     public int getPage() {
         return page;
     }
 
-    @SuppressWarnings("unused")
+
     public static final class Builder {
 
         private String query;
@@ -136,6 +136,7 @@ public class EOptions extends Options {
 
         private int pageSize;
         private int page;
+
 
         public Builder setQuery(String query) {
             this.query = query;

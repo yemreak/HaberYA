@@ -82,7 +82,6 @@ public abstract class Options {
         return sdf.format(date);
     }
 
-    @SuppressWarnings("unused")
     public enum Category {
 
         ANY, BUSINESS, ENTERTAINMENT, GENERAL, HEALTH, SCIENCE, SPORTS, TECHNOLOGY;
@@ -92,7 +91,6 @@ public abstract class Options {
         }
     }
 
-    @SuppressWarnings("unused")
     public enum Country {
 
         ANY, AE, AR, AT, AU, BE, BG, BR, CA, CH, CN, CO, CU, CZ, DE, EG, FR,
@@ -105,7 +103,6 @@ public abstract class Options {
         }
     }
 
-    @SuppressWarnings("unused")
     public enum Language {
 
         AR, DE, EN, ES, FR, HE, IT, NL, NO, PT, RU, SE, UD, ZH;
@@ -115,7 +112,6 @@ public abstract class Options {
         }
     }
 
-    @SuppressWarnings("unused")
     public enum SortBy {
 
         RELEVANCY, POPULARITY, PUBLISHED_AT;
