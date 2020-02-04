@@ -1,6 +1,8 @@
 package com.yemreak.haberya.api.newsapi;
 
 
+import androidx.annotation.NonNull;
+
 /**
  * Sources işlemleri için gerekli ayarlar
  *
@@ -23,7 +25,6 @@ public class SOptions extends Options {
 
     }
 
-    @SuppressWarnings("unused")
     public static Builder Builder() {
         return new Builder();
     }
@@ -40,29 +41,31 @@ public class SOptions extends Options {
         );
     }
 
-    @SuppressWarnings("unused")
     public Category getCategory() {
         return category;
     }
 
-    @SuppressWarnings("unused")
     public Language getLanguage() {
         return language;
     }
 
-    @SuppressWarnings("unused")
     public Country getCountry() {
         return country;
     }
 
-    @SuppressWarnings("unused")
     public static final class Builder {
+
+        private static Country defaultCountry;
 
         private Category category;
 
         private Language language;
 
-        private Country country;
+        private Country country = defaultCountry;
+
+        public static void setDefaultCountry(@NonNull Country country) {
+            defaultCountry = country;
+        }
 
         public Builder setCategory(Category category) {
             this.category = category;
