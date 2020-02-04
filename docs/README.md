@@ -1,5 +1,5 @@
 
-# 📰 News-App
+# 📰 HaberYA
 
 📰 Haber uygulaması
 
