@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.iuce.news">
+    package="com.yemreak.haberya">
     <!-- For News -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,19 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.DetailedSearchNews" />
-        <activity android:name=".ui.SearchActivity" />
-        <activity android:name=".ui.OriginalNews" />
-        <activity android:name=".ui.SplashScreenActivity">
+        <activity android:name="com.yemreak.haberya.ui.DetailedSearchNews" />
+        <activity android:name="com.yemreak.haberya.ui.SearchActivity" />
+        <activity android:name="com.yemreak.haberya.ui.OriginalNews" />
+        <activity android:name="com.yemreak.haberya.ui.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ReactedActivity" />
-        <activity android:name=".ui.NewsActivity" />
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name="com.yemreak.haberya.ui.ReactedActivity" />
+        <activity android:name="com.yemreak.haberya.ui.NewsActivity" />
+        <activity android:name="com.yemreak.haberya.ui.MainActivity" />
     </application>
 
 </manifest>

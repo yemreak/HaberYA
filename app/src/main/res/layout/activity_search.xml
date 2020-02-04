@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#212121"
-    tools:context="com.iuce.news.ui.SearchActivity">
+    tools:context="com.yemreak.haberya.ui.SearchActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recycler_view"
