@@ -70,8 +70,8 @@
 ### 🎀 Long Description
 - 🕵️‍♀️ HaberYA uygulaması dünyanın farklı haber ajanslarından gelen haberleri takip etmenizi sağlar
 - 🎁 Farklı kategorilere, dillere ve ülkelere ait haber ajanslarının tek bir havuz olarak sunar
-- 💖 Sunduğu özel ve sade arayüzü ile beğendiğiniz veya diakkatinizi çeken daha sonra tekrar ulaşabilmek için kaydetmenizi veya farklı platformlar üzerinden paylaşmanızı sağlar
-- 🎉 Daha iyi bir deneyim sunmak için istediğiniz konu ile ilgili arama yapabilmenizi sağlar
+- 💖 Sunduğu özel ve sade arayüzü ile beğendiğiniz veya dikkatinizi çeken haberleri, daha sonra tekrar ulaşabilmek için kaydetmenizi veya farklı platformlar üzerinden paylaşmanızı sağlar
+- 🎉 Daha iyi bir deneyim sunmak için, istediğiniz konu ile ilgili arama yapabilmenizi sağlar
 - 💁‍♂️ HaberYA ile haberleri reklamsız okmanın keyfini çıkarın
 - ✨ Ve daha fazlası
 
@@ -87,3 +87,6 @@
 ![](./res/search.png)
 ![](./res/share_action.png)
 ![](./res/splash.png)
+
+### 🖼 Logo (512x512)
+![](./res/512.png)
