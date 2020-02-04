@@ -20,8 +20,7 @@
                 android:id="@+id/news_image"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/news" />
+                android:adjustViewBounds="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
