@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 					int id = menuItem.getItemId();
 					switch (id) {
 						case R.id.get_all_reacted_but:
-							switchActivity(null);
+							switchActivity(State.Type.READ);
 							return true;
 						case R.id.get_liked_but:
 							switchActivity(State.Type.LIKED);
