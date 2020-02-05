@@ -5,7 +5,7 @@
 		<menu>
 			<item
 				android:id="@+id/get_popular_item"
-				android:icon="@drawable/local_icon"
+				android:icon="@drawable/popular_icon"
 				android:title="@string/popular" />
 			<item
 				android:id="@+id/get_science_item"
