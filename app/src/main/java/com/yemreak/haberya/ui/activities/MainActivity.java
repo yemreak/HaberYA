@@ -266,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
 	private void getCategorizedNews(THOptions.Category category) {
 		THOptions options = THOptions.Builder().setCategory(category).build();
 		drawerLayout.closeDrawers();
+		recyclerView.scrollToPosition(0);
 		if (isConnected()) {
 			NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
 		}
@@ -277,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
 	private void getCountryNews(THOptions.Country country) {
 		THOptions options = THOptions.Builder().setCountry(country).build();
 		drawerLayout.closeDrawers();
+		recyclerView.scrollToPosition(0);
 		if (isConnected()) {
 			NewsAPI.requestTopHeadlines(this, this::saveToDB, options);
 		}
