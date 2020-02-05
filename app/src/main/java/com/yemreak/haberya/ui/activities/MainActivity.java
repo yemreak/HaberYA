@@ -63,14 +63,12 @@ public class MainActivity extends AppCompatActivity {
 
 		// lifecycle-extensions:$arch_lifecycle:2.2.0-beta01 versiyonuna uygun :'(
 		newsViewModel = new ViewModelProvider(this).get(NewsViewModel.class);
-		newsViewModel.getAllNewsWithState().observe(this, this::initRecyclerView);
+		newsViewModel.getNewsByCountry(THOptions.Country.TR).observe(this, this::initRecyclerView);
 
 		swipeRefreshLayout = findViewById(R.id.refresh_layout);
 
 		swipeRefreshLayout.setOnRefreshListener(() -> {
-			if (currentCountry == THOptions.Country.TR && currentCategory == null) {
-				getCountryNews(THOptions.Country.TR);
-			} else if (currentCategory != null) {
+			if (currentCategory != null) {
 				getCategorizedNews(currentCategory);
 			} else {
 				getCountryNews(currentCountry);
