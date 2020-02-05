@@ -1,76 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:title="@string/category">
-        <menu>
-            <item
-                android:id="@+id/get_all_news_item"
-                android:icon="@drawable/all_icon"
-                android:title="@string/all" />
-            <item
-                android:id="@+id/get_science_item"
-                android:icon="@drawable/science_icon"
-                android:title="@string/science" />
-            <item
-                android:id="@+id/get_health_item"
-                android:icon="@drawable/health_icon"
-                android:title="@string/health" />
-            <item
-                android:id="@+id/get_technology_item"
-                android:icon="@drawable/technology_icon"
-                android:title="@string/technology" />
-            <item
-                android:id="@+id/get_business_item"
-                android:icon="@drawable/business_icon"
-                android:title="@string/business" />
-            <item
-                android:id="@+id/get_entertainment_item"
-                android:icon="@drawable/entertainment_icon"
-                android:title="@string/entertainment" />
-            <item
-                android:id="@+id/get_sport_item"
-                android:icon="@drawable/sport_icon"
-                android:title="@string/sport" />
-        </menu>
-    </item>
-    <item android:title="@string/world_news">
-        <menu>
-            <item
-                android:id="@+id/get_middle_east_item"
-                android:icon="@drawable/map_icon"
-                android:title="@string/middle_east" />
-            <item
-                android:id="@+id/get_usa_item"
-                android:icon="@drawable/map_icon"
-                android:title="@string/usa" />
-            <item
-                android:id="@+id/get_europe_item"
-                android:icon="@drawable/map_icon"
-                android:title="@string/europe" />
-            <item
-                android:id="@+id/get_australia_item"
-                android:icon="@drawable/map_icon"
-                android:title="@string/australia" />
-            <item
-                android:id="@+id/get_asia_item"
-                android:icon="@drawable/map_icon"
-                android:title="@string/asia" />
-        </menu>
-    </item>
-    <item android:title="@string/custom_news">
-        <menu>
-            <item
-                android:id="@+id/get_all_reacted_but"
-                android:icon="@drawable/your_icon"
-                android:title="@string/your_news" />
-            <item
-                android:id="@+id/get_liked_but"
-                android:icon="@drawable/favorite_icon"
-                android:title="@string/liked_news" />
-            <item
-                android:id="@+id/get_saved_but"
-                android:icon="@drawable/save_icon"
-                android:title="@string/saved_news" />
-        </menu>
-    </item>
+	
+	<item android:title="@string/category">
+		<menu>
+			<item
+				android:id="@+id/get_all_news_item"
+				android:icon="@drawable/all_icon"
+				android:title="@string/all" />
+			<item
+				android:id="@+id/get_science_item"
+				android:icon="@drawable/science_icon"
+				android:title="@string/science" />
+			<item
+				android:id="@+id/get_health_item"
+				android:icon="@drawable/health_icon"
+				android:title="@string/health" />
+			<item
+				android:id="@+id/get_technology_item"
+				android:icon="@drawable/technology_icon"
+				android:title="@string/technology" />
+			<item
+				android:id="@+id/get_business_item"
+				android:icon="@drawable/business_icon"
+				android:title="@string/business" />
+			<item
+				android:id="@+id/get_entertainment_item"
+				android:icon="@drawable/entertainment_icon"
+				android:title="@string/entertainment" />
+			<item
+				android:id="@+id/get_sport_item"
+				android:icon="@drawable/sport_icon"
+				android:title="@string/sport" />
+		</menu>
+	</item>
+	<item android:title="@string/world_news">
+		<menu>
+			<item
+				android:id="@+id/get_middle_east_item"
+				android:icon="@drawable/map_icon"
+				android:title="@string/middle_east" />
+			<item
+				android:id="@+id/get_usa_item"
+				android:icon="@drawable/map_icon"
+				android:title="@string/usa" />
+			<item
+				android:id="@+id/get_europe_item"
+				android:icon="@drawable/map_icon"
+				android:title="@string/europe" />
+			<item
+				android:id="@+id/get_australia_item"
+				android:icon="@drawable/map_icon"
+				android:title="@string/australia" />
+			<item
+				android:id="@+id/get_asia_item"
+				android:icon="@drawable/map_icon"
+				android:title="@string/asia" />
+		</menu>
+	</item>
+	<item android:title="@string/custom_news">
+		<menu>
+			<item
+				android:id="@+id/get_all_reacted_but"
+				android:icon="@drawable/your_icon"
+				android:title="@string/your_news" />
+			<item
+				android:id="@+id/get_liked_but"
+				android:icon="@drawable/favorite_icon"
+				android:title="@string/liked_news" />
+			<item
+				android:id="@+id/get_saved_but"
+				android:icon="@drawable/ic_saved_read_later_black_24dp"
+				android:title="@string/saved_news" />
+		</menu>
+	</item>
 </menu>
