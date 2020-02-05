@@ -142,9 +142,6 @@ public class MainActivity extends AppCompatActivity {
 		navigationView.setNavigationItemSelectedListener((MenuItem menuItem) -> {
 					int id = menuItem.getItemId();
 					switch (id) {
-						case R.id.get_local_item:
-							getCountryNews(THOptions.Country.TR);
-							return true;
 						case R.id.get_all_reacted_but:
 							switchActivity(null);
 							return true;
@@ -175,9 +172,8 @@ public class MainActivity extends AppCompatActivity {
 							// Malezya
 							getCountryNews(THOptions.Country.MY);
 							return true;
-						case R.id.get_all_news_item:
-							drawerLayout.closeDrawers();
-							newsViewModel.getAllNewsWithState().observe(this, this::initRecyclerView);
+						case R.id.get_popular_item:
+							getCountryNews(THOptions.Country.TR);
 							return true;
 						case R.id.get_science_item:
 							getCategorizedNews(THOptions.Category.SCIENCE);
