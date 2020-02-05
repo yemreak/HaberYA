@@ -85,6 +85,19 @@ public class NewsRepository {
 		return db.newsWithStateDao().getByCategories(categoryList.toArray(new String[0]));
 	}
 
+	public LiveData<List<NewsWithState>> getAllNewsWithStateByTitle(String title) {
+		return db.newsWithStateDao().getAllByTitle("%" + title + "%");
+	}
+
+	public LiveData<List<NewsWithState>> getAllNewsWithStateByTitleAndTypes(String title, State.Type... types) {
+		List<Integer> typeList = new ArrayList<>();
+		for (State.Type stateType : types) {
+			typeList.add(stateType.getId());
+		}
+
+		return db.newsWithStateDao().getAllByTitleAndType("%" + title + "%", typeList.toArray(new Integer[0]));
+	}
+
 	public void deleteRow(int rowCount) {
 		doInBackground(() -> db.newsDao().deleteRow(rowCount));
 	}

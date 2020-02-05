@@ -22,15 +22,28 @@ public interface NewsWithStateDao {
 	@Query("SELECT * FROM " + News.TABLE_NAME + " ORDER BY " + News.COLUMN_ID + " DESC")
 	LiveData<List<NewsWithState>> getAll();
 
-	@Transaction
 	@Query("SELECT Count(*) FROM " + News.TABLE_NAME)
 	int countAll();
 
-	@Transaction
 	@Query("SELECT Count(*) FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " NOT IN (" +
 			"SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME + " INNER JOIN " + News.TABLE_NAME +
 			")")
 	int countAllStateless();
+
+	@Transaction
+	@Query("SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_TITLE + " LIKE :titleQuery" +
+			" ORDER BY " + News.COLUMN_ID + " DESC")
+	LiveData<List<NewsWithState>> getAllByTitle(String titleQuery);
+
+	@Transaction
+	@Query(""
+			+ "SELECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_TITLE + " LIKE :titleQuery "
+			+ "AND " + News.COLUMN_ID + " IN ( "
+			+ "     SELECT " + State.COLUMN_NEWS_ID + " FROM " + State.TABLE_NAME
+			+ "     WHERE " + State.COLUMN_TYPE + " IN (:types)"
+			+ ")"
+			+ " ORDER BY " + News.COLUMN_ID + " DESC")
+	LiveData<List<NewsWithState>> getAllByTitleAndType(String titleQuery, Integer... types);
 
 	@Transaction
 	@Query("SElECT * FROM " + News.TABLE_NAME + " WHERE " + News.COLUMN_ID + " IN ("

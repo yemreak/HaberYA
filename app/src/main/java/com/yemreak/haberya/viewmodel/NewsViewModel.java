@@ -88,6 +88,14 @@ public class NewsViewModel extends AndroidViewModel {
 		return repository.getNewsWithStateByCountries(countries);
 	}
 
+	public LiveData<List<NewsWithState>> getAllNewsWithStateByTitle(String title) {
+		return repository.getAllNewsWithStateByTitle(title);
+	}
+
+	public LiveData<List<NewsWithState>> getAllNewsWithStateByTitleAndTypes(String title, State.Type... types) {
+		return repository.getAllNewsWithStateByTitleAndTypes(title, types);
+	}
+
 	public void deleteNewsByIDList(Long... idList) {
 		repository.deleteNewsByIDList(idList);
 	}
