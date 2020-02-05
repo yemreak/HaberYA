@@ -14,77 +14,94 @@ import com.yemreak.haberya.db.entity.State;
 import com.yemreak.haberya.db.pojo.NewsWithState;
 
 import java.util.List;
-import java.util.Objects;
 
 public class NewsViewModel extends AndroidViewModel {
 
-    public static final String TAG = "NewsViewModel";
-    public static final int LIMIT_NEWS = 400;
-    public static final int COUNT_DEL = 200;
+	// TODO: 2/5/2020 Yunus Emre AK - ViewModel üzerinde Async işlemler yapılmalı, repo içerisinde core metotlar olmalı
 
-    private NewsRepository repository;
-    private LiveData<List<NewsWithState>> allNewsWithState;
+	public static final String TAG = "NewsViewModel";
+	public static final int COUNT_DEL = 200;
 
-    public NewsViewModel(Application application) {
-        super(application);
-        repository = NewsRepository.getInstance(application);
+	private static int STATELESS_NEWS_LIMIT = 400;
 
-        allNewsWithState = repository.getAllNewsWithState();
-    }
+	private NewsRepository repository;
+	private LiveData<List<NewsWithState>> allNewsWithState;
 
-    public void insertNews(News... news) {
-        clearDB();
-        repository.insertNews(news);
-    }
+	public NewsViewModel(Application application) {
+		super(application);
+		repository = NewsRepository.getInstance(application);
 
-    public void clearDB() {
-        try {
-            int size = Objects.requireNonNull(allNewsWithState.getValue()).size();
-            Log.d(TAG, "clearDB: News count: " + size);
+		allNewsWithState = repository.getAllNewsWithState();
+	}
 
-            if (size >= LIMIT_NEWS) {
-                Log.d(TAG, "clearDB: News deletion has been started.");
-                repository.deleteRow(COUNT_DEL);
-            }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
+	/**
+	 * DB'de saklanacak toplam haber limiti
+	 *
+	 * @param statelessNewsLimit
+	 */
+	public static void setStatelessNewsLimit(int statelessNewsLimit) {
+		STATELESS_NEWS_LIMIT = statelessNewsLimit;
+	}
 
-    public void insertStates(State... states) {
-        repository.insertStates(states);
-    }
+	public void insertNews(News... news) {
+		countAllStatelessNews(size -> {
+			Log.d(TAG, "insertNews: Kayıtlı haber sayısı: " + size);
+			if (size > STATELESS_NEWS_LIMIT) clearDB();
+			repository.insertNews(news);
+		});
+	}
 
-    public void deleteStates(State... states) {
-        repository.deleteStates(states);
-    }
+	public void clearDB() {
+		Log.d(TAG, "clearDB: Eski haberler temizlendi");
+		repository.deleteRow(COUNT_DEL);
+	}
 
-    public LiveData<List<NewsWithState>> getAllNewsWithState() {
-        return allNewsWithState;
-    }
+	public void insertStates(State... states) {
+		repository.insertStates(states);
+	}
 
-    public LiveData<List<NewsWithState>> getAllNewsWithStateHasStates() {
-        return repository.getAllNewsWithStateHasStates();
-    }
+	public void deleteStates(State... states) {
+		repository.deleteStates(states);
+	}
 
-    public LiveData<List<NewsWithState>> getAllNewsWithStateByStates(State.Type... types) {
-        return repository.getNewsWithStateByStates(types);
-    }
+	public LiveData<List<NewsWithState>> getAllNewsWithState() {
+		return allNewsWithState;
+	}
 
-    public LiveData<List<NewsWithState>> getNewsWithStateByIDs(Integer... stateIds) {
-        return repository.getNewsWithStateByIDs(stateIds);
-    }
+	public LiveData<List<NewsWithState>> getAllNewsWithStateHasStates() {
+		return repository.getAllNewsWithStateHasStates();
+	}
 
-    public LiveData<List<NewsWithState>> getNewsByCategory(Options.Category... categories) {
-        return repository.getNewsWithStateByCategories(categories);
-    }
+	public LiveData<List<NewsWithState>> getAllNewsWithStateByStates(State.Type... types) {
+		return repository.getNewsWithStateByStates(types);
+	}
 
-    public LiveData<List<NewsWithState>> getNewsByCountry(THOptions.Country... countries) {
-        return repository.getNewsWithStateByCountries(countries);
-    }
+	public LiveData<List<NewsWithState>> getNewsWithStateByIDs(Integer... stateIds) {
+		return repository.getNewsWithStateByIDs(stateIds);
+	}
 
-    public void deleteNewsByIDList(Long... idList) {
-        repository.deleteNewsByIDList(idList);
-    }
+	public LiveData<List<NewsWithState>> getNewsByCategory(Options.Category... categories) {
+		return repository.getNewsWithStateByCategories(categories);
+	}
+
+	public LiveData<List<NewsWithState>> getNewsByCountry(THOptions.Country... countries) {
+		return repository.getNewsWithStateByCountries(countries);
+	}
+
+	public void deleteNewsByIDList(Long... idList) {
+		repository.deleteNewsByIDList(idList);
+	}
+
+	public void countAllNews(NewsRepository.ResultListener resultListener) {
+		repository.countAllNews(resultListener);
+	}
+
+	public void countAllNewsWithState(NewsRepository.ResultListener resultListener) {
+		repository.countAllNewsWithState(resultListener);
+	}
+
+	public void countAllStatelessNews(NewsRepository.ResultListener resultListener) {
+		repository.countAllStatelessNews(resultListener);
+	}
 
 }

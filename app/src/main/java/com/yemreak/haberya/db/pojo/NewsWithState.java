@@ -13,42 +13,42 @@ import java.util.List;
  */
 public class NewsWithState {
 
-    @Embedded
-    private News news;
+	@Embedded
+	private News news;
 
-    @Relation(
-            parentColumn = News.COLUMN_ID,
-            entityColumn = State.COLUMN_NEWS_ID,
-            entity = State.class
-    )
-    private List<State> states;
+	@Relation(
+			parentColumn = News.COLUMN_ID,
+			entityColumn = State.COLUMN_NEWS_ID,
+			entity = State.class
+	)
+	private List<State> states;
 
-    public NewsWithState(News news, List<State> states) {
-        this.news = news;
-        this.states = states;
-    }
+	public NewsWithState(News news, List<State> states) {
+		this.news = news;
+		this.states = states;
+	}
 
-    public News getNews() {
-        return news;
-    }
+	public News getNews() {
+		return news;
+	}
 
-    public void setNews(News news) {
-        this.news = news;
-    }
+	public void setNews(News news) {
+		this.news = news;
+	}
 
-    public List<State> getStates() {
-        return states;
-    }
+	public List<State> getStates() {
+		return states;
+	}
 
-    public void setStates(List<State> states) {
-        this.states = states;
-    }
+	public void setStates(List<State> states) {
+		this.states = states;
+	}
 
-    @Override
-    public String toString() {
-        return "NewsWithState{" +
-                "news=" + news +
-                ", states=" + states +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "NewsWithState{" +
+				"news=" + news +
+				", states=" + states +
+				'}';
+	}
 }

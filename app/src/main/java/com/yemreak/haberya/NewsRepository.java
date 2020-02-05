@@ -21,142 +21,158 @@ import java.util.List;
  */
 public class NewsRepository {
 
-    public static final String TAG = "NewsRepository";
+	public static final String TAG = "NewsRepository";
 
-    private static NewsRoomDatabase db;
-    private static NewsRepository instance;
+	private static NewsRoomDatabase db;
+	private static NewsRepository instance;
 
-    private LiveData<List<NewsWithState>> allNewsWithState;
+	private LiveData<List<NewsWithState>> allNewsWithState;
 
-    private NewsRepository(Application application) {
-        db = NewsRoomDatabase.getDatabase(application);
+	private NewsRepository(Application application) {
+		db = NewsRoomDatabase.getDatabase(application);
 
-        allNewsWithState = db.newsWithStateDao().getAll();
-    }
+		allNewsWithState = db.newsWithStateDao().getAll();
+	}
 
-    public static NewsRepository getInstance(final Application application) {
-        if (instance == null) {
-            synchronized (NewsRepository.class) {
-                if (instance == null) {
-                    instance = new NewsRepository(application);
-                }
-            }
-        }
-        return instance;
-    }
+	public static NewsRepository getInstance(final Application application) {
+		if (instance == null) {
+			synchronized (NewsRepository.class) {
+				if (instance == null) {
+					instance = new NewsRepository(application);
+				}
+			}
+		}
+		return instance;
+	}
 
-    public LiveData<List<NewsWithState>> getNewsWithStateByStates(State.Type... types) {
-        List<Integer> typeList = new ArrayList<>();
-        for (State.Type type : types) {
-            typeList.add(type.getId());
-        }
+	public LiveData<List<NewsWithState>> getNewsWithStateByStates(State.Type... types) {
+		List<Integer> typeList = new ArrayList<>();
+		for (State.Type type : types) {
+			typeList.add(type.getId());
+		}
 
-        return db.newsWithStateDao().getByStates(typeList.toArray(new Integer[0]));
-    }
+		return db.newsWithStateDao().getByStates(typeList.toArray(new Integer[0]));
+	}
 
-    public LiveData<List<NewsWithState>> getAllNewsWithStateHasStates() {
-        return db.newsWithStateDao().getAllHasStates();
-    }
+	public LiveData<List<NewsWithState>> getAllNewsWithStateHasStates() {
+		return db.newsWithStateDao().getAllHasStates();
+	}
 
 
-    public LiveData<List<NewsWithState>> getAllNewsWithState() {
-        return allNewsWithState;
-    }
+	public LiveData<List<NewsWithState>> getAllNewsWithState() {
+		return allNewsWithState;
+	}
 
-    public LiveData<List<NewsWithState>> getNewsWithStateByIDs(Integer... stateIds) {
-        return db.newsWithStateDao().getByIDs(stateIds);
-    }
+	public LiveData<List<NewsWithState>> getNewsWithStateByIDs(Integer... stateIds) {
+		return db.newsWithStateDao().getByIDs(stateIds);
+	}
 
-    public LiveData<List<NewsWithState>> getNewsWithStateByCountries(THOptions.Country... countries) {
-        List<String> countryList = new ArrayList<>();
-        for (THOptions.Country country : countries) {
-            countryList.add(country.getValue());
-        }
+	public LiveData<List<NewsWithState>> getNewsWithStateByCountries(THOptions.Country... countries) {
+		List<String> countryList = new ArrayList<>();
+		for (THOptions.Country country : countries) {
+			countryList.add(country.getValue());
+		}
 
-        return db.newsWithStateDao().getByCountries(countryList.toArray(new String[0]));
-    }
+		return db.newsWithStateDao().getByCountries(countryList.toArray(new String[0]));
+	}
 
-    public LiveData<List<NewsWithState>> getNewsWithStateByCategories(Options.Category... categories) {
-        List<String> categoryList = new ArrayList<>();
-        for (Options.Category category : categories) {
-            categoryList.add(category.getValue());
-        }
+	public LiveData<List<NewsWithState>> getNewsWithStateByCategories(Options.Category... categories) {
+		List<String> categoryList = new ArrayList<>();
+		for (Options.Category category : categories) {
+			categoryList.add(category.getValue());
+		}
 
-        return db.newsWithStateDao().getByCategories(categoryList.toArray(new String[0]));
-    }
+		return db.newsWithStateDao().getByCategories(categoryList.toArray(new String[0]));
+	}
 
-    public void deleteRow(int rowCount) {
-        doInBackground(() -> db.newsDao().deleteRow(rowCount));
-    }
+	public void deleteRow(int rowCount) {
+		doInBackground(() -> db.newsDao().deleteRow(rowCount));
+	}
 
-    public void insertNews(News... news) {
-        doInBackground(() -> db.newsDao().insert(news));
-    }
+	public void insertNews(News... news) {
+		doInBackground(() -> db.newsDao().insert(news));
+	}
 
-    public void insertStates(State... states) {
-        doInBackground(() -> db.stateDao().insert(states));
-    }
+	public void insertStates(State... states) {
+		doInBackground(() -> db.stateDao().insert(states));
+	}
 
-    public void deleteStates(State... states) {
-        doInBackground(() -> db.stateDao().delete(states));
-    }
+	public void deleteStates(State... states) {
+		doInBackground(() -> db.stateDao().delete(states));
+	}
 
-    public void deleteNewsByIDList(Long... ids) {
-        doInBackground(() -> db.newsDao().deleteByIDs(ids));
-    }
+	public void deleteNewsByIDList(Long... ids) {
+		doInBackground(() -> db.newsDao().deleteByIDs(ids));
+	}
 
-    private void doInBackground(DaoAsyncTask.BackgroundTaskInterface backgroundTaskInterface) {
-        new DaoAsyncTask(backgroundTaskInterface).execute();
-    }
+	public void countAllNews(ResultListener resultListener) {
+		doInBackground(() -> resultListener.onResult(db.newsDao().countAll()));
+	}
 
-    private static final class DaoAsyncTask extends AsyncTask<Void, Void, Void> {
+	public void countAllNewsWithState(ResultListener resultListener) {
+		doInBackground(() -> resultListener.onResult(db.newsWithStateDao().countAll()));
+	}
 
-        private BackgroundTaskInterface backgroundTaskInterface;
+	public void countAllStatelessNews(ResultListener resultListener) {
+		doInBackground(() -> resultListener.onResult(db.newsWithStateDao().countAllStateless()));
+	}
 
-        public DaoAsyncTask(BackgroundTaskInterface backgroundTaskInterface) {
-            this.backgroundTaskInterface = backgroundTaskInterface;
-        }
+	private void doInBackground(DaoAsyncTask.BackgroundTaskInterface backgroundTaskInterface) {
+		new DaoAsyncTask(backgroundTaskInterface).execute();
+	}
 
-        @Override
-        protected final Void doInBackground(Void... voids) {
-            backgroundTaskInterface.doInBackground();
-            return null;
-        }
+	public interface ResultListener {
+		void onResult(int result);
+	}
 
-        public interface BackgroundTaskInterface {
-            void doInBackground();
-        }
-    }
+	private static final class DaoAsyncTask extends AsyncTask<Void, Void, Void> {
 
-    private static final class DaoWithResultAsyncTask<Params, Results> extends AsyncTask<Params,
-            Void, Results> {
+		private BackgroundTaskInterface backgroundTaskInterface;
 
-        private BackgroundTaskInterface<Params, Results> backgroundTaskInterface;
-        private PostExecuteInterface<Results> postExecuteInterface;
+		public DaoAsyncTask(BackgroundTaskInterface backgroundTaskInterface) {
+			this.backgroundTaskInterface = backgroundTaskInterface;
+		}
 
-        public DaoWithResultAsyncTask(BackgroundTaskInterface<Params, Results> backgroundTaskInterface,
-                                      PostExecuteInterface<Results> postExecuteInterface) {
-            this.backgroundTaskInterface = backgroundTaskInterface;
-            this.postExecuteInterface = postExecuteInterface;
-        }
+		@Override
+		protected final Void doInBackground(Void... voids) {
+			backgroundTaskInterface.doInBackground();
+			return null;
+		}
 
-        @SafeVarargs
-        @Override
-        protected final Results doInBackground(Params... params) {
-            return backgroundTaskInterface.doInBackground(params);
-        }
+		public interface BackgroundTaskInterface {
+			void doInBackground();
+		}
+	}
 
-        @Override
-        protected void onPostExecute(Results results) {
-            postExecuteInterface.onPostExecute(results);
-        }
+	private static final class DaoWithResultAsyncTask<Params, Results> extends AsyncTask<Params,
+			Void, Results> {
 
-        public interface BackgroundTaskInterface<Params, Results> {
-            Results doInBackground(Params... params);
-        }
+		private BackgroundTaskInterface<Params, Results> backgroundTaskInterface;
+		private PostExecuteInterface<Results> postExecuteInterface;
 
-        public interface PostExecuteInterface<Results> {
-            void onPostExecute(Results results);
-        }
-    }
+		public DaoWithResultAsyncTask(BackgroundTaskInterface<Params, Results> backgroundTaskInterface,
+		                              PostExecuteInterface<Results> postExecuteInterface) {
+			this.backgroundTaskInterface = backgroundTaskInterface;
+			this.postExecuteInterface = postExecuteInterface;
+		}
+
+		@SafeVarargs
+		@Override
+		protected final Results doInBackground(Params... params) {
+			return backgroundTaskInterface.doInBackground(params);
+		}
+
+		@Override
+		protected void onPostExecute(Results results) {
+			postExecuteInterface.onPostExecute(results);
+		}
+
+		public interface BackgroundTaskInterface<Params, Results> {
+			Results doInBackground(Params... params);
+		}
+
+		public interface PostExecuteInterface<Results> {
+			void onPostExecute(Results results);
+		}
+	}
 }

@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
 
 		THOptions.Builder.setDefaultCountry(Options.Country.TR);
 		SOptions.Builder.setDefaultCountry(Options.Country.TR);
+
+		// TODO: 2/5/2020 Asmaa Mirkhan - DB'de saklanacak kaydedilmeyen haber limiti (her sayfa kategori için ~ 40)
+		NewsViewModel.setStatelessNewsLimit(400);
 	}
 
 	@Override

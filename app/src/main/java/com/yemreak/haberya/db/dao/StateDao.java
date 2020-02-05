@@ -10,9 +10,9 @@ import com.yemreak.haberya.db.entity.State;
 @Dao
 public interface StateDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(State... state);
+	@Insert(onConflict = OnConflictStrategy.IGNORE)
+	void insert(State... state);
 
-    @Delete
-    void delete(State... state);
+	@Delete
+	void delete(State... state);
 }
