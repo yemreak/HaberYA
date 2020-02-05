@@ -1,9 +1,13 @@
 package com.yemreak.haberya.ui.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +32,7 @@ public class ReactedActivity extends AppCompatActivity {
 	private RecyclerView reactedRecyclerView;
 	private NewsViewModel newsViewModel;
 	private State.Type TYPE;
+	private ReactedAdapter reactedNewsAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,20 +74,13 @@ public class ReactedActivity extends AppCompatActivity {
 	}
 
 	private void initRecyclerView() {
-		if (TYPE != null) {
-			newsViewModel.getAllNewsWithStateByStates(TYPE).observe(this, this::fillView);
-
-		} else {
-			newsViewModel.getAllNewsWithStateHasStates().observe(this, this::fillView);
-		}
+		newsViewModel.getAllNewsWithStateByStates(TYPE).observe(this, this::fillView);
 	}
 
 	private void fillView(List<NewsWithState> newsWithStateList) {
-		saveRecyclerViewPosition();
-		ReactedAdapter newsAdapter = new ReactedAdapter(this, newsWithStateList);
-		reactedRecyclerView.setAdapter(newsAdapter);
+		reactedNewsAdapter = new ReactedAdapter(this, newsWithStateList);
+		reactedRecyclerView.setAdapter(reactedNewsAdapter);
 		reactedRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-		restoreRecyclerViewPosition();
 	}
 
 
@@ -95,6 +93,38 @@ public class ReactedActivity extends AppCompatActivity {
 	public boolean onSupportNavigateUp() {
 		onBackPressed();
 		return true;
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.menu.search_bar_menu, menu);
+		MenuItem searchItem = menu.findItem(R.id.search_button);
+		SearchView searchView = null;
+
+		if (searchItem != null) {
+			searchView = (SearchView) searchItem.getActionView();
+		}
+
+		if (searchView != null) {
+
+			searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+				@Override
+				public boolean onQueryTextSubmit(String query) {
+					newsViewModel.getAllNewsWithStateByTitleAndTypes(query, TYPE)
+							.observe(ReactedActivity.this, ReactedActivity.this::fillView);
+					return false;
+				}
+
+				@Override
+				public boolean onQueryTextChange(String newText) {
+					return false;
+				}
+			});
+
+		}
+		return super.onCreateOptionsMenu(menu);
+
 	}
 
 }
