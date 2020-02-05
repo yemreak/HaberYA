@@ -25,4 +25,6 @@
 	<string name="business">İşletme</string>
 	<string name="entertainment">Eğlence</string>
 	<string name="sport">Spor</string>
+	<string name="local">Yerel Haberler</string>
+	<string name="turkey">Türkiye</string>
 </resources>

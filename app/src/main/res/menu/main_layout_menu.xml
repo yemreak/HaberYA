@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	
+	<item android:title="@string/turkey">
+		<menu>
+			<item
+				android:id="@+id/get_local_item"
+				android:icon="@drawable/local_icon"
+				android:title="@string/local" />
+		</menu>
+	</item>
 	<item android:title="@string/category">
 		<menu>
 			<item

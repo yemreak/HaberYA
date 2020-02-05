@@ -66,11 +66,10 @@ public class MainActivity extends AppCompatActivity {
 		newsViewModel.getAllNewsWithState().observe(this, this::initRecyclerView);
 
 		swipeRefreshLayout = findViewById(R.id.refresh_layout);
-		swipeRefreshLayout.setOnRefreshListener(this::getNewNews);
 
 		swipeRefreshLayout.setOnRefreshListener(() -> {
 			if (currentCountry == THOptions.Country.TR && currentCategory == null) {
-				getNewNews();
+				getCountryNews(THOptions.Country.TR);
 			} else if (currentCategory != null) {
 				getCategorizedNews(currentCategory);
 			} else {
@@ -80,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
 		AdBlocker.init(this);
 
-		// TODO: 2/5/2020 Asmaa Mirkhan ~ Varsayılan ayarları tanımlaama
 		THOptions.Builder.setDefaultCountry(Options.Country.TR);
 		SOptions.Builder.setDefaultCountry(Options.Country.TR);
 	}
@@ -113,22 +111,10 @@ public class MainActivity extends AppCompatActivity {
 
 	private void initRecyclerView(List<NewsWithState> newsWithStateList) {
 		if (newsWithStateList.size() == 0) {
-			getNewNews();
+			getCountryNews(THOptions.Country.TR);
 		} else {
 			fillView(newsWithStateList);
 		}
-	}
-
-	private void getNewNews() {
-		currentCountry = THOptions.Country.TR;
-		if (isConnected()) {
-			NewsAPI.requestTopHeadlines(
-					this,
-					this::saveToDB,
-					THOptions.Builder().setCountry(currentCountry).build()
-			);
-		}
-		newsViewModel.getAllNewsWithState().observe(this, this::fillView);
 	}
 
 	private void saveToDB(List<News> newsList) {
@@ -158,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
 		navigationView.setNavigationItemSelectedListener((MenuItem menuItem) -> {
 					int id = menuItem.getItemId();
 					switch (id) {
+						case R.id.get_local_item:
+							getCountryNews(THOptions.Country.TR);
+							return true;
 						case R.id.get_all_reacted_but:
 							switchActivity(null);
 							return true;
@@ -190,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
 							return true;
 						case R.id.get_all_news_item:
 							drawerLayout.closeDrawers();
-							getNewNews();
+							newsViewModel.getAllNewsWithState().observe(this, this::initRecyclerView);
 							return true;
 						case R.id.get_science_item:
 							getCategorizedNews(THOptions.Category.SCIENCE);
