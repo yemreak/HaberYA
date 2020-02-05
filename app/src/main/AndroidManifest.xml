@@ -12,19 +12,32 @@
 		android:roundIcon="@mipmap/ic_launcher"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity android:name="com.yemreak.haberya.ui.activities.DetailedSearchNewsActivity" />
-		<activity android:name="com.yemreak.haberya.ui.activities.SearchActivity" />
-		<activity android:name="com.yemreak.haberya.ui.activities.OriginalNewsActivity" />
-		<activity android:name="com.yemreak.haberya.ui.activities.SplashScreenActivity">
+		<activity android:name=".ui.activities.IntentHandlingActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				
+				<data android:scheme="http" />
+				<data android:scheme="https" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".ui.activities.SplashScreenActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="com.yemreak.haberya.ui.activities.ReactedActivity" />
-		<activity android:name="com.yemreak.haberya.ui.activities.NewsActivity" />
-		<activity android:name="com.yemreak.haberya.ui.activities.MainActivity" />
+		
+		<activity android:name=".ui.activities.DetailedSearchNewsActivity" />
+		<activity android:name=".ui.activities.SearchActivity" />
+		<activity android:name=".ui.activities.OriginalNewsActivity" />
+		
+		<activity android:name=".ui.activities.ReactedActivity" />
+		<activity android:name=".ui.activities.NewsActivity" />
+		<activity android:name=".ui.activities.MainActivity" />
 	</application>
 
 </manifest>
