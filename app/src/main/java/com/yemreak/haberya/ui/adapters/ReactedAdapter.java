@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.yemreak.haberya.R;
 import com.yemreak.haberya.db.pojo.NewsWithState;
-import com.yemreak.haberya.ui.activities.MainActivity;
+import com.yemreak.haberya.ui.activities.NewsActivity;
 import com.yemreak.haberya.ui.activities.ReactedActivity;
 import com.yemreak.haberya.viewmodel.NewsViewModel;
 
@@ -89,9 +89,9 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
 		public void onClick(View v) {
 			int pos = getAdapterPosition();
 
-			Intent newsIntent = new Intent(context, MainActivity.NewsActivity.class);
+			Intent newsIntent = new Intent(context, NewsActivity.class);
 			newsIntent.putExtra(
-					MainActivity.NewsActivity.NAME_NEWS_ID,
+					NewsActivity.NAME_NEWS_ID,
 					newsWithStates.get(pos).getNews().getId())
 			;
 			context.startActivity(newsIntent);

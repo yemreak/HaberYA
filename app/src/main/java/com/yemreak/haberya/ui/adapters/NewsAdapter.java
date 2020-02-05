@@ -21,6 +21,7 @@ import com.yemreak.haberya.api.newsapi.THOptions;
 import com.yemreak.haberya.db.entity.State;
 import com.yemreak.haberya.db.pojo.NewsWithState;
 import com.yemreak.haberya.ui.activities.MainActivity;
+import com.yemreak.haberya.ui.activities.NewsActivity;
 import com.yemreak.haberya.viewmodel.NewsViewModel;
 
 import java.util.List;
@@ -120,8 +121,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.Holder> {
 		public void onClick(View v) {
 			int pos = getAdapterPosition();
 
-			Intent newsIntent = new Intent(context, MainActivity.NewsActivity.class);
-			newsIntent.putExtra(MainActivity.NewsActivity.NAME_NEWS_ID, newsWithStates.get(pos).getNews().getId());
+			Intent newsIntent = new Intent(context, NewsActivity.class);
+			newsIntent.putExtra(NewsActivity.NAME_NEWS_ID, newsWithStates.get(pos).getNews().getId());
 			context.startActivity(newsIntent);
 		}
 

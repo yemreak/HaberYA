@@ -23,7 +23,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="com.yemreak.haberya.ui.activities.ReactedActivity" />
-		<activity android:name="com.yemreak.haberya.ui.activities.MainActivity$NewsActivity" />
+		<activity android:name="com.yemreak.haberya.ui.activities.NewsActivity" />
 		<activity android:name="com.yemreak.haberya.ui.activities.MainActivity" />
 	</application>
 
