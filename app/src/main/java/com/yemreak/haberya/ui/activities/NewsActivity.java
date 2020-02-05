@@ -1,4 +1,4 @@
-package com.yemreak.haberya.ui;
+package com.yemreak.haberya.ui.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -77,8 +77,8 @@ public class NewsActivity extends AppCompatActivity {
 	}
 
 	public void openInWeb(View v) {
-		Intent webIntent = new Intent(this, OriginalNews.class);
-		webIntent.putExtra(OriginalNews.NEWS_URL, selectedNewsWithState.getNews().getUrl());
+		Intent webIntent = new Intent(this, OriginalNewsActivity.class);
+		webIntent.putExtra(OriginalNewsActivity.NEWS_URL, selectedNewsWithState.getNews().getUrl());
 		this.startActivity(webIntent);
 	}
 
@@ -123,7 +123,7 @@ public class NewsActivity extends AppCompatActivity {
 				+ selectedNewsWithState.getNews().getDescription() + "\n"
 				+ selectedNewsWithState.getNews().getUrl());
 		shareIntent.setType("text/plain");
-		Intent chooser = Intent.createChooser(shareIntent, "title");
+		Intent chooser = Intent.createChooser(shareIntent, getResources().getString(R.string.share_news));
 
 		// Resolve the intent before starting the activity
 		if (shareIntent.resolveActivity(getPackageManager()) != null) {

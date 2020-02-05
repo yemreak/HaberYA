@@ -12,19 +12,19 @@
 		android:roundIcon="@mipmap/ic_launcher"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-		<activity android:name="com.yemreak.haberya.ui.DetailedSearchNews" />
-		<activity android:name="com.yemreak.haberya.ui.SearchActivity" />
-		<activity android:name="com.yemreak.haberya.ui.OriginalNews" />
-		<activity android:name="com.yemreak.haberya.ui.SplashScreenActivity">
+		<activity android:name="com.yemreak.haberya.ui.activities.DetailedSearchNewsActivity" />
+		<activity android:name="com.yemreak.haberya.ui.activities.SearchActivity" />
+		<activity android:name="com.yemreak.haberya.ui.activities.OriginalNewsActivity" />
+		<activity android:name="com.yemreak.haberya.ui.activities.SplashScreenActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="com.yemreak.haberya.ui.ReactedActivity" />
-		<activity android:name="com.yemreak.haberya.ui.NewsActivity" />
-		<activity android:name="com.yemreak.haberya.ui.MainActivity" />
+		<activity android:name="com.yemreak.haberya.ui.activities.ReactedActivity" />
+		<activity android:name="com.yemreak.haberya.ui.activities.MainActivity$NewsActivity" />
+		<activity android:name="com.yemreak.haberya.ui.activities.MainActivity" />
 	</application>
 
 </manifest>
