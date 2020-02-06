@@ -6,8 +6,9 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.yemreak.haberya.R;
+import com.yemreak.haberya.db.entity.State;
 import com.yemreak.haberya.db.pojo.NewsWithState;
 import com.yemreak.haberya.ui.activities.NewsActivity;
 import com.yemreak.haberya.ui.activities.ReactedActivity;
@@ -30,10 +32,12 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
 	private NewsViewModel newsViewModel;
 	private List<NewsWithState> newsWithStates;
 	private Context context;
+	private State.Type TYPE;
 
-	public ReactedAdapter(Context context, List<NewsWithState> newsWithStateList) {
+	public ReactedAdapter(Context context, List<NewsWithState> newsWithStateList, State.Type type) {
 		this.context = context;
 		this.newsWithStates = newsWithStateList;
+		TYPE = type;
 		newsViewModel = new ViewModelProvider((ReactedActivity) context).get(NewsViewModel.class);
 	}
 
@@ -65,22 +69,32 @@ public class ReactedAdapter extends RecyclerView.Adapter<ReactedAdapter.Holder> 
 
 
 	public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener {
-		RelativeLayout rlMain;
+		LinearLayout linMain;
 
 		ImageView itemImage;
 		TextView itemTitle;
 		TextView itemSource;
 		TextView itemDate;
+		ImageButton imgBtn;
 
 		public Holder(View itemView) {
 			super(itemView);
 
-			rlMain = itemView.findViewById(R.id.reacted_rl_main);
+			linMain = itemView.findViewById(R.id.reacted_linear_layout);
 
 			itemImage = itemView.findViewById(R.id.reacted_item_image);
 			itemTitle = itemView.findViewById(R.id.reacted_item_title);
 			itemSource = itemView.findViewById(R.id.reacted_item_source);
 			itemDate = itemView.findViewById(R.id.reacted_item_date);
+			imgBtn = itemView.findViewById(R.id.btn_delete_item);
+
+			imgBtn.setOnClickListener(v -> {
+				int pos = getAdapterPosition();
+				State state = TYPE.findState(newsWithStates.get(pos).getStates());
+				if (state != null) {
+					newsViewModel.deleteStates(state);
+				}
+			});
 
 			itemView.setOnClickListener(this);
 		}

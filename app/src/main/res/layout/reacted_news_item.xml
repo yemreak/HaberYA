@@ -8,11 +8,12 @@
 	android:layout_marginRight="16dp"
 	app:cardCornerRadius="3dp">
 	
-	<RelativeLayout
-		android:id="@+id/reacted_rl_main"
+	<LinearLayout
+		android:id="@+id/reacted_linear_layout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_margin="8dp">
+		android:layout_margin="8dp"
+		android:orientation="horizontal">
 		
 		<ImageView
 			android:id="@+id/reacted_item_image"
@@ -21,14 +22,13 @@
 			android:adjustViewBounds="true" />
 		
 		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_toRightOf="@id/reacted_item_image"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
 			android:orientation="vertical"
 			android:paddingLeft="12dp">
 			
 			<RelativeLayout
-				android:id="@+id/reacted_info_layout"
+				android:id="@+id/info_layout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 				
@@ -57,19 +57,33 @@
 			
 			</RelativeLayout>
 			
-			<TextView
-				android:id="@+id/reacted_item_title"
+			<RelativeLayout
+				android:id="@+id/content_layout"
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:ellipsize="end"
-				android:fontFamily="@font/muli"
-				android:maxLines="3"
-				android:text="Title"
-				android:textColor="@color/colorPrimaryDark"
-				android:textSize="16sp" />
+				android:layout_height="match_parent">
+				
+				<TextView
+					android:id="@+id/reacted_item_title"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_toStartOf="@+id/btn_delete_item"
+					android:ellipsize="end"
+					android:fontFamily="@font/muli"
+					android:maxLines="3"
+					android:textColor="@color/colorPrimaryDark"
+					android:textSize="16sp" />
+				
+				<ImageButton
+					android:id="@+id/btn_delete_item"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignParentEnd="true"
+					android:layout_alignParentBottom="true"
+					android:background="?android:attr/selectableItemBackground"
+					android:src="@drawable/delete_icon" />
+			</RelativeLayout>
 		
 		</LinearLayout>
 	
-	</RelativeLayout>
-
+	</LinearLayout>
 </androidx.cardview.widget.CardView>

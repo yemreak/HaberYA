@@ -78,7 +78,7 @@ public class ReactedActivity extends AppCompatActivity {
 	}
 
 	private void fillView(List<NewsWithState> newsWithStateList) {
-		reactedNewsAdapter = new ReactedAdapter(this, newsWithStateList);
+		reactedNewsAdapter = new ReactedAdapter(this, newsWithStateList, TYPE);
 		reactedRecyclerView.setAdapter(reactedNewsAdapter);
 		reactedRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 	}
