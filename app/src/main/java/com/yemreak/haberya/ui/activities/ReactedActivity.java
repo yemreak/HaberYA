@@ -118,6 +118,8 @@ public class ReactedActivity extends AppCompatActivity {
 
 				@Override
 				public boolean onQueryTextChange(String newText) {
+					newsViewModel.getAllNewsWithStateByTitleAndTypes(newText, TYPE)
+							.observe(ReactedActivity.this, ReactedActivity.this::fillView);
 					return false;
 				}
 			});
