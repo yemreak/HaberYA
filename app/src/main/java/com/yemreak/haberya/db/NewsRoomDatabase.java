@@ -15,7 +15,7 @@ import com.yemreak.haberya.db.entity.State;
 /**
  * Details: https://android.yemreak.com/veriler/room-database#room-database
  */
-@Database(entities = {News.class, State.class}, version = 9, exportSchema =
+@Database(entities = {News.class, State.class}, version = 1, exportSchema =
 		false)
 public abstract class NewsRoomDatabase extends RoomDatabase {
 
