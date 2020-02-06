@@ -45,7 +45,7 @@ public class IntentHandlingActivity extends AppCompatActivity {
 			WebView webView = findViewById(R.id.original_web_view);
 			ProgressBar webProgressBar = findViewById(R.id.web_progressbar);
 			WebSettings webSettings = webView.getSettings();
-			// webSettings.setJavaScriptEnabled(true);
+			webSettings.setJavaScriptEnabled(true);
 
 			// https://www.hidroh.com/2016/05/19/hacking-up-ad-blocker-android/
 			webView.setWebViewClient(new WebViewClient() {
