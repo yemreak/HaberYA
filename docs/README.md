@@ -40,6 +40,7 @@
 	<img src="../.github/assets/web_view.png" width="200" />
 	<img src="../.github/assets/share_action.png" width="200" />
 </div>
+
 ### 🖼 Logo (512x512)
 
 ![](../.github/assets/512.png)
