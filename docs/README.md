@@ -24,21 +24,21 @@
 
 ### 🤳 Screenshots
 <div float="left">
-	<img src="../.github/assets/splash.png" width="300" />
-	<img src="../.github/assets/main_page.png" width="300" />
-	<img src="../.github/assets/various_items.png" width="300" />
+	<img src="../.github/assets/splash.png" width="200" />
+	<img src="../.github/assets/main_page.png" width="200" />
+	<img src="../.github/assets/various_items.png" width="200" />
 </dev>
 
 <div float="left">
-	<img src="../.github/assets/nav_drawer.png" width="300" />
-	<img src="../.github/assets/reacted.png" width="300" />
-	<img src="../.github/assets/search.png" width="300" />
+	<img src="../.github/assets/nav_drawer.png" width="200" />
+	<img src="../.github/assets/reacted.png" width="200" />
+	<img src="../.github/assets/search.png" width="200" />
 </div>
 
 <div float="left">	
-	<img src="../.github/assets/detailed.png" width="300" />
-	<img src="../.github/assets/web_view.png" width="300" />
-	<img src="../.github/assets/share_action.png" width="300" />
+	<img src="../.github/assets/detailed.png" width="200" />
+	<img src="../.github/assets/web_view.png" width="200" />
+	<img src="../.github/assets/share_action.png" width="200" />
 </div>
 ### 🖼 Logo (512x512)
 
