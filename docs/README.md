@@ -20,7 +20,7 @@
 
 ### 🎴 Featured Image
 
-![](../.github/assets/banner.jpg)
+![](../.github/assets/feature_graphic.jpg)
 
 ### 🤳 Screenshots
 <div float="left">
