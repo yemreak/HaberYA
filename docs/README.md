@@ -27,7 +27,7 @@
 	<img src="../.github/assets/splash.png" width="200" />
 	<img src="../.github/assets/main_page.png" width="200" />
 	<img src="../.github/assets/various_items.png" width="200" />
-</dev>
+</div>
 
 <div float="left">
 	<img src="../.github/assets/nav_drawer.png" width="200" />
