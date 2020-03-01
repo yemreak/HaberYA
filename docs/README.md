@@ -50,7 +50,7 @@
 - 📂 Geliştirici notları için [`docs`](.) dizinine bakabilirsin.
 - 🧰 Kullanılan teknolojiler [`features.md`](./features.md) içerine kaydedilmiştir
 
-### 🔐 Licanse
+### 🔐 License
 
 ```
    Copyright 2019 Yunus Emre & Asmaa Mirkhan
